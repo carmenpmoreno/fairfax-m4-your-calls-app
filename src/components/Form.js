@@ -91,6 +91,17 @@ class Form extends Component {
               </div>
             </div>
           </fieldset>
+          <fieldset className="form-section tone">
+            <legend>¿Cómo fue la llamada?</legend>
+            <label htmlFor="good">Good</label>
+            <input type="radio" name="tone" id="good" value="" />
+            
+            <label htmlFor="neutral">Neutral</label>
+            <input type="radio" name="tone" id="neutral" value=""/>
+
+            <label htmlFor="bad">Bad</label>
+            <input type="radio" name="tone" id="bad" value=""/>
+          </fieldset>
         </div>
       </form>
     );
