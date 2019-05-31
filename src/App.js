@@ -70,10 +70,13 @@ class App extends Component {
 
   getInputTone(e) {
     const { value } = e.currentTarget;
+    console.log(value);
     this.setState(prevState => {
       return {
-        ...prevState.info,
-        tone: value,
+        info: {
+          ...prevState.info,
+          tone: value
+        }
       };
     });
   }
@@ -357,6 +360,7 @@ class App extends Component {
   }
 
   render() {
+    const { tone } = this.state.info;
     const {
       errorPerson,
       errorIncomingData,
@@ -381,7 +385,8 @@ class App extends Component {
       getMessage,
       sendForm,
       deselectOption,
-      selectPersonRequested
+      selectPersonRequested,
+      getInputTone
     } = this;
 
     return (
@@ -418,6 +423,8 @@ class App extends Component {
                     callAgainClass={callAgainClass}
                     redialCheck={redialCheck}
                     callBackCheck={callBackCheck}
+                    getInputTone={getInputTone}
+                    tone={tone}
                   />
                 )}
               />
