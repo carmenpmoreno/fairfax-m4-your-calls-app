@@ -305,7 +305,9 @@ Form.propTypes = {
   redialCheck: PropTypes.bool.isRequired,
   callBackCheck: PropTypes.bool.isRequired,
   callAgainClass: PropTypes.string.isRequired,
-  callBackClass: PropTypes.string.isRequired
+  callBackClass: PropTypes.string.isRequired,
+  tone: PropTypes.string.isRequired,
+  getInputTone: PropTypes.func.isRequired,
 };
 
 export default Form;
