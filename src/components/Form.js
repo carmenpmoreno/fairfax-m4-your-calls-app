@@ -1,5 +1,14 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
+//For using awesome fonts directly
+import { library } from '@fortawesome/fontawesome-svg-core';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import {
+	faSmile
+} from '@fortawesome/free-solid-svg-icons';
+library.add(
+  faSmile
+);
 
 class Form extends Component {
   render() {
@@ -251,6 +260,7 @@ class Form extends Component {
           <fieldset className="form-section tone">
             <legend>¿Cómo fue la llamada?</legend>
             <label htmlFor="good">Good</label>
+            <FontAwesomeIcon icon="smile" />
             <input
               type="radio"
               name="tone"
