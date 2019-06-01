@@ -1,14 +1,10 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
 //For using awesome fonts directly
-import { library } from '@fortawesome/fontawesome-svg-core';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import {
-	faSmile
-} from '@fortawesome/free-solid-svg-icons';
-library.add(
-  faSmile
-);
+import { library } from "@fortawesome/fontawesome-svg-core";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faSmile, faMeh, faFrown } from "@fortawesome/free-solid-svg-icons";
+library.add(faSmile,faMeh, faFrown);
 
 class Form extends Component {
   render() {
@@ -259,34 +255,45 @@ class Form extends Component {
           </fieldset>
           <fieldset className="form-section tone">
             <legend>¿Cómo fue la llamada?</legend>
-            <label htmlFor="good">Good</label>
+            <label htmlFor="good" className="tone__label ">
+              Good
             <FontAwesomeIcon icon="smile" />
+            </label>
             <input
+              className="tone__input"
               type="radio"
               name="tone"
               id="good"
               value="good"
-              checked={tone.includes('good')}
+              checked={tone.includes("good")}
               onClick={getInputTone}
             />
 
-            <label htmlFor="neutral">Neutral</label>
+            <label htmlFor="neutral" className="tone__label ">
+              Neutral
+            <FontAwesomeIcon icon="meh" />
+            </label>
             <input
+              className="tone__input"
               type="radio"
               name="tone"
               id="neutral"
               value="neutral"
-              checked={tone.includes('neutral')}
+              checked={tone.includes("neutral")}
               onClick={getInputTone}
             />
 
-            <label htmlFor="bad">Bad</label>
+            <label htmlFor="bad" className="tone__label ">
+              Bad
+            <FontAwesomeIcon icon="frown" />
+            </label>
             <input
+              className="tone__input"
               type="radio"
               name="tone"
               id="bad"
               value="bad"
-              checked={tone.includes('bad')}
+              checked={tone.includes("bad")}
               onClick={getInputTone}
             />
           </fieldset>
