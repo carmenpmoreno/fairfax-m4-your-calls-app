@@ -9,6 +9,7 @@ import './styles/App.scss';
 import { Route, Switch } from 'react-router-dom';
 import Modal from './components/Modal';
 import * as moment from 'moment';
+import Dashboard from './components/Dashboard'
 
 
 class App extends Component {
@@ -323,7 +324,30 @@ class App extends Component {
             </div>
             <div className="main__wrapper--callHistory">
               <Switch>
-                <Route path="/callHistory" render={()=>(<CallHistory actionShowList={this.showList} results={this.state.results} actionGetStartDate= {this.getStartDate} actionGetEndDate= {this.getEndDate} actionFilterDate={this.filterDate}/>)}/>
+                <Route 
+                  path="/callHistory" 
+                  
+                  render=
+                    {()=>(
+                          <CallHistory 
+                            actionShowList={this.showList} 
+                            results={this.state.results} 
+                            actionGetStartDate= {this.getStartDate} 
+                            actionGetEndDate= {this.getEndDate} 
+                            actionFilterDate={this.filterDate}
+                          />
+                          )}
+                />
+                <Route 
+                  path="/dashboard" 
+                  
+                  render=
+                    {()=>(
+                          <Dashboard 
+                            
+                          />
+                          )}
+                />
               </Switch>
             </div>
             <Route exact path="/" render={()=>(
