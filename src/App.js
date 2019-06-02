@@ -344,7 +344,11 @@ class App extends Component {
                   render=
                     {()=>(
                           <Dashboard 
-                            
+                          // actionShowList={this.showList} 
+                          // results={this.state.results} 
+                          actionGetStartDate= {this.getStartDate} 
+                          actionGetEndDate= {this.getEndDate} 
+                          actionFilterDate={this.filterDate}
                           />
                           )}
                 />
