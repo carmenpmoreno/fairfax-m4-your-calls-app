@@ -1,12 +1,12 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
-import Filter from './Filter';
+import DateFilter from './DateFilter';
 
 class Dashboard extends Component {
     render () {
         return (
             <div>
-                <Filter 
+                <DateFilter 
                     // actionShowList={this.props.actionShowList} 
                     // results={this.props.results} 
                     actionGetStartDate= {this.props.actionGetStartDate} 
