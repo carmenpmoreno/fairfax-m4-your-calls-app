@@ -253,11 +253,13 @@ class Form extends Component {
               </div>
             </div>
           </fieldset>
-          <fieldset className="form-section tone">
-            <legend>¿Cómo fue la llamada?</legend>
-            <label htmlFor="good" className="tone__label ">
-              Good
-            <FontAwesomeIcon icon="smile" />
+        </div>
+        <fieldset className="form-section tone">
+            <legend className="form__tone-title">¿Cómo fue el clima de la llamada?</legend>
+            <div className="form__tone-container">
+            <label htmlFor="good" className={tone.includes("good") ? "tone__label selectedClass" : "tone__label"}>
+            <FontAwesomeIcon icon="smile" className="icon"/>
+              Genial
             </label>
             <input
               className="tone__input"
@@ -267,11 +269,12 @@ class Form extends Component {
               value="good"
               checked={tone.includes("good")}
               onClick={getInputTone}
+              required
             />
 
-            <label htmlFor="neutral" className="tone__label ">
-              Neutral
-            <FontAwesomeIcon icon="meh" />
+            <label htmlFor="neutral" className={tone.includes("neutral") ? "tone__label selectedClass" : "tone__label"}>
+            <FontAwesomeIcon icon="meh" className="icon"/>
+              Meh
             </label>
             <input
               className="tone__input"
@@ -281,11 +284,12 @@ class Form extends Component {
               value="neutral"
               checked={tone.includes("neutral")}
               onClick={getInputTone}
+              required
             />
 
-            <label htmlFor="bad" className="tone__label ">
+            <label htmlFor="bad" className={tone.includes("bad") ? "tone__label selectedClass" : "tone__label"}>
+            <FontAwesomeIcon icon="frown" className="icon"/>
               Bad
-            <FontAwesomeIcon icon="frown" />
             </label>
             <input
               className="tone__input"
@@ -295,9 +299,10 @@ class Form extends Component {
               value="bad"
               checked={tone.includes("bad")}
               onClick={getInputTone}
+              required
             />
+            </div>
           </fieldset>
-        </div>
       </form>
     );
   }
