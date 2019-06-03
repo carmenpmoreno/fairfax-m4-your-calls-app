@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import Chart from 'react-google-charts';
 import '../styles/Graphics.scss';
-
+import PropTypes from 'prop-types';
 //Fake data from Mock
 const chartDataBars = [
   ['Meses', 'ikea', 'racc', 'cc', 'audi', 'tork'],
@@ -118,5 +118,10 @@ class Graphics extends Component {
     );
   }
 }
+
+Graphics.propTypes = {
+  pieData: PropTypes.arrayOf(PropTypes.array),
+  pieLoading: PropTypes.string.isRequired
+};
 
 export default Graphics;

@@ -8,11 +8,10 @@ class Dashboard extends Component {
     return (
       <div>
         <Filters
-          // actionShowList={this.props.actionShowList}
-          // results={this.props.results}
-          actionGetStartDate={this.props.actionGetStartDate}
-          actionGetEndDate={this.props.actionGetEndDate}
-          actionFilterDate={this.props.actionFilterDate}
+          actionSetFilterStartDate={this.props.actionSetFilterStartDate}
+          actionSetFilterEndDate={this.props.actionSetFilterEndDate}
+          dateStart={this.props.dateStart}
+          dateEnd={this.props.dateEnd}
         />
 
         <Graphics
@@ -31,9 +30,10 @@ Dashboard.propTypes = {
   pieLoading: PropTypes.string.isRequired,
   barData: PropTypes.arrayOf(PropTypes.array),
   barLoading: PropTypes.string.isRequired,
-  actionGetStartDate: PropTypes.func.isRequired,
-  actionGetEndDate: PropTypes.func.isRequired,
-  actionFilterDate: PropTypes.func.isRequired
+  actionSetFilterStartDate: PropTypes.func.isRequired,
+  actionSetFilterEndDate: PropTypes.func.isRequired,
+  dateStart: PropTypes.string.isRequired,
+  dateEnd: PropTypes.string.isRequired
 };
 
 export default Dashboard;
