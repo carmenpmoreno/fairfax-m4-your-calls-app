@@ -12,6 +12,7 @@ const currentTime = () => {
 
   actualDate = `${day}/${month}/${year}`;
   previousMonthDate = `${day}/${month - 1}/${year}`;
+  return([actualDate, previousMonthDate])
 };
 
 currentTime();
@@ -35,4 +36,4 @@ const fetchChartPie = () => {
 //   "": 2
 // }
 
-export { fetchChartPie };
+export { fetchChartPie, currentTime };
