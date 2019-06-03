@@ -24,8 +24,12 @@ class Dashboard extends Component {
   }
 }
 
-// Dashboard.PropTypes = {
-
-// };
+Dashboard.propTypes = {
+    pieData: PropTypes.arrayOf(PropTypes.array),
+    pieLoading: PropTypes.string.isRequired,
+    actionGetStartDate: PropTypes.func.isRequired,
+    actionGetEndDate: PropTypes.func.isRequired,
+    actionFilterDate: PropTypes.func.isRequired,
+};
 
 export default Dashboard;
