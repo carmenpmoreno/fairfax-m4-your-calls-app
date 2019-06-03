@@ -32,6 +32,7 @@ class App extends Component {
         tone: ""
       },
 
+      errorTone:"hidden",
       errorIncomingData: "hidden",
       errorCallAction: "hidden",
       errorPerson: "hidden",
@@ -70,7 +71,6 @@ class App extends Component {
 
   getInputTone(e) {
     const { value } = e.currentTarget;
-    console.log(value);
     this.setState(prevState => {
       return {
         info: {
@@ -216,7 +216,15 @@ class App extends Component {
         errorPerson: "hidden",
         errorMessage: ""
       });
-    } else {
+    } else if (incomingInfo.tone === "") {
+      this.setState({
+        errorIncomingData: "hidden",
+        errorCallAction: "hidden",
+        errorPerson: "hidden",
+        errorMessage: "hidden",
+        errorTone:""
+      });
+    }else {
       this.setState({
         errorIncomingData: "hidden",
         errorCallAction: "hidden",
@@ -363,6 +371,7 @@ class App extends Component {
     const { tone } = this.state.info;
     const {
       errorPerson,
+      errorTone,
       errorIncomingData,
       errorCallAction,
       errorMessage,
@@ -425,6 +434,7 @@ class App extends Component {
                     callBackCheck={callBackCheck}
                     getInputTone={getInputTone}
                     tone={tone}
+                    errorTone={errorTone}
                   />
                 )}
               />
