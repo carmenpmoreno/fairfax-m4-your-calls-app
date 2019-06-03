@@ -1,6 +1,6 @@
 const ENDPOINT = 'https://adalab.interacso.com/api/call';
 
-const getList = () =>
+const getCompanies = () =>
   fetch(ENDPOINT, {
     method: 'GET',
     cache: 'no-cache',
@@ -8,5 +8,9 @@ const getList = () =>
       'content-type': 'application/json'
     }
   }).then(response => response.json());
+// .then(data => {
+//   console.log(data);
+//   return data;
+// });
 
-export { getList };
+export { getCompanies };

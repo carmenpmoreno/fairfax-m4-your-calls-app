@@ -1,29 +1,31 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import DateFilter from './DateFilter';
-import CompanyFilter from './CompanyFilter';
-import PropTypes from "prop-types";
+// import CompanyFilter from './CompanyFilter';
+import CompanyFilterBis from './CompanyFilterBis';
+import PropTypes from 'prop-types';
 
 class Filters extends Component {
-    render () {
-        return (
-            <form>
-                <DateFilter 
-                actionSetFilterStartDate ={this.props.actionSetFilterStartDate}
-                actionSetFilterEndDate ={this.props.actionSetFilterEndDate}
-                dateStart={this.props.dateStart}
-                dateEnd={this.props.dateEnd}
-                />
-                <CompanyFilter />
-            </form>
-        )
-    }
+  render() {
+    return (
+      <form>
+        <DateFilter
+          actionSetFilterStartDate={this.props.actionSetFilterStartDate}
+          actionSetFilterEndDate={this.props.actionSetFilterEndDate}
+          dateStart={this.props.dateStart}
+          dateEnd={this.props.dateEnd}
+        />
+        {/* <CompanyFilter /> */}
+        <CompanyFilterBis />
+      </form>
+    );
+  }
 }
 
-Filters.propTypes = {
-    actionSetFilterStartDate: PropTypes.func.isRequired,
-    actionSetFilterEndDate: PropTypes.func.isRequired,
-    dateStart: PropTypes.string.isRequired,
-    dateEnd: PropTypes.string.isRequired,
-};
+// Filters.propTypes = {
+//     actionSetFilterStartDate: PropTypes.func.isRequired,
+//     actionSetFilterEndDate: PropTypes.func.isRequired,
+//     dateStart: PropTypes.string.isRequired,
+//     dateEnd: PropTypes.string.isRequired,
+// };
 
 export default Filters;
