@@ -390,9 +390,9 @@ class App extends Component {
   }
 
   //Example
-  componentDidMount() {
-    fetchChartPie();
-  }
+  // componentDidMount() {
+  //   fetchChartPie();
+  // }
 
   filterDate() {
     const userStartDate = this.state.startDate;

@@ -14,61 +14,61 @@ class Graphics extends Component {
   render() {
     return (
       <Fragment>
-        {this.props.barsLoading === 'ready' ? (
-          <Chart
-            chartType="BarChart"
-            loader={<div>Loading Chart</div>}
-            width={'800px'}
-            height={'300px'}
-            data={chartDataBars}
-            options={{
-              title: 'Llamadas totales',
-              chartArea: {
-                width: '50%',
-                stroke: '#1C1C1C'
-              },
-              isStacked: true,
-              orientation: 'horizontal',
-              hAxis: {
-                title: 'Mes',
-                titleTextStyle: {
-                  color: '#fff'
-                },
-                textStyle: {
-                  color: '#fff'
-                },
-                minValue: 0
-              },
-              vAxis: {
-                title: 'Número de llamadas',
-                titleTextStyle: {
-                  color: '#fff'
-                }
-              },
-              legend: {
-                position: 'top',
-                alignment: 'start',
-                textStyle: {
-                  color: '#fff',
-                  fontSize: 14,
-                  fontName: 'Arial',
-                  bold: false,
-                  italic: false
-                }
-              },
-
-              backgroundColor: '#1C1C1C',
+        {/* {this.props.barsLoading === 'ready' ? ( */}
+        <Chart
+          chartType="BarChart"
+          loader={<div>Loading Chart</div>}
+          width={'800px'}
+          height={'300px'}
+          data={chartDataBars}
+          options={{
+            title: 'Llamadas totales',
+            chartArea: {
+              width: '50%',
+              stroke: '#1C1C1C'
+            },
+            isStacked: true,
+            orientation: 'horizontal',
+            hAxis: {
+              title: 'Mes',
               titleTextStyle: {
-                color: 'white',
-                fontSize: 16,
-                fontName: 'Arial',
-                bold: true
+                color: '#fff'
+              },
+              textStyle: {
+                color: '#fff'
+              },
+              minValue: 0
+            },
+            vAxis: {
+              title: 'Número de llamadas',
+              titleTextStyle: {
+                color: '#fff'
               }
-            }}
-          />
-        ) : (
+            },
+            legend: {
+              position: 'top',
+              alignment: 'start',
+              textStyle: {
+                color: '#fff',
+                fontSize: 14,
+                fontName: 'Arial',
+                bold: false,
+                italic: false
+              }
+            },
+
+            backgroundColor: '#1C1C1C',
+            titleTextStyle: {
+              color: 'white',
+              fontSize: 16,
+              fontName: 'Arial',
+              bold: true
+            }
+          }}
+        />
+        {/* ) : (
           <div>Fetching data from API</div>
-        )}
+        )} */}
 
         {this.props.pieLoading === 'ready' ? (
           <Chart
