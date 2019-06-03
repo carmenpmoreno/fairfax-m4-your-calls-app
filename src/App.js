@@ -527,10 +527,11 @@ class App extends Component {
                 path="/dashboard"
                 render={() => (
                   <Dashboard
-                    actionsetFilterDatesetFilterDate
-                    actionGetStartDate={this.setFilterStartDate}
-                    actionGetEndDate={this.setFilterEndDate}
+                    actionSetFilterStartDate={this.setFilterStartDate}
+                    actionSetFilterEndDate={this.setFilterEndDate}
                     actionFilterDate={this.filterDate}
+                    dateStart={this.state.filter.dateStart}
+                    dateEnd={this.state.filter.dateEnd}
                     pieData={pieChartData}
                     pieLoading={pieDataLoadingStatus}
                     barData={this.state.barChartData}
