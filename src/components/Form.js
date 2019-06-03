@@ -1,5 +1,12 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
+//For using awesome fonts directly
+
+import { library } from "@fortawesome/fontawesome-svg-core";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faSmile, faMeh, faFrown } from "@fortawesome/free-solid-svg-icons";
+library.add(faSmile,faMeh, faFrown);
+
 
 class Form extends Component {
   render() {
@@ -25,7 +32,8 @@ class Form extends Component {
       callAgainClass,
       callBackClass,
       getInputTone,
-      tone
+      tone,
+      errorTone
     } = this.props;
 
     return (
@@ -248,39 +256,60 @@ class Form extends Component {
               </div>
             </div>
           </fieldset>
-          <fieldset className="form-section tone">
-            <legend>¿Cómo fue la llamada?</legend>
-            <label htmlFor="good">Good</label>
+        </div>
+        <fieldset className="form-section tone">
+
+            <legend className="form__tone-title">¿Cómo fue el clima de la llamada?</legend>
+            <div className="form__tone-container">
+            <label htmlFor="good" className={tone.includes("good") ? "tone__label selectedClass" : "tone__label"}>
+            <FontAwesomeIcon icon="smile" className="icon"/>
+              Genial
+            </label>
             <input
+              className="tone__input"
               type="radio"
               name="tone"
               id="good"
               value="good"
-              checked={tone.includes('good')}
-              onClick={getInputTone}
+              checked={tone.includes("good")}
+              onChange={getInputTone}
+              required
             />
 
-            <label htmlFor="neutral">Neutral</label>
+            <label htmlFor="neutral" className={tone.includes("neutral") ? "tone__label selectedClass" : "tone__label"}>
+            <FontAwesomeIcon icon="meh" className="icon"/>
+              Meh
+            </label>
             <input
+              className="tone__input"
               type="radio"
               name="tone"
               id="neutral"
               value="neutral"
-              checked={tone.includes('neutral')}
-              onClick={getInputTone}
+              checked={tone.includes("neutral")}
+              onChange={getInputTone}
+              required
             />
 
-            <label htmlFor="bad">Bad</label>
+            <label htmlFor="bad" className={tone.includes("bad") ? "tone__label selectedClass" : "tone__label"}>
+            <FontAwesomeIcon icon="frown" className="icon"/>
+              Bad
+            </label>
             <input
+              className="tone__input"
               type="radio"
               name="tone"
               id="bad"
               value="bad"
-              checked={tone.includes('bad')}
-              onClick={getInputTone}
+              checked={tone.includes("bad")}
+              onChange={getInputTone}
+              required
             />
+            <p className={`error-msg-tone ${errorTone}`}>
+              Debes seleccionar un estado.
+            </p>
+            </div>
           </fieldset>
-        </div>
       </form>
     );
   }
@@ -306,6 +335,7 @@ Form.propTypes = {
   callBackCheck: PropTypes.bool.isRequired,
   callAgainClass: PropTypes.string.isRequired,
   callBackClass: PropTypes.string.isRequired,
+  errorTone: PropTypes.string.isRequired,
   tone: PropTypes.string.isRequired,
   getInputTone: PropTypes.func.isRequired,
 };

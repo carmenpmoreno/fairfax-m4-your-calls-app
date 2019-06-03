@@ -30,6 +30,7 @@ class NewCall extends Component {
           callBackCheck={this.props.callBackCheck}
           getInputTone={this.props.getInputTone}
           tone={this.props.tone}
+          errorTone={this.props.errorTone}
         />
         <Button sendForm={this.props.sendForm} />
       </Fragment>
