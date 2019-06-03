@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-// import { getCompanies } from '../services/getAllCompanies';
 
 const ENDPOINT = 'https://adalab.interacso.com/api/call';
 
