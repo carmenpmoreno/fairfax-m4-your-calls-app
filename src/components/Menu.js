@@ -8,12 +8,28 @@ class Menu extends Component {
       <nav className="menu">
         <div className="menu__container">
           <div className="menu__newCall">
-            <NavLink exact to="/" className="new-call__link" activeClassName="is-active"><p className="newCall__title">Nueva Llamada</p>
+            <NavLink 
+              exact to="/" 
+              className="new-call__link" 
+              activeClassName="is-active"
+            >
+                <p className="newCall__title">
+                  Nueva Llamada
+                </p>
             </NavLink>
           </div>
           <div>
             <NavLink to="/callHistory" className="call-back__link" activeClassName="is-active"><p className="historic__title">Histórico</p></NavLink>
           </div>
+          <NavLink 
+              exact to="/dashboard" 
+              className="new-call__link" 
+              activeClassName="is-active"
+            >
+                <p className="stadistics__title">
+                  Estadísticas
+                </p>
+            </NavLink>
         </div>
       </nav>
     );

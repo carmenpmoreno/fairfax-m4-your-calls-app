@@ -9,6 +9,7 @@ import "./styles/App.scss";
 import { Route, Switch } from "react-router-dom";
 import Modal from "./components/Modal";
 import * as moment from "moment";
+import Dashboard from "./components/Dashboard";
 
 class App extends Component {
   constructor(props) {
@@ -32,7 +33,7 @@ class App extends Component {
         tone: ""
       },
 
-      errorTone:"hidden",
+      errorTone: "hidden",
       errorIncomingData: "hidden",
       errorCallAction: "hidden",
       errorPerson: "hidden",
@@ -45,7 +46,11 @@ class App extends Component {
 
       results: [],
       startDate: "",
-      endDate: ""
+      endDate: "",
+      filter: {
+        dateStart: "",
+        dateEnd: ""
+      }
     };
 
     this.getWhoCalls = this.getWhoCalls.bind(this);
@@ -222,9 +227,9 @@ class App extends Component {
         errorCallAction: "hidden",
         errorPerson: "hidden",
         errorMessage: "hidden",
-        errorTone:""
+        errorTone: ""
       });
-    }else {
+    } else {
       this.setState({
         errorIncomingData: "hidden",
         errorCallAction: "hidden",
@@ -341,6 +346,19 @@ class App extends Component {
     });
   }
 
+  setFilterDate(e) {
+    const userQuery = e.currentTarget.value;
+    const inputId = e.currentTarget.id;
+    this.setState(prevState => {
+      return {
+        filter: {
+          ...prevState.filter,
+          [inputId]: userQuery
+        }
+      };
+    });
+  }
+
   getEndDate(e) {
     const userQuery = e.currentTarget.value;
     this.setState({
@@ -448,6 +466,20 @@ class App extends Component {
                   <CallHistory
                     actionShowList={this.showList}
                     results={this.state.results}
+                    actionGetStartDate={this.getStartDate}
+                    actionGetEndDate={this.getEndDate}
+                    actionFilterDate={this.filterDate}
+                  />
+                )}
+              />
+
+              <Route
+                path="/dashboard"
+                render={() => (
+                  <Dashboard
+                    // actionShowList={this.showList}
+                    // results={this.state.results}
+                    actionsetFilterDatesetFilterDate
                     actionGetStartDate={this.getStartDate}
                     actionGetEndDate={this.getEndDate}
                     actionFilterDate={this.filterDate}
