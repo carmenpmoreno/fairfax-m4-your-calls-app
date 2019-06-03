@@ -1,18 +1,25 @@
 import React, {Component} from 'react';
 import DateFilter from './DateFilter';
+import PropTypes from "prop-types";
 
 class Filters extends Component {
     render () {
         return (
             <DateFilter 
-            // actionShowList={this.props.actionShowList} 
-            // results={this.props.results} 
-            actionGetStartDate= {this.props.actionGetStartDate} 
-            actionGetEndDate= {this.props.actionGetEndDate} 
-            actionFilterDate={this.props.actionFilterDate}
+            actionSetFilterStartDate ={this.props.actionSetFilterStartDate}
+            actionSetFilterEndDate ={this.props.actionSetFilterEndDate}
+            dateStart={this.props.dateStart}
+            dateEnd={this.props.dateEnd}
         />
         )
     }
 }
+
+Filters.propTypes = {
+    actionSetFilterStartDate: PropTypes.func.isRequired,
+    actionSetFilterEndDate: PropTypes.func.isRequired,
+    dateStart: PropTypes.string.isRequired,
+    dateEnd: PropTypes.string.isRequired,
+};
 
 export default Filters;

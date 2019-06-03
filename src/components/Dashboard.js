@@ -4,16 +4,15 @@ import Filters from "./Filters";
 import Graphics from "./Graphics";
 
 class Dashboard extends Component {
-  render() {
-    return (
-      <div>
-        <Filters
-          // actionShowList={this.props.actionShowList}
-          // results={this.props.results}
-          actionGetStartDate={this.props.actionGetStartDate}
-          actionGetEndDate={this.props.actionGetEndDate}
-          actionFilterDate={this.props.actionFilterDate}
-        />
+    render () {
+        return (
+            <div>
+                <Filters 
+                    actionSetFilterStartDate ={this.props.actionSetFilterStartDate}
+                    actionSetFilterEndDate ={this.props.actionSetFilterEndDate}
+                    dateStart={this.props.dateStart}
+                    dateEnd={this.props.dateEnd}
+                />
 
         <Graphics
           pieData={this.props.pieData}
@@ -27,9 +26,10 @@ class Dashboard extends Component {
 Dashboard.propTypes = {
     pieData: PropTypes.arrayOf(PropTypes.array),
     pieLoading: PropTypes.string.isRequired,
-    actionGetStartDate: PropTypes.func.isRequired,
-    actionGetEndDate: PropTypes.func.isRequired,
-    actionFilterDate: PropTypes.func.isRequired,
+    actionSetFilterStartDate: PropTypes.func.isRequired,
+    actionSetFilterEndDate: PropTypes.func.isRequired,
+    dateStart: PropTypes.string.isRequired,
+    dateEnd: PropTypes.string.isRequired,
 };
 
 export default Dashboard;
