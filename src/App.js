@@ -1,40 +1,40 @@
-import React, { Component  } from 'react';
-import Header from './components/Header';
-import Menu from './components/Menu';
-import NewCall from './components/NewCall';
-import CallHistory from './components/CallHistory';
-import { getData } from './services/getData';
-import { getList } from './services/getList';
-import './styles/App.scss';
-import { Route, Switch } from 'react-router-dom';
-import Modal from './components/Modal';
-import * as moment from 'moment';
-import Dashboard from './components/Dashboard'
-
+import React, { Component } from "react";
+import Header from "./components/Header";
+import Menu from "./components/Menu";
+import NewCall from "./components/NewCall";
+import CallHistory from "./components/CallHistory";
+import { getData } from "./services/getData";
+import { getList } from "./services/getList";
+import "./styles/App.scss";
+import { Route, Switch } from "react-router-dom";
+import Modal from "./components/Modal";
+import * as moment from "moment";
+import Dashboard from "./components/Dashboard";
 
 class App extends Component {
-
-  constructor(props){
+  constructor(props) {
     super(props);
 
     this.selectPersonRequested = React.createRef();
     this.wholeList = [];
 
-    this.state= {
+    this.state = {
       info: {
         addedBy: "",
-        personRequested:"",
+        personRequested: "",
         name: "",
-        company:"",
-        position:"",
-        otherInfo:"",
-        email:"",
+        company: "",
+        position: "",
+        otherInfo: "",
+        email: "",
         telephone: 0,
-        action:"",
-        message:"",
+        action: "",
+        message: "",
+        tone: ""
       },
 
-      errorIncomingData:"hidden",
+      errorTone: "hidden",
+      errorIncomingData: "hidden",
       errorCallAction: "hidden",
       errorPerson: "hidden",
       succesMessage: "hidden",
@@ -51,8 +51,7 @@ class App extends Component {
         dateStart: "",
         dateEnd: ""
       }
-
-  };
+    };
 
     this.getWhoCalls = this.getWhoCalls.bind(this);
     this.getRequestedEmployee = this.getRequestedEmployee.bind(this);
@@ -72,6 +71,19 @@ class App extends Component {
     this.getStartDate = this.getStartDate.bind(this);
     this.getEndDate = this.getEndDate.bind(this);
     this.filterDate = this.filterDate.bind(this);
+    this.getInputTone = this.getInputTone.bind(this);
+  }
+
+  getInputTone(e) {
+    const { value } = e.currentTarget;
+    this.setState(prevState => {
+      return {
+        info: {
+          ...prevState.info,
+          tone: value
+        }
+      };
+    });
   }
 
   getWhoCalls(event) {
@@ -127,36 +139,35 @@ class App extends Component {
     const newInfo = { ...info, action: event.currentTarget.value };
     let state = {
       info: newInfo,
-      callAgainClass: '',
-      callBackClass: '',
-      redialCheck:false,
-      callBackCheck:false
+      callAgainClass: "",
+      callBackClass: "",
+      redialCheck: false,
+      callBackCheck: false
     };
 
-    if (event.currentTarget.id === 'redial'){
-      if(!this.state.redialCheck) {
+    if (event.currentTarget.id === "redial") {
+      if (!this.state.redialCheck) {
         state = {
-        info: newInfo,
-        callAgainClass: 'selectedClass',
-        callBackClass: '',
-        redialCheck:true,
-        callBackCheck:false
+          info: newInfo,
+          callAgainClass: "selectedClass",
+          callBackClass: "",
+          redialCheck: true,
+          callBackCheck: false
         };
       }
-
-  } else {
-    if(!this.state.callBackCheck) {
-      state = {
-        info: newInfo,
-        callAgainClass: '',
-        callBackClass: 'selectedClass',
-        redialCheck:false,
-        callBackCheck:true
-      };
+    } else {
+      if (!this.state.callBackCheck) {
+        state = {
+          info: newInfo,
+          callAgainClass: "",
+          callBackClass: "selectedClass",
+          redialCheck: false,
+          callBackCheck: true
+        };
+      }
     }
+    this.setState(state);
   }
-  this.setState(state);
-}
 
   getMessage(event) {
     const { info } = this.state;
@@ -171,109 +182,162 @@ class App extends Component {
   sendInfo() {
     const info = this.state.info;
     getData(info)
-      .then(response => console.log('Success:', JSON.stringify(response)))
-      .then(this.setState({
-          succesMessage:""}))
-      .catch(error => console.error('Error:', error));
-}
+      .then(response => console.log("Success:", JSON.stringify(response)))
+      .then(
+        this.setState({
+          succesMessage: ""
+        })
+      )
+      .catch(error => console.error("Error:", error));
+  }
 
-  sendForm(event){
+  sendForm(event) {
     event.preventDefault();
     this.isEmptyOrNot();
   }
 
-  isEmptyOrNot(){
+  isEmptyOrNot() {
     const incomingInfo = this.state.info;
-    if (incomingInfo.personRequested === ""){
+    if (incomingInfo.personRequested === "") {
       this.setState({
         errorPerson: ""
       });
-      } else if(incomingInfo.name === "" && incomingInfo.company === "" && incomingInfo.position === "" && incomingInfo.telephone === 0 && incomingInfo.email === "" && incomingInfo.otherInfo === "") {
-        this.setState({
-          errorIncomingData: "",
-          errorPerson: "hidden"
-        });
-      } else if(incomingInfo.message === "") {
-        this.setState({
-          errorIncomingData: "hidden",
-          errorCallAction:"",
-          errorPerson: "hidden",
-          errorMessage:""
-        });
-      } else {
-        this.setState({
-          errorIncomingData: "hidden",
-          errorCallAction:"hidden",
-          errorPerson: "hidden",
-          errorMessage:"hidden"
-        });
+    } else if (
+      incomingInfo.name === "" &&
+      incomingInfo.company === "" &&
+      incomingInfo.position === "" &&
+      incomingInfo.telephone === 0 &&
+      incomingInfo.email === "" &&
+      incomingInfo.otherInfo === ""
+    ) {
+      this.setState({
+        errorIncomingData: "",
+        errorPerson: "hidden"
+      });
+    } else if (incomingInfo.message === "") {
+      this.setState({
+        errorIncomingData: "hidden",
+        errorCallAction: "",
+        errorPerson: "hidden",
+        errorMessage: ""
+      });
+    } else if (incomingInfo.tone === "") {
+      this.setState({
+        errorIncomingData: "hidden",
+        errorCallAction: "hidden",
+        errorPerson: "hidden",
+        errorMessage: "hidden",
+        errorTone: ""
+      });
+    } else {
+      this.setState({
+        errorIncomingData: "hidden",
+        errorCallAction: "hidden",
+        errorPerson: "hidden",
+        errorMessage: "hidden"
+      });
       this.sendInfo();
       this.sendSlackInfo();
     }
   }
 
   deselectOption() {
-    const addedBy= this.state.info.addedBy;
+    const addedBy = this.state.info.addedBy;
 
-    if(addedBy!==""){
-      const optionsArray= this.selectPersonRequested.current.getElementsByTagName("option");
+    if (addedBy !== "") {
+      const optionsArray = this.selectPersonRequested.current.getElementsByTagName(
+        "option"
+      );
 
-      for(let i=0; i<optionsArray.length; i++) {
-
-        if(optionsArray[i].label.includes(addedBy)) {
+      for (let i = 0; i < optionsArray.length; i++) {
+        if (optionsArray[i].label.includes(addedBy)) {
           optionsArray[i].disabled = true;
-          optionsArray[i].style.display="none";
+          optionsArray[i].style.display = "none";
         } else {
           optionsArray[i].disabled = false;
-          optionsArray[i].style.display="block";
+          optionsArray[i].style.display = "block";
         }
       }
     }
   }
 
   makeMessage() {
-    let message=`*${this.state.info.personRequested}*, te acaban de llamar y te han dejado el siguiente mensaje: \n*${this.state.info.action} \n${this.state.info.message}*`;
+    let message = `*${
+      this.state.info.personRequested
+    }*, te acaban de llamar y te han dejado el siguiente mensaje: \n*${
+      this.state.info.action
+    } \n${this.state.info.message}*`;
 
-    if((this.state.info.name!==''|| this.state.info.position!=='' || this.state.info.company!=='' || this.state.info.otherInfo!==''|| this.state.info.email!=='' )&& this.state.info.telephone===0){
-      return message=  `*${this.state.info.personRequested}*, te acaba de llamar: \n*${this.state.info.name} \n${this.state.info.position} \n${this.state.info.company}  \n${this.state.info.email} \n${this.state.info.otherInfo}* \nSu mensaje ha sido: \n*${this.state.info.action} \n${this.state.info.message}*`;
-    } else if(this.state.info.name!==''|| this.state.info.position!=='' || this.state.info.company!=='' || this.state.info.otherInfo!==''|| this.state.info.email!=='' || this.state.info.telephone!==0){
-      return message=  `*${this.state.info.personRequested}*, te acaba de llamar: \n*${this.state.info.name} \n${this.state.info.position} \n${this.state.info.company} \n${this.state.info.telephone} \n${this.state.info.email} \n${this.state.info.otherInfo}* \nSu mensaje ha sido: \n*${this.state.info.action} \n${this.state.info.message}*`;
+    if (
+      (this.state.info.name !== "" ||
+        this.state.info.position !== "" ||
+        this.state.info.company !== "" ||
+        this.state.info.otherInfo !== "" ||
+        this.state.info.email !== "") &&
+      this.state.info.telephone === 0
+    ) {
+      return (message = `*${
+        this.state.info.personRequested
+      }*, te acaba de llamar: \n*${this.state.info.name} \n${
+        this.state.info.position
+      } \n${this.state.info.company}  \n${this.state.info.email} \n${
+        this.state.info.otherInfo
+      }* \nSu mensaje ha sido: \n*${this.state.info.action} \n${
+        this.state.info.message
+      }*`);
+    } else if (
+      this.state.info.name !== "" ||
+      this.state.info.position !== "" ||
+      this.state.info.company !== "" ||
+      this.state.info.otherInfo !== "" ||
+      this.state.info.email !== "" ||
+      this.state.info.telephone !== 0
+    ) {
+      return (message = `*${
+        this.state.info.personRequested
+      }*, te acaba de llamar: \n*${this.state.info.name} \n${
+        this.state.info.position
+      } \n${this.state.info.company} \n${this.state.info.telephone} \n${
+        this.state.info.email
+      } \n${this.state.info.otherInfo}* \nSu mensaje ha sido: \n*${
+        this.state.info.action
+      } \n${this.state.info.message}*`);
     } else {
       return message;
     }
   }
 
-  sendSlackInfo(){
+  sendSlackInfo() {
     const message = this.makeMessage();
     const key = process.env.REACT_APP_SKEY;
 
     const settings = {
       url: `https://slack.com/api/chat.postMessage?token=${key}&channel=%23your-calls-app&text=${message}&pretty=1`,
-      method: 'POST',
+      method: "POST",
       body: {}
-    }
+    };
 
     fetch(settings.url, {
       method: settings.method,
       body: JSON.stringify(settings.body),
       cache: "no-cache",
       headers: {
-        "Content-Type": "application/json",
+        "Content-Type": "application/json"
       }
     })
-    .then(response => response.json())
-    .then(response => console.log('Success:', JSON.stringify(response)))
-    .catch(error => console.error('Error:', error));
+      .then(response => response.json())
+      .then(response => console.log("Success:", JSON.stringify(response)))
+      .catch(error => console.error("Error:", error));
   }
 
   showList() {
-    getList()
-    .then(results => {
+    getList().then(results => {
       this.setState({
         results: results
-      })
-      this.wholeList=results;
-  })};
+      });
+      this.wholeList = results;
+    });
+  }
 
   getStartDate(e) {
     const userQuery = e.currentTarget.value;
@@ -285,14 +349,14 @@ class App extends Component {
   setFilterDate(e) {
     const userQuery = e.currentTarget.value;
     const inputId = e.currentTarget.id;
-    this.setState( prevState => {
+    this.setState(prevState => {
       return {
         filter: {
           ...prevState.filter,
-          [inputId]:userQuery
+          [inputId]: userQuery
         }
-      }
-    })
+      };
+    });
   }
 
   getEndDate(e) {
@@ -302,19 +366,18 @@ class App extends Component {
     });
   }
 
-  filterDate () {
+  filterDate() {
     const userStartDate = this.state.startDate;
     const userEndDate = this.state.endDate;
     const results = this.wholeList;
-
 
     const momentStartDate = moment(userStartDate, "YYYY-MM-DD");
     const momentEndDate = moment(userEndDate, "YYYY-MM-DD");
 
     const filteredResults = results.filter(item => {
-      let date= item.loggedAt;
+      let date = item.loggedAt;
       let momentDate = moment(date, "YYYY-MM-DD");
-      return momentDate.isBetween(momentStartDate, momentEndDate, null, '[]');
+      return momentDate.isBetween(momentStartDate, momentEndDate, null, "[]");
     });
 
     this.setState({
@@ -323,58 +386,119 @@ class App extends Component {
   }
 
   render() {
-    const {errorPerson, errorIncomingData,errorCallAction, errorMessage, callBackClass, callAgainClass, redialCheck, callBackCheck} = this.state;
-    const {preventSubmission, getWhoCalls, getRequestedEmployee, getName, getCompany, getPosition, getOtherInfo, getEmail, getPhone, getCallAction, getMessage, sendForm, deselectOption, selectPersonRequested } = this;
+    const { tone } = this.state.info;
+    const {
+      errorPerson,
+      errorTone,
+      errorIncomingData,
+      errorCallAction,
+      errorMessage,
+      callBackClass,
+      callAgainClass,
+      redialCheck,
+      callBackCheck
+    } = this.state;
+    const {
+      preventSubmission,
+      getWhoCalls,
+      getRequestedEmployee,
+      getName,
+      getCompany,
+      getPosition,
+      getOtherInfo,
+      getEmail,
+      getPhone,
+      getCallAction,
+      getMessage,
+      sendForm,
+      deselectOption,
+      selectPersonRequested,
+      getInputTone
+    } = this;
 
     return (
       <div className="App">
         <Header />
-          <main className="main">
-            <div className="form__wrapper">
-              <Menu/>
-                <Switch>
-                  <Route exact path="/" render={()=>(
-                    <NewCall preventSubmission={preventSubmission} getWhoCalls={getWhoCalls} errorPerson={errorPerson} getRequestedEmployee ={getRequestedEmployee} errorIncomingData={errorIncomingData} getName={getName} getCompany={getCompany} getPosition={getPosition} getOtherInfo={getOtherInfo} getEmail={getEmail} getPhone={getPhone} errorCallAction={errorCallAction} getCallAction={getCallAction} getMessage={getMessage} errorMessage={errorMessage} sendForm={sendForm} deselectOption={deselectOption} selectPersonRequested ={selectPersonRequested} callBackClass={callBackClass} callAgainClass={callAgainClass} redialCheck={redialCheck} callBackCheck={callBackCheck}
-                    />
-                  )}/>
-                </Switch>
-            </div>
-            <div className="main__wrapper--callHistory">
-              <Switch>
-                <Route 
-                  path="/callHistory" 
-                  
-                  render=
-                    {()=>(
-                          <CallHistory 
-                            actionShowList={this.showList} 
-                            results={this.state.results} 
-                            actionGetStartDate= {this.getStartDate} 
-                            actionGetEndDate= {this.getEndDate} 
-                            actionFilterDate={this.filterDate}
-                          />
-                          )}
-                />
-                <Route 
-                  path="/dashboard" 
-                  
-                  render=
-                    {()=>(
-                          <Dashboard 
-                          // actionShowList={this.showList} 
-                          // results={this.state.results} 
-                          actionsetFilterDatesetFilterDate
-                          actionGetStartDate= {this.getStartDate} 
-                          actionGetEndDate= {this.getEndDate} 
-                          actionFilterDate={this.filterDate}
-                          />
-                          )}
-                />
-              </Switch>
-            </div>
-            <Route exact path="/" render={()=>(
-              <Modal sucess={this.state.succesMessage} personRequested={this.state.info.personRequested} />)} />
-          </main>
+        <main className="main">
+          <div className="form__wrapper">
+            <Menu />
+            <Switch>
+              <Route
+                exact
+                path="/"
+                render={() => (
+                  <NewCall
+                    preventSubmission={preventSubmission}
+                    getWhoCalls={getWhoCalls}
+                    errorPerson={errorPerson}
+                    getRequestedEmployee={getRequestedEmployee}
+                    errorIncomingData={errorIncomingData}
+                    getName={getName}
+                    getCompany={getCompany}
+                    getPosition={getPosition}
+                    getOtherInfo={getOtherInfo}
+                    getEmail={getEmail}
+                    getPhone={getPhone}
+                    errorCallAction={errorCallAction}
+                    getCallAction={getCallAction}
+                    getMessage={getMessage}
+                    errorMessage={errorMessage}
+                    sendForm={sendForm}
+                    deselectOption={deselectOption}
+                    selectPersonRequested={selectPersonRequested}
+                    callBackClass={callBackClass}
+                    callAgainClass={callAgainClass}
+                    redialCheck={redialCheck}
+                    callBackCheck={callBackCheck}
+                    getInputTone={getInputTone}
+                    tone={tone}
+                    errorTone={errorTone}
+                  />
+                )}
+              />
+            </Switch>
+          </div>
+          <div className="main__wrapper--callHistory">
+            <Switch>
+              <Route
+                path="/callHistory"
+                render={() => (
+                  <CallHistory
+                    actionShowList={this.showList}
+                    results={this.state.results}
+                    actionGetStartDate={this.getStartDate}
+                    actionGetEndDate={this.getEndDate}
+                    actionFilterDate={this.filterDate}
+                  />
+                )}
+              />
+
+              <Route
+                path="/dashboard"
+                render={() => (
+                  <Dashboard
+                    // actionShowList={this.showList}
+                    // results={this.state.results}
+                    actionsetFilterDatesetFilterDate
+                    actionGetStartDate={this.getStartDate}
+                    actionGetEndDate={this.getEndDate}
+                    actionFilterDate={this.filterDate}
+                  />
+                )}
+              />
+            </Switch>
+          </div>
+          <Route
+            exact
+            path="/"
+            render={() => (
+              <Modal
+                sucess={this.state.succesMessage}
+                personRequested={this.state.info.personRequested}
+              />
+            )}
+          />
+        </main>
       </div>
     );
   }

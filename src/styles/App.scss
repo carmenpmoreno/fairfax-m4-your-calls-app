@@ -1,6 +1,6 @@
-@import 'core/settings';
-@import 'CallHistory';
-@import url('https://fonts.googleapis.com/css?family=Open+Sans:400,700');
+@import "core/settings";
+@import "CallHistory";
+@import url("https://fonts.googleapis.com/css?family=Open+Sans:400,700");
 
 body {
   background-color: $color-blacK;
@@ -8,7 +8,7 @@ body {
 
 .App {
   height: 100vh;
-  font-family: Favorit,'Open Sans', sans-serif;
+  font-family: Favorit, "Open Sans", sans-serif;
 }
 
 .header {
@@ -27,7 +27,7 @@ body {
   width: 127px;
   overflow: hidden;
   padding-top: 22px;
-  background-image: url('../images/logo-interacso-white.svg');
+  background-image: url("../images/logo-interacso-white.svg");
   background-repeat: no-repeat;
   background-position: center;
   background-size: cover;
@@ -59,7 +59,7 @@ a {
 }
 
 .new-call__link::after {
-  content: '';
+  content: "";
   position: absolute;
   left: -85px;
   top: 50%;
@@ -67,7 +67,7 @@ a {
   width: 68px;
   height: 68px;
   border-radius: 50%;
-  background-image: url('../images/plus_white.svg');
+  background-image: url("../images/plus_white.svg");
   background-color: $color-blue;
   background-repeat: no-repeat;
   background-position: center;
@@ -75,7 +75,7 @@ a {
 }
 
 .new-call__link.is-active::after {
-  background-image: url('../images/plus.svg');
+  background-image: url("../images/plus.svg");
   background-color: $color-dark-grey;
 }
 
@@ -175,7 +175,7 @@ a {
   border-right: none;
   border-radius: 0;
   outline: none;
-  font-family: Favorit,'Open Sans', sans-serif;
+  font-family: Favorit, "Open Sans", sans-serif;
   font-size: 16px;
   color: $color-grey;
   min-width: 448px;
@@ -185,6 +185,7 @@ a {
 
 .incoming-data__container {
   margin-top: 68px;
+  margin-bottom: 68px;
   padding: 0;
   display: grid;
   grid-template-columns: 450px 450px;
@@ -238,7 +239,8 @@ a {
   column-gap: 40px;
 }
 
-.callAction__selection--redial, .callAction__selection--call-back {
+.callAction__selection--redial,
+.callAction__selection--call-back {
   position: absolute;
   left: -1000px;
   height: 45px;
@@ -250,13 +252,13 @@ a {
 }
 
 .fake-redial-button {
-  color : $color-grey;
+  color: $color-grey;
   background-color: $color-blacK;
   width: 200px;
   height: 32px;
   font-size: 16px;
   line-height: 35px;
-  font-family: Favorit,'Open Sans', sans-serif;
+  font-family: Favorit, "Open Sans", sans-serif;
   border: none;
   border-bottom: solid thin;
   border-color: $color-white;
@@ -275,7 +277,7 @@ a {
   height: 32px;
   font-size: 16px;
   line-height: 35px;
-  font-family: Favorit,'Open Sans', sans-serif;
+  font-family: Favorit, "Open Sans", sans-serif;
   border: none;
   border-bottom: solid thin;
   outline: none;
@@ -294,12 +296,48 @@ a {
   background-color: $color-blacK;
   border: none;
   border-bottom: solid thin;
-  font-family: Favorit,'Open Sans', sans-serif;
+  font-family: Favorit, "Open Sans", sans-serif;
   font-size: 16px;
   color: $color-grey-fonts;
   outline: none;
   border-color: $color-white;
   padding: 0 0 0px 8px;
+}
+
+.form__tone-container{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  max-width: 300px;
+}
+.form__tone-title{
+  font-size: 32px;
+  line-height: 40px;
+  font-weight: 700;
+}
+
+.tone__input {
+  opacity: 0;
+  display: none;
+  margin: 0;
+}
+.tone__label{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  border:1px solid $color-white;
+  padding: 10px;
+  margin-top: 32px;
+  cursor: pointer;
+  min-width: 60px;
+
+  &:hover{
+    background: gray;
+  }
+}
+.icon{
+  font-size: 30px;
 }
 
 .error-msg {
@@ -310,6 +348,16 @@ a {
   margin-top: -2px;
   color: $color-red;
   border-top: 2px solid $color-red;
+}
+.error-msg-tone{
+  position: absolute;
+  padding-left: 8px;
+  width: 448px;
+  z-index: 100;
+  margin-top: -2px;
+  color: $color-red;
+  border-top: 2px solid $color-red;
+  margin-left: 80px;
 }
 
 .error-msg-who {
@@ -385,4 +433,3 @@ a {
 .dateStart {
   margin-bottom: 4px;
 }
-
