@@ -1,5 +1,6 @@
 import React, {Component, Fragment} from 'react';
 import Chart from 'react-google-charts';
+import PropTypes from "prop-types";
 
 class Graphics extends Component {
     render () {
@@ -53,5 +54,10 @@ class Graphics extends Component {
         )
     }
 }
+
+Graphics.propTypes = {
+    pieData: PropTypes.arrayOf(PropTypes.array),
+    pieLoading: PropTypes.string.isRequired,
+};
 
 export default Graphics;
