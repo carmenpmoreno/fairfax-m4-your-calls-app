@@ -50,7 +50,9 @@ class App extends Component {
       filter: {
         dateStart: "",
         dateEnd: ""
-      }
+      },
+      pieDataLoadingStatus: "ready",
+      pieChartData: [],
     };
 
     this.getWhoCalls = this.getWhoCalls.bind(this);
@@ -72,6 +74,25 @@ class App extends Component {
     this.getEndDate = this.getEndDate.bind(this);
     this.filterDate = this.filterDate.bind(this);
     this.getInputTone = this.getInputTone.bind(this);
+  }
+
+  componentDidMount() {
+    fetch(
+      "https://private-afa254-adalabapi.apiary-mock.com/pie?from=18/01/2019&to=01/02/2019&client=ikea"
+    )
+      .then(response => response.json())
+      .then(data => {
+        const rateCurrencyNames = ["Genial", "Meh", "Mal"];
+        const rateCurrencyValues = Object.values(data);
+        const chartData = [["Call mood", "Quantity"]];
+        for (let i = 0; i < rateCurrencyNames.length; i += 1) {
+          chartData.push([rateCurrencyNames[i], rateCurrencyValues[i]]);
+        }
+        this.setState({
+          pieDataLoadingStatus: "ready",
+          pieChartData: chartData
+        });
+      });
   }
 
   getInputTone(e) {
@@ -483,6 +504,8 @@ class App extends Component {
                     actionGetStartDate={this.getStartDate}
                     actionGetEndDate={this.getEndDate}
                     actionFilterDate={this.filterDate}
+                    pieData={this.state.pieChartData}
+                    pieLoading={this.state.pieDataLoadingStatus}
                   />
                 )}
               />
