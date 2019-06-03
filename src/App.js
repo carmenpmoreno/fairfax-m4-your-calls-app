@@ -71,7 +71,6 @@ class App extends Component {
 
   getInputTone(e) {
     const { value } = e.currentTarget;
-    console.log(value);
     this.setState(prevState => {
       return {
         info: {
