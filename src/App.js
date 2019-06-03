@@ -417,7 +417,12 @@ class App extends Component {
       callBackClass,
       callAgainClass,
       redialCheck,
-      callBackCheck
+      callBackCheck,
+      results,
+      pieChartData,
+      pieDataLoadingStatus,
+      succesMessage,
+      personRequested
     } = this.state;
     const {
       preventSubmission,
@@ -434,7 +439,11 @@ class App extends Component {
       sendForm,
       deselectOption,
       selectPersonRequested,
-      getInputTone
+      getInputTone,
+      showList,
+      getStartDate,
+      getEndDate,
+      filterDate
     } = this;
 
     return (
@@ -485,11 +494,11 @@ class App extends Component {
                 path="/callHistory"
                 render={() => (
                   <CallHistory
-                    actionShowList={this.showList}
-                    results={this.state.results}
-                    actionGetStartDate={this.getStartDate}
-                    actionGetEndDate={this.getEndDate}
-                    actionFilterDate={this.filterDate}
+                    actionShowList={showList}
+                    results={results}
+                    actionGetStartDate={getStartDate}
+                    actionGetEndDate={getEndDate}
+                    actionFilterDate={filterDate}
                   />
                 )}
               />
@@ -498,14 +507,12 @@ class App extends Component {
                 path="/dashboard"
                 render={() => (
                   <Dashboard
-                    // actionShowList={this.showList}
-                    // results={this.state.results}
                     actionsetFilterDatesetFilterDate
-                    actionGetStartDate={this.getStartDate}
-                    actionGetEndDate={this.getEndDate}
-                    actionFilterDate={this.filterDate}
-                    pieData={this.state.pieChartData}
-                    pieLoading={this.state.pieDataLoadingStatus}
+                    actionGetStartDate={getStartDate}
+                    actionGetEndDate={getEndDate}
+                    actionFilterDate={filterDate}
+                    pieData={pieChartData}
+                    pieLoading={pieDataLoadingStatus}
                   />
                 )}
               />
@@ -516,8 +523,8 @@ class App extends Component {
             path="/"
             render={() => (
               <Modal
-                sucess={this.state.succesMessage}
-                personRequested={this.state.info.personRequested}
+                sucess={succesMessage}
+                personRequested={personRequested}
               />
             )}
           />
