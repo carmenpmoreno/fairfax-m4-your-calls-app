@@ -1,5 +1,6 @@
-import React, { Component, Fragment } from 'react';
+import React, { Component } from 'react';
 import Chart from 'react-google-charts';
+import '../styles/Graphics.scss';
 
 //Fake data from Mock
 const chartDataBars = [
@@ -13,11 +14,10 @@ const chartDataBars = [
 class Graphics extends Component {
   render() {
     return (
-      <Fragment>
+      <section className="charts-container">
         {/* {this.props.barsLoading === 'ready' ? ( */}
         <Chart
           chartType="BarChart"
-          loader={<div>Loading Chart</div>}
           width={'800px'}
           height={'300px'}
           data={chartDataBars}
@@ -73,6 +73,8 @@ class Graphics extends Component {
         {this.props.pieLoading === 'ready' ? (
           <Chart
             chartType="PieChart"
+            width={'800px'}
+            height={'300px'}
             data={this.props.pieData}
             options={{
               slices: [
@@ -112,7 +114,7 @@ class Graphics extends Component {
         ) : (
           <div>Fetching data from API</div>
         )}
-      </Fragment>
+      </section>
     );
   }
 }
