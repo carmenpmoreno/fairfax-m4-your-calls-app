@@ -1,13 +1,12 @@
-//Graph api call by default (1month)
+//Prepare dates for deafult API call (1 month range)
 let actualDate = '';
 let previousMonthDate = '';
 
-// First: know the actual date
 const currentTime = () => {
   let date = new Date();
 
   let day = date.getDate();
-  //We need to add +1 as getMonth() method returns a number between 0-11, and we want January to be 1 and so on
+  //We need to add +1 as getMonth() returns a number between 0-11, and we want January to start in 1, and so on
   let month = date.getMonth() + 1;
   let year = date.getFullYear();
 
@@ -27,7 +26,7 @@ const fetchChartPie = () => {
     .then(data => console.log(data));
 };
 
-//Expected data
+//Expected data to be logged
 // {
 //   "neutral": 38,
 //   "bad": 28,
