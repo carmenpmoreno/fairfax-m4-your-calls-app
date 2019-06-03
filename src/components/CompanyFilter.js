@@ -14,11 +14,11 @@ class CompanyFilter extends Component {
                     .then(data => {
                         const keys = Object.keys(data[0]);
                         
-                    return (
-                        {keys.map (item => {
-                            <option value={ImageBitmapRenderingContext}></option>
-                        })}
-                    );
+                    // return (
+                    //     {keys.map (item => {
+                    //         <option value={ImageBitmapRenderingContext}></option>
+                    //     })}
+                    // );
                     })
                 }
                 </select>

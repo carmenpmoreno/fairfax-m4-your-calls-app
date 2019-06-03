@@ -49,9 +49,11 @@ class App extends Component {
       startDate: '',
       endDate: '',
       filter: {
-        dateStart: '',
-        dateEnd: ''
-      }
+        dateStart: "",
+        dateEnd: ""
+      },
+      pieDataLoadingStatus: "loading",
+      pieChartData: [],
     };
 
     this.getWhoCalls = this.getWhoCalls.bind(this);
@@ -73,6 +75,28 @@ class App extends Component {
     this.getEndDate = this.getEndDate.bind(this);
     this.filterDate = this.filterDate.bind(this);
     this.getInputTone = this.getInputTone.bind(this);
+    this.setFilterStartDate = this.setFilterStartDate.bind(this);
+    this.setFilterEndDate = this.setFilterEndDate.bind(this);
+  }
+
+  componentDidMount() {
+    fetchChartPie();
+    fetch(
+      "https://adalab.interacso.com/api/graph/pie"
+    )
+      .then(response => response.json())
+      .then(data => {
+        const rateCurrencyNames = ["Genial", "Meh", "Mal"];
+        const rateCurrencyValues = Object.values(data);
+        const chartData = [["Call mood", "Quantity"]];
+        for (let i = 0; i < rateCurrencyNames.length; i += 1) {
+          chartData.push([rateCurrencyNames[i], rateCurrencyValues[i]]);
+        }
+        this.setState({
+          pieDataLoadingStatus: "ready",
+          pieChartData: chartData
+        });
+      });
   }
 
   getInputTone(e) {
@@ -347,14 +371,25 @@ class App extends Component {
     });
   }
 
-  setFilterDate(e) {
+  setFilterStartDate(e) {
     const userQuery = e.currentTarget.value;
-    const inputId = e.currentTarget.id;
     this.setState(prevState => {
       return {
         filter: {
           ...prevState.filter,
-          [inputId]: userQuery
+          dateStart: userQuery
+        }
+      };
+    });
+  }
+
+  setFilterEndDate(e) {
+    const userQuery = e.currentTarget.value;
+    this.setState(prevState => {
+      return {
+        filter: {
+          ...prevState.filter,
+          dateEnd: userQuery
         }
       };
     });
@@ -365,11 +400,6 @@ class App extends Component {
     this.setState({
       endDate: userQuery
     });
-  }
-
-  //Example
-  componentDidMount() {
-    fetchChartPie();
   }
 
   filterDate() {
@@ -402,7 +432,12 @@ class App extends Component {
       callBackClass,
       callAgainClass,
       redialCheck,
-      callBackCheck
+      callBackCheck,
+      results,
+      pieChartData,
+      pieDataLoadingStatus,
+      succesMessage,
+      personRequested
     } = this.state;
     const {
       preventSubmission,
@@ -419,7 +454,11 @@ class App extends Component {
       sendForm,
       deselectOption,
       selectPersonRequested,
-      getInputTone
+      getInputTone,
+      showList,
+      getStartDate,
+      getEndDate,
+      filterDate
     } = this;
 
     return (
@@ -470,11 +509,11 @@ class App extends Component {
                 path="/callHistory"
                 render={() => (
                   <CallHistory
-                    actionShowList={this.showList}
-                    results={this.state.results}
-                    actionGetStartDate={this.getStartDate}
-                    actionGetEndDate={this.getEndDate}
-                    actionFilterDate={this.filterDate}
+                    actionShowList={showList}
+                    results={results}
+                    actionGetStartDate={getStartDate}
+                    actionGetEndDate={getEndDate}
+                    actionFilterDate={filterDate}
                   />
                 )}
               />
@@ -483,12 +522,12 @@ class App extends Component {
                 path="/dashboard"
                 render={() => (
                   <Dashboard
-                    // actionShowList={this.showList}
-                    // results={this.state.results}
                     actionsetFilterDatesetFilterDate
-                    actionGetStartDate={this.getStartDate}
-                    actionGetEndDate={this.getEndDate}
-                    actionFilterDate={this.filterDate}
+                    actionGetStartDate={getStartDate}
+                    actionGetEndDate={getEndDate}
+                    actionFilterDate={filterDate}
+                    pieData={pieChartData}
+                    pieLoading={pieDataLoadingStatus}
                   />
                 )}
               />
@@ -499,8 +538,8 @@ class App extends Component {
             path="/"
             render={() => (
               <Modal
-                sucess={this.state.succesMessage}
-                personRequested={this.state.info.personRequested}
+                sucess={succesMessage}
+                personRequested={personRequested}
               />
             )}
           />
