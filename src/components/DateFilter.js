@@ -20,7 +20,12 @@ class DateFilter extends Component {
                   </div>
                   <div className="dateEnd">
                     <label htmlFor="dateEnd" ></label>
-                    <input id="dateEnd" type="date" className="input-date" placeholder="Hasta: 26/03/2019" onChange={this.props.actionGetEndDate}/>
+                    <input 
+                      id="dateEnd" 
+                      type="date" 
+                      className="input-date" 
+                      placeholder="Hasta: 26/03/2019" 
+                      onChange={this.props.actionGetEndDate}/>
                   </div>
                 </div>
                 <button className="button__filter" onClick={this.props.actionFilterDate}>Filtrar</button>

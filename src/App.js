@@ -46,7 +46,11 @@ class App extends Component {
 
       results: [],
       startDate: "",
-      endDate: ""
+      endDate: "",
+      filter: {
+        dateStart: "",
+        dateEnd: ""
+      }
 
   };
 
@@ -278,6 +282,20 @@ class App extends Component {
     });
   }
 
+  setFilterDate(e) {
+    const userQuery = e.currentTarget.value;
+    const inputId = e.currentTarget.id;
+    this.setState( prevState => {
+      return {
+        filter: {
+          ...prevState.filter,
+          [inputId]:userQuery
+        }
+      }
+    })
+  }
+
+
   getEndDate(e) {
     const userQuery = e.currentTarget.value;
     this.setState({
@@ -346,6 +364,7 @@ class App extends Component {
                           <Dashboard 
                           // actionShowList={this.showList} 
                           // results={this.state.results} 
+                          actionsetFilterDatesetFilterDate
                           actionGetStartDate= {this.getStartDate} 
                           actionGetEndDate= {this.getEndDate} 
                           actionFilterDate={this.filterDate}
