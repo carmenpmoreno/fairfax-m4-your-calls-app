@@ -78,7 +78,7 @@ class App extends Component {
 
   componentDidMount() {
     fetch(
-      "https://private-afa254-adalabapi.apiary-mock.com/pie?from=18/01/2019&to=01/02/2019&client=ikea"
+      "https://adalab.interacso.com/api/graph/pie"
     )
       .then(response => response.json())
       .then(data => {

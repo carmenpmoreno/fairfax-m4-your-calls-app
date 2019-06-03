@@ -5,10 +5,10 @@ class Graphics extends Component {
     render () {
         return (
             <Fragment>
-                {this.state.dataLoadingStatus === 'ready' ? (
+                {this.props.pieLoading === 'ready' ? (
                 <Chart
                   chartType="PieChart"
-                  data={this.state.chartData}
+                  data={this.props.pieData}
                   options={{
                     slices: [
                       {
