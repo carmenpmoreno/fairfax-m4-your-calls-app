@@ -4,10 +4,14 @@ import PropTypes from "prop-types";
 import { library } from '@fortawesome/fontawesome-svg-core';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
-	faSmile
+  faSmile,
+  faMeh,
+  faFrown
 } from '@fortawesome/free-solid-svg-icons';
 library.add(
-  faSmile
+  faSmile,
+  faMeh,
+  faFrown
 );
 
 class Form extends Component {
@@ -257,40 +261,59 @@ class Form extends Component {
               </div>
             </div>
           </fieldset>
+            </div>
           <fieldset className="form-section tone">
-            <legend>¿Cómo fue la llamada?</legend>
-            <label htmlFor="good">Good</label>
-            <FontAwesomeIcon icon="smile" />
+            <legend className="form__tone-title">¿Cómo fue el clima de la llamada?</legend>
+            <div className="form__tone-container">
+            <label htmlFor="good" className={tone.includes("good") ? "tone__label selectedClass" : "tone__label"}>
+            <FontAwesomeIcon icon="smile" className="icon"/>
+              Genial
+            </label>
             <input
+              className="tone__input"
               type="radio"
               name="tone"
               id="good"
               value="good"
-              checked={tone.includes('good')}
+              checked={tone.includes("good")}
               onClick={getInputTone}
+              required
             />
 
-            <label htmlFor="neutral">Neutral</label>
+            <label htmlFor="neutral" className={tone.includes("neutral") ? "tone__label selectedClass" : "tone__label"}>
+            <FontAwesomeIcon icon="meh" className="icon"/>
+              Meh
+            </label>
             <input
+              className="tone__input"
               type="radio"
               name="tone"
               id="neutral"
               value="neutral"
-              checked={tone.includes('neutral')}
+              checked={tone.includes("neutral")}
               onClick={getInputTone}
+              required
             />
 
-            <label htmlFor="bad">Bad</label>
+            <label htmlFor="bad" className={tone.includes("bad") ? "tone__label selectedClass" : "tone__label"}>
+            <FontAwesomeIcon icon="frown" className="icon"/>
+              Bad
+            </label>
             <input
+              className="tone__input"
               type="radio"
               name="tone"
               id="bad"
               value="bad"
-              checked={tone.includes('bad')}
+              checked={tone.includes("bad")}
               onClick={getInputTone}
+              required
             />
+            <p className={`error-msg-tone ${errorMessage}`}>
+              Debes seleccionar un estado.
+            </p>
+            </div>
           </fieldset>
-        </div>
       </form>
     );
   }
