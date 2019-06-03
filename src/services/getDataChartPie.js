@@ -5,16 +5,18 @@ let actualMonthRange = '';
 // First: know the actual date
 const currentTime = () => {
   let date = new Date();
-  let day = date.getDay();
+
+  let day = date.getDate();
   let month = date.getMonth();
-  let year = date.getYear();
+  let year = date.getFullYear();
 
   actualDate = `${day}/${month}/${year}`;
   actualMonthRange = `${day}/${month - 1}/${year}`;
 };
 
 currentTime();
-console.log(actualDate, actualMonthRange);
+console.log('actualDate', actualDate);
+console.log('actualMonthRange', actualMonthRange);
 
 //Goal
 // actualDate = '03/06/2019';
@@ -27,8 +29,6 @@ const fetchChartPie = () => {
     .then(response => response.json())
     .then(data => console.log(data));
 };
-
-fetchChartPie();
 
 //Expected data
 // {
