@@ -20,7 +20,6 @@ class Graphics extends Component {
             loader={<div>Loading Chart</div>}
             width={'800px'}
             height={'300px'}
-            // data={this.state.chartDataBars}
             data={chartDataBars}
             options={{
               title: 'Llamadas totales',
@@ -30,7 +29,6 @@ class Graphics extends Component {
               },
               isStacked: true,
               orientation: 'horizontal',
-
               hAxis: {
                 title: 'Mes',
                 titleTextStyle: {
@@ -41,19 +39,15 @@ class Graphics extends Component {
                 },
                 minValue: 0
               },
-
               vAxis: {
                 title: 'Número de llamadas',
                 titleTextStyle: {
                   color: '#fff'
                 }
               },
-
               legend: {
-                //To place the legend on the top
                 position: 'top',
                 alignment: 'start',
-
                 textStyle: {
                   color: '#fff',
                   fontSize: 14,
