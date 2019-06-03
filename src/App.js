@@ -367,7 +367,8 @@ class App extends Component {
     });
   }
 
-  fetchChartPieData() {
+  //Example
+  componentDidMount() {
     fetchChartPie();
   }
 

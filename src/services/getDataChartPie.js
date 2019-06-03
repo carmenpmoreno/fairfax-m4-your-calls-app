@@ -1,28 +1,25 @@
 //Graph api call by default (1month)
 let actualDate = '';
-let actualMonthRange = '';
+let previousMonthDate = '';
 
 // First: know the actual date
 const currentTime = () => {
   let date = new Date();
 
   let day = date.getDate();
-  let month = date.getMonth();
+  //We need to add +1 as getMonth() method returns a number between 0-11, and we want January to be 1 and so on
+  let month = date.getMonth() + 1;
   let year = date.getFullYear();
 
   actualDate = `${day}/${month}/${year}`;
-  actualMonthRange = `${day}/${month - 1}/${year}`;
+  previousMonthDate = `${day}/${month - 1}/${year}`;
 };
 
 currentTime();
 console.log('actualDate', actualDate);
-console.log('actualMonthRange', actualMonthRange);
+console.log('previousMonthDate', previousMonthDate);
 
-//Goal
-// actualDate = '03/06/2019';
-// actualMonthRange = '03/05/2019';
-
-const URL = `https://adalab.interacso.com/api/graph/pie?from=${actualMonthRange}&to=${actualDate}`;
+const URL = `https://adalab.interacso.com/api/graph/pie?from=${previousMonthDate}&to=${actualDate}`;
 
 const fetchChartPie = () => {
   return fetch(URL)
