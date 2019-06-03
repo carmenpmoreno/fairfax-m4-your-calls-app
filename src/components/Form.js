@@ -336,6 +336,8 @@ Form.propTypes = {
   callAgainClass: PropTypes.string.isRequired,
   callBackClass: PropTypes.string.isRequired,
   errorTone: PropTypes.string.isRequired,
+  tone: PropTypes.string.isRequired,
+  getInputTone: PropTypes.func.isRequired,
 };
 
 export default Form;
