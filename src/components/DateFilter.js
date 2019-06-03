@@ -37,7 +37,6 @@ class DateFilter extends Component {
     }
 }
 
-
 DateFilter.propTypes = {
   actionSetFilterStartDate: PropTypes.func.isRequired,
   actionSetFilterEndDate: PropTypes.func.isRequired,
