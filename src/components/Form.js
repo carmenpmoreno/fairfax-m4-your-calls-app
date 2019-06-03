@@ -1,18 +1,12 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
 //For using awesome fonts directly
-import { library } from '@fortawesome/fontawesome-svg-core';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import {
-  faSmile,
-  faMeh,
-  faFrown
-} from '@fortawesome/free-solid-svg-icons';
-library.add(
-  faSmile,
-  faMeh,
-  faFrown
-);
+
+import { library } from "@fortawesome/fontawesome-svg-core";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faSmile, faMeh, faFrown } from "@fortawesome/free-solid-svg-icons";
+library.add(faSmile,faMeh, faFrown);
+
 
 class Form extends Component {
   render() {
@@ -261,8 +255,9 @@ class Form extends Component {
               </div>
             </div>
           </fieldset>
-            </div>
-          <fieldset className="form-section tone">
+        </div>
+        <fieldset className="form-section tone">
+
             <legend className="form__tone-title">¿Cómo fue el clima de la llamada?</legend>
             <div className="form__tone-container">
             <label htmlFor="good" className={tone.includes("good") ? "tone__label selectedClass" : "tone__label"}>
