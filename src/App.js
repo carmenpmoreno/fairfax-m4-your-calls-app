@@ -295,7 +295,6 @@ class App extends Component {
     })
   }
 
-
   getEndDate(e) {
     const userQuery = e.currentTarget.value;
     this.setState({
