@@ -51,7 +51,7 @@ class App extends Component {
         dateStart: "",
         dateEnd: ""
       },
-      pieDataLoadingStatus: "ready",
+      pieDataLoadingStatus: "loading",
       pieChartData: [],
     };
 

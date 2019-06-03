@@ -43,7 +43,6 @@ class Graphics extends Component {
                       color: "white",
                     }
                   }}
-                  rootProps={{ 'data-testid': '1' }}
                 />
               ) : (
                 <div>Fetching data from API</div>
