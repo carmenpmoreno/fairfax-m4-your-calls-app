@@ -80,7 +80,7 @@ class App extends Component {
   }
 
   componentDidMount() {
-    if (!this.state.filter.dateEnd && !this.state.filter.dateStart) {
+    if (this.state.filter.dateEnd === '' && this.state.filter.dateStart === '') {
       const dates = currentTime();
       this.setState(prevState => {
         return {
@@ -531,7 +531,6 @@ class App extends Component {
                 path="/dashboard"
                 render={() => (
                   <Dashboard
-                    actionsetFilterDatesetFilterDate
                     actionGetStartDate={getStartDate}
                     actionGetEndDate={getEndDate}
                     actionFilterDate={filterDate}
