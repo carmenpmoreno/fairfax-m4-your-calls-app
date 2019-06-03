@@ -91,10 +91,7 @@ class App extends Component {
       });
     }
 
-    fetchChartPie();
-
-    fetch("https://adalab.interacso.com/api/graph/pie")
-      .then(response => response.json())
+    fetchChartPie(this.state.filter.dateStart,this.state.filter.dateEnd)
       .then(data => {
         const rateCurrencyNames = ["Genial", "Meh", "Mal"];
         const rateCurrencyValues = Object.values(data);
