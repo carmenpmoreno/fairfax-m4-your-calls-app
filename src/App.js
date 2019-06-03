@@ -72,6 +72,8 @@ class App extends Component {
     this.getEndDate = this.getEndDate.bind(this);
     this.filterDate = this.filterDate.bind(this);
     this.getInputTone = this.getInputTone.bind(this);
+    this.setFilterStartDate = this.setFilterStartDate.bind(this);
+    this.setFilterEndDate = this.setFilterEndDate.bind(this);
   }
 
   getInputTone(e) {
@@ -346,14 +348,25 @@ class App extends Component {
     });
   }
 
-  setFilterDate(e) {
+  setFilterStartDate(e) {
     const userQuery = e.currentTarget.value;
-    const inputId = e.currentTarget.id;
     this.setState(prevState => {
       return {
         filter: {
           ...prevState.filter,
-          [inputId]: userQuery
+          dateStart: userQuery
+        }
+      };
+    });
+  }
+
+  setFilterEndDate(e) {
+    const userQuery = e.currentTarget.value;
+    this.setState(prevState => {
+      return {
+        filter: {
+          ...prevState.filter,
+          dateEnd: userQuery
         }
       };
     });
@@ -479,10 +492,13 @@ class App extends Component {
                   <Dashboard
                     // actionShowList={this.showList}
                     // results={this.state.results}
-                    actionsetFilterDatesetFilterDate
                     actionGetStartDate={this.getStartDate}
                     actionGetEndDate={this.getEndDate}
                     actionFilterDate={this.filterDate}
+                    actionSetFilterStartDate ={this.setFilterStartDate}
+                    actionSetFilterEndDate ={this.setFilterEndDate}
+                    dateStart={this.state.filter.dateStart}
+                    dateEnd={this.state.filter.dateEnd}
                   />
                 )}
               />

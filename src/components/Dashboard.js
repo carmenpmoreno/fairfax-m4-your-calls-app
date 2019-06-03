@@ -8,11 +8,10 @@ class Dashboard extends Component {
         return (
             <div>
                 <Filters 
-                    // actionShowList={this.props.actionShowList} 
-                    // results={this.props.results} 
-                    actionGetStartDate= {this.props.actionGetStartDate} 
-                    actionGetEndDate= {this.props.actionGetEndDate} 
-                    actionFilterDate={this.props.actionFilterDate}
+                    actionSetFilterStartDate ={this.props.actionSetFilterStartDate}
+                    actionSetFilterEndDate ={this.props.actionSetFilterEndDate}
+                    dateStart={this.props.dateStart}
+                    dateEnd={this.props.dateEnd}
                 />
 
                 <Graphics />
