@@ -13,9 +13,10 @@ class CompanyFilter extends Component {
                     .then(response => response.json())
                     .then(data => {
                         const keys = Object.keys(data[0]);
+                        
                     return (
                         {keys.map (item => {
-                            <option value={item}></option>
+                            <option value={ImageBitmapRenderingContext}></option>
                         })}
                     );
                     })
