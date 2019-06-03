@@ -32,7 +32,8 @@ class Form extends Component {
       callAgainClass,
       callBackClass,
       getInputTone,
-      tone
+      tone,
+      errorTone
     } = this.props;
 
     return (
@@ -271,7 +272,7 @@ class Form extends Component {
               id="good"
               value="good"
               checked={tone.includes("good")}
-              onClick={getInputTone}
+              onChange={getInputTone}
               required
             />
 
@@ -286,7 +287,7 @@ class Form extends Component {
               id="neutral"
               value="neutral"
               checked={tone.includes("neutral")}
-              onClick={getInputTone}
+              onChange={getInputTone}
               required
             />
 
@@ -301,10 +302,10 @@ class Form extends Component {
               id="bad"
               value="bad"
               checked={tone.includes("bad")}
-              onClick={getInputTone}
+              onChange={getInputTone}
               required
             />
-            <p className={`error-msg-tone ${errorMessage}`}>
+            <p className={`error-msg-tone ${errorTone}`}>
               Debes seleccionar un estado.
             </p>
             </div>
