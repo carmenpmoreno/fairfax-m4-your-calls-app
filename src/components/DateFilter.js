@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import PropTypes from "prop-types";
 
 class DateFilter extends Component {
     render () {
@@ -35,5 +36,13 @@ class DateFilter extends Component {
         )
     }
 }
+
+
+DateFilter.propTypes = {
+  actionSetFilterStartDate: PropTypes.func.isRequired,
+  actionSetFilterEndDate: PropTypes.func.isRequired,
+  dateStart: PropTypes.string.isRequired,
+  dateEnd: PropTypes.string.isRequired,
+};
 
 export default DateFilter;

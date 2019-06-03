@@ -50,7 +50,9 @@ class App extends Component {
       filter: {
         dateStart: "",
         dateEnd: ""
-      }
+      },
+      pieDataLoadingStatus: "ready",
+      pieChartData: [],
     };
 
     this.getWhoCalls = this.getWhoCalls.bind(this);
@@ -74,6 +76,25 @@ class App extends Component {
     this.getInputTone = this.getInputTone.bind(this);
     this.setFilterStartDate = this.setFilterStartDate.bind(this);
     this.setFilterEndDate = this.setFilterEndDate.bind(this);
+  }
+
+  componentDidMount() {
+    fetch(
+      "https://adalab.interacso.com/api/graph/pie"
+    )
+      .then(response => response.json())
+      .then(data => {
+        const rateCurrencyNames = ["Genial", "Meh", "Mal"];
+        const rateCurrencyValues = Object.values(data);
+        const chartData = [["Call mood", "Quantity"]];
+        for (let i = 0; i < rateCurrencyNames.length; i += 1) {
+          chartData.push([rateCurrencyNames[i], rateCurrencyValues[i]]);
+        }
+        this.setState({
+          pieDataLoadingStatus: "ready",
+          pieChartData: chartData
+        });
+      });
   }
 
   getInputTone(e) {
@@ -409,7 +430,12 @@ class App extends Component {
       callBackClass,
       callAgainClass,
       redialCheck,
-      callBackCheck
+      callBackCheck,
+      results,
+      pieChartData,
+      pieDataLoadingStatus,
+      succesMessage,
+      personRequested
     } = this.state;
     const {
       preventSubmission,
@@ -426,7 +452,11 @@ class App extends Component {
       sendForm,
       deselectOption,
       selectPersonRequested,
-      getInputTone
+      getInputTone,
+      showList,
+      getStartDate,
+      getEndDate,
+      filterDate
     } = this;
 
     return (
@@ -477,11 +507,11 @@ class App extends Component {
                 path="/callHistory"
                 render={() => (
                   <CallHistory
-                    actionShowList={this.showList}
-                    results={this.state.results}
-                    actionGetStartDate={this.getStartDate}
-                    actionGetEndDate={this.getEndDate}
-                    actionFilterDate={this.filterDate}
+                    actionShowList={showList}
+                    results={results}
+                    actionGetStartDate={getStartDate}
+                    actionGetEndDate={getEndDate}
+                    actionFilterDate={filterDate}
                   />
                 )}
               />
@@ -490,15 +520,12 @@ class App extends Component {
                 path="/dashboard"
                 render={() => (
                   <Dashboard
-                    // actionShowList={this.showList}
-                    // results={this.state.results}
-                    actionGetStartDate={this.getStartDate}
-                    actionGetEndDate={this.getEndDate}
-                    actionFilterDate={this.filterDate}
-                    actionSetFilterStartDate ={this.setFilterStartDate}
-                    actionSetFilterEndDate ={this.setFilterEndDate}
-                    dateStart={this.state.filter.dateStart}
-                    dateEnd={this.state.filter.dateEnd}
+                    actionsetFilterDatesetFilterDate
+                    actionGetStartDate={getStartDate}
+                    actionGetEndDate={getEndDate}
+                    actionFilterDate={filterDate}
+                    pieData={pieChartData}
+                    pieLoading={pieDataLoadingStatus}
                   />
                 )}
               />
@@ -509,8 +536,8 @@ class App extends Component {
             path="/"
             render={() => (
               <Modal
-                sucess={this.state.succesMessage}
-                personRequested={this.state.info.personRequested}
+                sucess={succesMessage}
+                personRequested={personRequested}
               />
             )}
           />
