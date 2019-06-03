@@ -216,7 +216,14 @@ class App extends Component {
         errorPerson: "hidden",
         errorMessage: ""
       });
-    } else {
+    } else if (incomingInfo.tone === "") {
+      this.setState({
+        errorIncomingData: "hidden",
+        errorCallAction: "hidden",
+        errorPerson: "hidden",
+        errorMessage: ""
+      });
+    }else {
       this.setState({
         errorIncomingData: "hidden",
         errorCallAction: "hidden",

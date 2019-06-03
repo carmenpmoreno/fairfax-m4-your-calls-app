@@ -301,6 +301,9 @@ class Form extends Component {
               onClick={getInputTone}
               required
             />
+            <p className={`error-msg-tone ${errorMessage}`}>
+              Debes seleccionar un estado.
+            </p>
             </div>
           </fieldset>
       </form>

@@ -358,6 +358,15 @@ a {
   color: $color-red;
   border-top: 2px solid $color-red;
 }
+.error-msg-tone{
+  position: absolute;
+  padding-left: 8px;
+  width: 448px;
+  z-index: 100;
+  margin-top: -2px;
+  color: $color-red;
+  border-top: 2px solid $color-red;
+}
 
 .error-msg-who {
   position: absolute;
