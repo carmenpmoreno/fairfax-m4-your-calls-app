@@ -24,11 +24,11 @@ In “Your Calls 2.0” we add new funcionalities on the Single Page Application
 
 ## Project objectives: “Your Calls 2.0”
 
-5. It adds a field in the form to record the mood of the client during the call (good, neutral or bad)
+5. New field in the form to record the mood of the client during the call (good, neutral or bad)
 
-6. Add a new Statistics screen where we can filter the data by date.
+6. New Statistics screen where we can filter the data by date.
 
-7. The results are shown with two graphics: the mood of the clients and the number of calls on that period of time.
+7. Two new graphics: one for the mood of the clients and another one for the number of calls on that period of time.
 
 
 
