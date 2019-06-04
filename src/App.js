@@ -64,6 +64,7 @@ class App extends Component {
       pieChartData: [],
 
       dataBarsTransformed: [],
+      chartDataBars:[],
       barDataLoadingStatus: 'loading',
       barChartData: [],
       allCompanies: []
@@ -578,7 +579,8 @@ class App extends Component {
       pieDataLoadingStatus,
       succesMessage,
       personRequested,
-      allCompanies
+      allCompanies,
+      chartDataBars,
     } = this.state;
     const {
       preventSubmission,
@@ -678,6 +680,7 @@ class App extends Component {
                     allCompanies={allCompanies}
                     getCompanySelected={getCompanySelected}
                     companySelected={companySelected}
+                    chartDataBars={chartDataBars}
                   />
                 )}
               />

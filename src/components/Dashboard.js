@@ -22,6 +22,7 @@ class Dashboard extends Component {
           pieLoading={this.props.pieLoading}
           barData={this.props.pieData}
           barLoading={this.props.pieLoading}
+          chartDataBars={this.props.chartDataBars}
         />
       </div>
     );
