@@ -23,7 +23,10 @@ In “Your Calls 2.0” we add new funcionalities on the SPA in order to use it 
 ### Project objectives: “Your Calls 2.0”
 
 1. Record a new date for incoming calls: the mood of the client.
-2. Add a new 
+
+2. Add a new screen called "Estadísticas" where we can filter the data depending on the date.
+
+3. The data results are showed with two graphics: the mood of the clients and the number of calls on that period of time.
 
 
 
