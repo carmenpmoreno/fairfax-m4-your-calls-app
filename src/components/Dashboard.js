@@ -10,8 +10,11 @@ class Dashboard extends Component {
         <Filters
           actionSetFilterStartDate={this.props.actionSetFilterStartDate}
           actionSetFilterEndDate={this.props.actionSetFilterEndDate}
-          dateStart={this.props.dateStart}
-          dateEnd={this.props.dateEnd}
+          dateStart={this.props.startDate}
+          dateEnd={this.props.endDate}
+          allCompanies={this.props.allCompanies}
+          getCompanySelected={this.props.getCompanySelected}
+          companySelected={this.props.companySelected}
         />
 
         <Graphics
@@ -33,7 +36,10 @@ Dashboard.propTypes = {
   actionSetFilterStartDate: PropTypes.func.isRequired,
   actionSetFilterEndDate: PropTypes.func.isRequired,
   dateStart: PropTypes.string.isRequired,
-  dateEnd: PropTypes.string.isRequired
+  dateEnd: PropTypes.string.isRequired,
+  allCompanies: PropTypes.arrayOf(PropTypes.string),
+  getCompanySelecte: PropTypes.func,
+  companySelected: PropTypes.string
 };
 
 export default Dashboard;
