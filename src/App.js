@@ -155,15 +155,10 @@ class App extends Component {
 
   fetchChartBar(startDate, endDate, companySelected) {
     const URL = `https://adalab.interacso.com/api/graph/bar?from=${startDate}&to=${endDate}&company=${companySelected.toLowerCase()}`;
-    console.log(URL); //WORKING
     return fetch(URL)
       .then(response => response.json())
       .then(data => {
-        console.log(data); //WORKING
-        return this.transformDataBars(data);
-      })
-      .then(data => {
-        console.log(data); //WORKING
+        this.transformDataBars(data);
         return this.setState({
           barDataLoadingStatus: 'ready',
           dataBarsTransformed: data.map((item, index) => {
@@ -179,21 +174,16 @@ class App extends Component {
 
   transformDataBars(dataToTransform) {
     const oneMonthReduced = dataToTransform[1];
-    console.log(oneMonthReduced); // WORKING
 
-    //PROBLEMS HERE WITH DELETING "month" and "year", not working as expected
     const allDataToKeep = Object.values(oneMonthReduced);
-    //reverse the array
+    //We need to reverse the array to have 'month' and 'year' on the first positions
     const allDataToKeepReversed = allDataToKeep.reverse();
-    console.log(allDataToKeepReversed[0]);
 
-    const dataToDelete = allDataToKeepReversed.splice(0, 1); //[2018]
-    console.log(dataToDelete);
+    const dataToDelete = allDataToKeepReversed.splice(0, 1);
 
     const arrayWithoutYear = allDataToKeepReversed.filter(
       item => item !== dataToDelete[0]
     );
-    console.log(arrayWithoutYear);
 
     const companiesKeys = Object.keys(oneMonthReduced)
       .reverse()
@@ -201,7 +191,6 @@ class App extends Component {
     //Here all items following 'Months' should be from the filter fetch. Let's start with them manually
     const chartTitle = ['Meses'];
     const concatArrays = chartTitle.concat(companiesKeys);
-    console.log(concatArrays);
 
     const chartDataBars = [];
     chartDataBars.push(concatArrays);
@@ -210,7 +199,6 @@ class App extends Component {
     this.setState({
       chartDataBars: chartDataBars
     });
-    console.log(chartDataBars); //WORKING
     return chartDataBars;
   }
 
@@ -599,7 +587,6 @@ class App extends Component {
 
   getCompanySelected(event) {
     const value = event.currentTarget.value;
-    console.log(value);
     this.setState(prevState => {
       return {
         filter: {
