@@ -50,10 +50,12 @@ class App extends Component {
       endDate: '',
       filter: {
         dateStart: "",
-        dateEnd: ""
+        dateEnd: "",
+        companySelected: "",
       },
       pieDataLoadingStatus: "loading",
       pieChartData: [],
+      allCompanies: [],
     };
 
     this.getWhoCalls = this.getWhoCalls.bind(this);
@@ -77,9 +79,13 @@ class App extends Component {
     this.getInputTone = this.getInputTone.bind(this);
     this.setFilterStartDate = this.setFilterStartDate.bind(this);
     this.setFilterEndDate = this.setFilterEndDate.bind(this);
+    this.getCompanySelected = this.getCompanySelected.bind(this);
+    
   }
 
   componentDidMount() {
+    this.getCompaniesData();
+    fetchChartPie();
     fetch(
       "https://adalab.interacso.com/api/graph/pie"
     )
@@ -401,11 +407,6 @@ class App extends Component {
     });
   }
 
-  //Example
-  componentDidMount() {
-    fetchChartPie();
-  }
-
   filterDate() {
     const userStartDate = this.state.startDate;
     const userEndDate = this.state.endDate;
@@ -425,8 +426,53 @@ class App extends Component {
     });
   }
 
+  getCompaniesData() {
+
+    const ENDPOINT = 'https://adalab.interacso.com/api/call';
+
+    fetch(ENDPOINT, {
+      method: 'GET',
+      cache: 'no-cache',
+      headers: {
+        'content-type': 'application/json'
+      }
+    })
+      .then(response => response.json())
+      .then(data => {
+        return data;
+      })
+      .then(data => {
+        //I have all callHistory here in a huge array. Let's iterate it to get just the companies names
+        const companiesArray = data
+          .map(item => {
+            return item.company;
+          })
+          //Filter to delete duplicates, comparing the first index of that value (IndexOf) with the actual ind
+          .filter((item, ind, array) => array.indexOf(item) === ind);
+
+        this.setState({
+          allCompanies: companiesArray
+        });
+      });
+  }
+
+  getCompanySelected(event) {
+    const value = event.currentTarget.value
+    console.log(value);
+    this.setState(prevState => {
+      return {
+        filter: {
+          ...prevState.filter,
+          companySelected: value
+        }
+      };
+    });
+
+  }
+
   render() {
     const { tone } = this.state.info;
+    const {companySelected} = this.state.filter;
     const {
       errorPerson,
       errorTone,
@@ -441,7 +487,8 @@ class App extends Component {
       pieChartData,
       pieDataLoadingStatus,
       succesMessage,
-      personRequested
+      personRequested,
+      allCompanies
     } = this.state;
     const {
       preventSubmission,
@@ -462,7 +509,8 @@ class App extends Component {
       showList,
       getStartDate,
       getEndDate,
-      filterDate
+      filterDate,
+      getCompanySelected,
     } = this;
 
     return (
@@ -532,6 +580,10 @@ class App extends Component {
                     actionFilterDate={filterDate}
                     pieData={pieChartData}
                     pieLoading={pieDataLoadingStatus}
+                    allCompanies={allCompanies}
+                    getCompanySelected={getCompanySelected}
+                    companySelected={companySelected}
+
                   />
                 )}
               />

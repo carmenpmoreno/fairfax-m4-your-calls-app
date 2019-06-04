@@ -15,8 +15,8 @@ const currentTime = () => {
 };
 
 currentTime();
-console.log('actualDate', actualDate);
-console.log('previousMonthDate', previousMonthDate);
+// console.log('actualDate', actualDate);
+// console.log('previousMonthDate', previousMonthDate);
 
 const URL = `https://adalab.interacso.com/api/graph/pie?from=${previousMonthDate}&to=${actualDate}`;
 
