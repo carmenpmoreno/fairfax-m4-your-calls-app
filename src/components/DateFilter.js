@@ -12,8 +12,9 @@ class DateFilter extends Component {
                 <div className="main__subtitle--date-container">
                   <div className="dateStart">
                     <label htmlFor="dateStart"></label>
-                    <input 
-                        id={this.props.dateStart}
+                    <input  
+                        id= "dateStart"
+                        value={this.props.dateStart}
                         type="date" 
                         className="input-date" 
                         placeholder="Desde: 26/02/1991" 
@@ -23,7 +24,8 @@ class DateFilter extends Component {
                   <div className="dateEnd">
                     <label htmlFor="dateEnd" ></label>
                     <input 
-                      id={this.props.dateEnd}
+                      id="dateEnd"
+                      value={this.props.dateEnd}
                       type="date" 
                       className="input-date" 
                       placeholder="Hasta: 26/03/2019" 
@@ -41,8 +43,8 @@ class DateFilter extends Component {
 DateFilter.propTypes = {
   actionSetFilterStartDate: PropTypes.func.isRequired,
   actionSetFilterEndDate: PropTypes.func.isRequired,
-  dateStart: PropTypes.string.isRequired,
-  dateEnd: PropTypes.string.isRequired,
+  dateStart: PropTypes.string,
+  dateEnd: PropTypes.string,
 };
 
 export default DateFilter;
