@@ -5,7 +5,7 @@ import NewCall from './components/NewCall';
 import CallHistory from './components/CallHistory';
 import { getData } from './services/getData';
 import { getList } from './services/getList';
-import { fetchChartPie } from './services/getDataChartPie';
+import { currentTime } from './services/getDefaultDate';
 import './styles/App.scss';
 import { Route, Switch } from 'react-router-dom';
 import Modal from './components/Modal';
@@ -403,7 +403,7 @@ class App extends Component {
 
   //Example
   componentDidMount() {
-    fetchChartPie();
+    currentTime();
   }
 
   filterDate() {
