@@ -126,14 +126,14 @@ class App extends Component {
     );
     console.log(arrayWithoutYear);
 
-    const someKeys = Object.keys(oneMonthReduced).splice(2);
+    const companiesKeys = Object.keys(oneMonthReduced).splice(2);
     //Here all items following 'Months' should be from the filter fetch. Let's start with them manually
     const chartTitle = ['Meses'];
-    const concatenate = chartTitle.concat(someKeys);
-    console.log(concatenate);
+    const concatArrays = chartTitle.concat(companiesKeys);
+    console.log(concatArrays);
 
     const chartDataBars = [];
-    chartDataBars.push(concatenate);
+    chartDataBars.push(concatArrays);
     chartDataBars.push(arrayWithoutYear);
 
     this.setState({
