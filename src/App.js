@@ -48,9 +48,14 @@ class App extends Component {
       results: [],
       startDate: "",
       endDate: "",
+      dateValues: {
+        dateEnd: "",
+        dateStart: "",
+      },
       filter: {
         dateStart: "",
-        dateEnd: ""
+        dateEnd: "",
+        companySelected: "",
       },
       pieDataLoadingStatus: "loading",
       pieChartData: []
@@ -85,25 +90,28 @@ class App extends Component {
       const dates = currentTime();
       this.setState(prevState => {
         return {
+          dateValues: {
+            dateEnd: dates[3],
+            dateStart: dates[2],
+          },
           filter: {
             ...prevState.filter,
             dateStart: dates[1],
             dateEnd: dates[0]
           }
         };
-      }, ()=> {this.fetchChartPie(this.state.filter.dateStart, this.state.filter.dateEnd)}
-      );
+      });
     }    
   }  
 
   componentDidUpdate(nextProp, nextState){
     if(this.state.filter!== nextState.filter){
-      this.fetchChartPie(this.state.filter.dateStart, this.state.filter.dateEnd);
+      this.fetchChartPie(this.state.filter.dateStart, this.state.filter.dateEnd, this.state.companySelected);
     }
   }
 
- fetchChartPie(startDate, endDate) {
-    const URL = `https://adalab.interacso.com/api/graph/pie?from=${startDate}&to=${endDate}`;
+ fetchChartPie(startDate, endDate, companySelected) {
+    const URL = `https://adalab.interacso.com/api/graph/pie?from=${startDate}&to=${endDate}&client=${companySelected}`;
     console.log(URL);
     return fetch(URL)
       .then(response => response.json())
@@ -402,6 +410,10 @@ class App extends Component {
     const newDate = `${arrayDate[2]}/${arrayDate[1]}/${arrayDate[0]}`;
     this.setState(prevState => {
       return {
+        dateValues: {
+          ...prevState,
+          dateStart: userQuery
+        },
         filter: {
           ...prevState.filter,
           dateStart: newDate
@@ -416,6 +428,10 @@ class App extends Component {
     const newDate = `${arrayDate[2]}/${arrayDate[1]}/${arrayDate[0]}`;
     this.setState(prevState => {
       return {
+        dateValues: {
+          ...prevState,
+          dateStart: userQuery
+        },
         filter: {
           ...prevState.filter,
           dateEnd: newDate
@@ -452,6 +468,7 @@ class App extends Component {
 
   render() {
     const { tone } = this.state.info;
+    const { dateStart , dateEnd } = this.state.dateValues;
     const {
       errorPerson,
       errorTone,
@@ -487,7 +504,9 @@ class App extends Component {
       showList,
       getStartDate,
       getEndDate,
-      filterDate
+      filterDate,
+      setFilterStartDate,
+      setFilterEndDate
     } = this;
 
     return (
@@ -551,10 +570,10 @@ class App extends Component {
                 path="/dashboard"
                 render={() => (
                   <Dashboard
-                    actionSetFilterStartDate={this.setFilterStartDate}
-                    endDate={this.state.filter.dateEnd}
-                    startDate={this.state.filter.dateStart}
-                    actionSetFilterEndDate={this.setFilterEndDate}
+                    actionSetFilterStartDate={setFilterStartDate}
+                    endDate={dateEnd}
+                    startDate={dateStart}
+                    actionSetFilterEndDate={setFilterEndDate}
                     pieData={pieChartData}
                     pieLoading={pieDataLoadingStatus}
                   />

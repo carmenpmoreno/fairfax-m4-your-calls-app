@@ -17,7 +17,6 @@ class DateFilter extends Component {
                         value={this.props.dateStart}
                         type="date" 
                         className="input-date" 
-                        placeholder="Desde: 26/02/1991" 
                         onChange={this.props.actionSetFilterStartDate}  
                     />                    
                   </div>
@@ -27,8 +26,7 @@ class DateFilter extends Component {
                       id="dateEnd"
                       value={this.props.dateEnd}
                       type="date" 
-                      className="input-date" 
-                      placeholder="Hasta: 26/03/2019" 
+                      className="input-date"
                       onChange={this.props.actionSetFilterEndDate}/>
                   </div>
                 </div>

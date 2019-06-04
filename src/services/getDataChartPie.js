@@ -10,9 +10,15 @@ const currentTime = () => {
   let month = date.getMonth() + 1;
   let year = date.getFullYear();
 
+  const dayData = day<10? `0${day}`: day;
+  const monthData = month<10? `0${month}` : month;
+  const prevmonthData = month<10? `0${month-1}` : month;
+
   actualDate = `${day}/${month}/${year}`;
   previousMonthDate = `${day}/${month - 1}/${year}`;
-  return([actualDate, previousMonthDate])
+  const filterValueStart = `${year}-${prevmonthData}-${dayData}`;
+  const filterValueEnd = `${year}-${monthData}-${dayData}`;
+  return([actualDate, previousMonthDate, filterValueStart, filterValueEnd])
 };
 
 currentTime();
