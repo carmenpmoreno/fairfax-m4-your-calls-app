@@ -144,8 +144,7 @@ class App extends Component {
   }
 
   fetchChartPie(startDate, endDate, companySelected) {
-    const URL = `https://adalab.interacso.com/api/graph/pie?from=${startDate}&to=${endDate}&client=${companySelected.toLowerCase()}`;
-    console.log(URL);
+    const URL = `https://adalab.interacso.com/api/graph/pie?from=${startDate}&to=${endDate}&company=${companySelected.toLowerCase()}`;
     return fetch(URL)
       .then(response => response.json())
       .then(data => {
@@ -578,7 +577,6 @@ class App extends Component {
 
   getCompanySelected(event) {
     const value = event.currentTarget.value;
-    console.log(value);
     this.setState(prevState => {
       return {
         filter: {

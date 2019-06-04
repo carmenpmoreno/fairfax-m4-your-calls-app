@@ -35,8 +35,8 @@ Dashboard.propTypes = {
   barLoading: PropTypes.string.isRequired,
   actionSetFilterStartDate: PropTypes.func.isRequired,
   actionSetFilterEndDate: PropTypes.func.isRequired,
-  dateStart: PropTypes.string.isRequired,
-  dateEnd: PropTypes.string.isRequired,
+  dateStart: PropTypes.string,
+  dateEnd: PropTypes.string,
   allCompanies: PropTypes.arrayOf(PropTypes.string),
   getCompanySelecte: PropTypes.func,
   companySelected: PropTypes.string
