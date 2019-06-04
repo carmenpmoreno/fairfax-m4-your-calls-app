@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import DateFilter from './DateFilter';
 // import CompanyFilter from './CompanyFilter';
-import CompanyFilterBis from './CompanyFilterBis';
+import CompanyFilter from './CompanyFilter';
 import PropTypes from 'prop-types';
 
 class Filters extends Component {
@@ -14,8 +14,9 @@ class Filters extends Component {
           dateStart={this.props.dateStart}
           dateEnd={this.props.dateEnd}
         />
-        {/* <CompanyFilter /> */}
-        <CompanyFilterBis />
+        <CompanyFilter 
+          allCompanies={this.props.allCompanies}
+        />
       </form>
     );
   }

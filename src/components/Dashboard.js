@@ -12,6 +12,7 @@ class Dashboard extends Component {
           actionSetFilterEndDate={this.props.actionSetFilterEndDate}
           dateStart={this.props.dateStart}
           dateEnd={this.props.dateEnd}
+          allCompanies={this.props.allCompanies}
         />
 
         <Graphics
