@@ -16,8 +16,8 @@ const currentTime = () => {
 };
 
 currentTime();
-console.log('actualDate', actualDate);
-console.log('previousMonthDate', previousMonthDate);
+// console.log('actualDate', actualDate);
+// console.log('previousMonthDate', previousMonthDate);
 
 
 const fetchChartPie = (startDate, endDate) => {
