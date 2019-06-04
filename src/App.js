@@ -101,29 +101,40 @@ class App extends Component {
         });
       });
 
-    //Here FETCH to Bars api
-    //Gonna create a new key with the Month as a word
-    this.setState({
-      dataBarsTransformed: dataBackBars.map((item, index) => {
-        return {
-          ...item,
-          month: monthsYear[dataBackBars[index].month]
-        };
-      })
-    });
+    //Here will go the FETCH to Bars api
+    this.setState(
+      {
+        dataBarsTransformed: dataBackBars.map((item, index) => {
+          //Modify the key month with a word instead of a number
+          return {
+            ...item,
+            month: monthsYear[dataBackBars[index].month]
+          };
+        })
+      },
+      //Callback of setState, to transform the data
+      () => this.transformDataBars()
+    );
   }
 
-  componentDidUpdate() {
+  transformDataBars() {
     const oneMonthReduced = this.state.dataBarsTransformed[0];
-
     const allDataToKeep = Object.values(oneMonthReduced);
-    const dataToKeep = Object.values(oneMonthReduced).splice(1, 1); //[2018]
-    const arraySinFecha = allDataToKeep.filter(item => item !== dataToKeep[0]);
+    const dataToDelete = Object.values(oneMonthReduced).splice(1, 1); //[2018]
+    const arrayWithoutYear = allDataToKeep.filter(
+      item => item !== dataToDelete[0]
+    );
+    console.log(arrayWithoutYear);
 
+    const someKeys = Object.keys(oneMonthReduced).splice(2);
     //Here all items following 'Months' should be from the filter fetch. Let's start with them manually
-    const chartDataBars = [['Meses', 'ikea', 'racc', 'cc', 'audi', 'tork']];
+    const chartTitle = ['Meses'];
+    const concatenate = chartTitle.concat(someKeys);
+    console.log(concatenate);
 
-    chartDataBars.push(arraySinFecha);
+    const chartDataBars = [];
+    chartDataBars.push(concatenate);
+    chartDataBars.push(arrayWithoutYear);
     console.log(chartDataBars);
   }
 
