@@ -135,6 +135,10 @@ class App extends Component {
     const chartDataBars = [];
     chartDataBars.push(concatenate);
     chartDataBars.push(arrayWithoutYear);
+
+    this.setState({
+      chartDataBars: chartDataBars
+    });
     console.log(chartDataBars);
   }
 
