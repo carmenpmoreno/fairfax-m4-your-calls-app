@@ -1,7 +1,7 @@
-import React, { Component } from "react";
-import PropTypes from "prop-types";
-import Filters from "./Filters";
-import Graphics from "./Graphics";
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
+import Filters from './Filters';
+import Graphics from './Graphics';
 
 class Dashboard extends Component {
   render() {
@@ -20,6 +20,8 @@ class Dashboard extends Component {
         <Graphics
           pieData={this.props.pieData}
           pieLoading={this.props.pieLoading}
+          barData={this.props.pieData}
+          barLoading={this.props.pieLoading}
         />
       </div>
     );
@@ -29,10 +31,12 @@ class Dashboard extends Component {
 Dashboard.propTypes = {
   pieData: PropTypes.arrayOf(PropTypes.array),
   pieLoading: PropTypes.string.isRequired,
-  actionSetFilterStartDate: PropTypes.func,
-  actionSetFilterEndDate: PropTypes.func,
-  dateStart: PropTypes.string,
-  dateEnd: PropTypes.string,
+  barData: PropTypes.arrayOf(PropTypes.array),
+  barLoading: PropTypes.string.isRequired,
+  actionSetFilterStartDate: PropTypes.func.isRequired,
+  actionSetFilterEndDate: PropTypes.func.isRequired,
+  dateStart: PropTypes.string.isRequired,
+  dateEnd: PropTypes.string.isRequired,
   allCompanies: PropTypes.arrayOf(PropTypes.string),
   getCompanySelecte: PropTypes.func,
   companySelected: PropTypes.string

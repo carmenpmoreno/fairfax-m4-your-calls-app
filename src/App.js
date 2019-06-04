@@ -1,16 +1,16 @@
-import React, { Component } from "react";
-import Header from "./components/Header";
-import Menu from "./components/Menu";
-import NewCall from "./components/NewCall";
-import CallHistory from "./components/CallHistory";
-import { getData } from "./services/getData";
-import { getList } from "./services/getList";
-import { currentTime } from "./services/getDefaultDate";
-import "./styles/App.scss";
-import { Route, Switch } from "react-router-dom";
-import Modal from "./components/Modal";
-import * as moment from "moment";
-import Dashboard from "./components/Dashboard";
+import React, { Component } from 'react';
+import Header from './components/Header';
+import Menu from './components/Menu';
+import NewCall from './components/NewCall';
+import CallHistory from './components/CallHistory';
+import { getData } from './services/getData';
+import { getList } from './services/getList';
+import { currentTime } from './services/getDefaultDate';
+import './styles/App.scss';
+import { Route, Switch } from 'react-router-dom';
+import Modal from './components/Modal';
+import * as moment from 'moment';
+import Dashboard from './components/Dashboard';
 
 class App extends Component {
   constructor(props) {
@@ -21,45 +21,48 @@ class App extends Component {
 
     this.state = {
       info: {
-        addedBy: "",
-        personRequested: "",
-        name: "",
-        company: "",
-        position: "",
-        otherInfo: "",
-        email: "",
+        addedBy: '',
+        personRequested: '',
+        name: '',
+        company: '',
+        position: '',
+        otherInfo: '',
+        email: '',
         telephone: 0,
-        action: "",
-        message: "",
-        tone: ""
+        action: '',
+        message: '',
+        tone: ''
       },
 
-      errorTone: "hidden",
-      errorIncomingData: "hidden",
-      errorCallAction: "hidden",
-      errorPerson: "hidden",
-      succesMessage: "hidden",
-      errorMessage: "hidden",
-      callAgainClass: "",
-      callBackClass: "",
+      errorTone: 'hidden',
+      errorIncomingData: 'hidden',
+      errorCallAction: 'hidden',
+      errorPerson: 'hidden',
+      succesMessage: 'hidden',
+      errorMessage: 'hidden',
+      callAgainClass: '',
+      callBackClass: '',
       redialCheck: false,
       callBackCheck: false,
 
       results: [],
-      startDate: "",
-      endDate: "",
+      startDate: '',
+      endDate: '',
       dateValues: {
-        dateEnd: "",
-        dateStart: "",
+        dateEnd: '',
+        dateStart: ''
       },
       filter: {
-        dateStart: "",
-        dateEnd: "",
-        companySelected: "",
+        dateStart: '',
+        dateEnd: '',
+        companySelected: ''
       },
-      pieDataLoadingStatus: "loading",
+      pieDataLoadingStatus: 'loading',
       pieChartData: [],
-      allCompanies: [],
+
+      barDataLoadingStatus: 'loading',
+      barChartData: [],
+      allCompanies: []
     };
 
     this.getWhoCalls = this.getWhoCalls.bind(this);
@@ -85,7 +88,6 @@ class App extends Component {
     this.setFilterEndDate = this.setFilterEndDate.bind(this);
     this.fetchChartPie = this.fetchChartPie.bind(this);
     this.getCompanySelected = this.getCompanySelected.bind(this);
-    
   }
 
   componentDidMount() {
@@ -96,7 +98,7 @@ class App extends Component {
         return {
           dateValues: {
             dateEnd: dates[3],
-            dateStart: dates[2],
+            dateStart: dates[2]
           },
           filter: {
             ...prevState.filter,
@@ -105,35 +107,37 @@ class App extends Component {
           }
         };
       });
-    }    
-  }  
-
-  componentDidUpdate(nextProp, nextState){
-    if(this.state.filter!== nextState.filter){
-      this.fetchChartPie(this.state.filter.dateStart, this.state.filter.dateEnd, this.state.filter.companySelected);
     }
   }
 
- fetchChartPie(startDate, endDate, companySelected) {
+  componentDidUpdate(nextProp, nextState) {
+    if (this.state.filter !== nextState.filter) {
+      this.fetchChartPie(
+        this.state.filter.dateStart,
+        this.state.filter.dateEnd,
+        this.state.filter.companySelected
+      );
+    }
+  }
+
+  fetchChartPie(startDate, endDate, companySelected) {
     const URL = `https://adalab.interacso.com/api/graph/pie?from=${startDate}&to=${endDate}&client=${companySelected.toLowerCase()}`;
     console.log(URL);
     return fetch(URL)
       .then(response => response.json())
       .then(data => {
-        const rateCurrencyNames = ["Genial", "Meh", "Mal"];
+        const rateCurrencyNames = ['Genial', 'Meh', 'Mal'];
         const rateCurrencyValues = Object.values(data);
-        const chartData = [["Call mood", "Quantity"]];
+        const chartData = [['Call mood', 'Quantity']];
         for (let i = 0; i < rateCurrencyNames.length; i += 1) {
           chartData.push([rateCurrencyNames[i], rateCurrencyValues[i]]);
         }
         this.setState({
-          pieDataLoadingStatus: "ready",
+          pieDataLoadingStatus: 'ready',
           pieChartData: chartData
         });
-      }
-    )
-  };
-  
+      });
+  }
 
   getInputTone(e) {
     const { value } = e.currentTarget;
@@ -200,18 +204,18 @@ class App extends Component {
     const newInfo = { ...info, action: event.currentTarget.value };
     let state = {
       info: newInfo,
-      callAgainClass: "",
-      callBackClass: "",
+      callAgainClass: '',
+      callBackClass: '',
       redialCheck: false,
       callBackCheck: false
     };
 
-    if (event.currentTarget.id === "redial") {
+    if (event.currentTarget.id === 'redial') {
       if (!this.state.redialCheck) {
         state = {
           info: newInfo,
-          callAgainClass: "selectedClass",
-          callBackClass: "",
+          callAgainClass: 'selectedClass',
+          callBackClass: '',
           redialCheck: true,
           callBackCheck: false
         };
@@ -220,8 +224,8 @@ class App extends Component {
       if (!this.state.callBackCheck) {
         state = {
           info: newInfo,
-          callAgainClass: "",
-          callBackClass: "selectedClass",
+          callAgainClass: '',
+          callBackClass: 'selectedClass',
           redialCheck: false,
           callBackCheck: true
         };
@@ -243,13 +247,13 @@ class App extends Component {
   sendInfo() {
     const info = this.state.info;
     getData(info)
-      .then(response => console.log("Success:", JSON.stringify(response)))
+      .then(response => console.log('Success:', JSON.stringify(response)))
       .then(
         this.setState({
-          succesMessage: ""
+          succesMessage: ''
         })
       )
-      .catch(error => console.error("Error:", error));
+      .catch(error => console.error('Error:', error));
   }
 
   sendForm(event) {
@@ -259,43 +263,43 @@ class App extends Component {
 
   isEmptyOrNot() {
     const incomingInfo = this.state.info;
-    if (incomingInfo.personRequested === "") {
+    if (incomingInfo.personRequested === '') {
       this.setState({
-        errorPerson: ""
+        errorPerson: ''
       });
     } else if (
-      incomingInfo.name === "" &&
-      incomingInfo.company === "" &&
-      incomingInfo.position === "" &&
+      incomingInfo.name === '' &&
+      incomingInfo.company === '' &&
+      incomingInfo.position === '' &&
       incomingInfo.telephone === 0 &&
-      incomingInfo.email === "" &&
-      incomingInfo.otherInfo === ""
+      incomingInfo.email === '' &&
+      incomingInfo.otherInfo === ''
     ) {
       this.setState({
-        errorIncomingData: "",
-        errorPerson: "hidden"
+        errorIncomingData: '',
+        errorPerson: 'hidden'
       });
-    } else if (incomingInfo.message === "") {
+    } else if (incomingInfo.message === '') {
       this.setState({
-        errorIncomingData: "hidden",
-        errorCallAction: "",
-        errorPerson: "hidden",
-        errorMessage: ""
+        errorIncomingData: 'hidden',
+        errorCallAction: '',
+        errorPerson: 'hidden',
+        errorMessage: ''
       });
-    } else if (incomingInfo.tone === "") {
+    } else if (incomingInfo.tone === '') {
       this.setState({
-        errorIncomingData: "hidden",
-        errorCallAction: "hidden",
-        errorPerson: "hidden",
-        errorMessage: "hidden",
-        errorTone: ""
+        errorIncomingData: 'hidden',
+        errorCallAction: 'hidden',
+        errorPerson: 'hidden',
+        errorMessage: 'hidden',
+        errorTone: ''
       });
     } else {
       this.setState({
-        errorIncomingData: "hidden",
-        errorCallAction: "hidden",
-        errorPerson: "hidden",
-        errorMessage: "hidden"
+        errorIncomingData: 'hidden',
+        errorCallAction: 'hidden',
+        errorPerson: 'hidden',
+        errorMessage: 'hidden'
       });
       this.sendInfo();
       this.sendSlackInfo();
@@ -305,18 +309,18 @@ class App extends Component {
   deselectOption() {
     const addedBy = this.state.info.addedBy;
 
-    if (addedBy !== "") {
+    if (addedBy !== '') {
       const optionsArray = this.selectPersonRequested.current.getElementsByTagName(
-        "option"
+        'option'
       );
 
       for (let i = 0; i < optionsArray.length; i++) {
         if (optionsArray[i].label.includes(addedBy)) {
           optionsArray[i].disabled = true;
-          optionsArray[i].style.display = "none";
+          optionsArray[i].style.display = 'none';
         } else {
           optionsArray[i].disabled = false;
-          optionsArray[i].style.display = "block";
+          optionsArray[i].style.display = 'block';
         }
       }
     }
@@ -330,11 +334,11 @@ class App extends Component {
     } \n${this.state.info.message}*`;
 
     if (
-      (this.state.info.name !== "" ||
-        this.state.info.position !== "" ||
-        this.state.info.company !== "" ||
-        this.state.info.otherInfo !== "" ||
-        this.state.info.email !== "") &&
+      (this.state.info.name !== '' ||
+        this.state.info.position !== '' ||
+        this.state.info.company !== '' ||
+        this.state.info.otherInfo !== '' ||
+        this.state.info.email !== '') &&
       this.state.info.telephone === 0
     ) {
       return (message = `*${
@@ -347,11 +351,11 @@ class App extends Component {
         this.state.info.message
       }*`);
     } else if (
-      this.state.info.name !== "" ||
-      this.state.info.position !== "" ||
-      this.state.info.company !== "" ||
-      this.state.info.otherInfo !== "" ||
-      this.state.info.email !== "" ||
+      this.state.info.name !== '' ||
+      this.state.info.position !== '' ||
+      this.state.info.company !== '' ||
+      this.state.info.otherInfo !== '' ||
+      this.state.info.email !== '' ||
       this.state.info.telephone !== 0
     ) {
       return (message = `*${
@@ -374,21 +378,21 @@ class App extends Component {
 
     const settings = {
       url: `https://slack.com/api/chat.postMessage?token=${key}&channel=%23your-calls-app&text=${message}&pretty=1`,
-      method: "POST",
+      method: 'POST',
       body: {}
     };
 
     fetch(settings.url, {
       method: settings.method,
       body: JSON.stringify(settings.body),
-      cache: "no-cache",
+      cache: 'no-cache',
       headers: {
-        "Content-Type": "application/json"
+        'Content-Type': 'application/json'
       }
     })
       .then(response => response.json())
-      .then(response => console.log("Success:", JSON.stringify(response)))
-      .catch(error => console.error("Error:", error));
+      .then(response => console.log('Success:', JSON.stringify(response)))
+      .catch(error => console.error('Error:', error));
   }
 
   showList() {
@@ -409,7 +413,7 @@ class App extends Component {
 
   setFilterStartDate(e) {
     const userQuery = e.currentTarget.value;
-    const arrayDate = userQuery.split("-");
+    const arrayDate = userQuery.split('-');
     const newDate = `${arrayDate[2]}/${arrayDate[1]}/${arrayDate[0]}`;
     this.setState(prevState => {
       return {
@@ -427,7 +431,7 @@ class App extends Component {
 
   setFilterEndDate(e) {
     const userQuery = e.currentTarget.value;
-    const arrayDate = userQuery.split("-");
+    const arrayDate = userQuery.split('-');
     const newDate = `${arrayDate[2]}/${arrayDate[1]}/${arrayDate[0]}`;
     this.setState(prevState => {
       return {
@@ -455,13 +459,13 @@ class App extends Component {
     const userEndDate = this.state.endDate;
     const results = this.wholeList;
 
-    const momentStartDate = moment(userStartDate, "YYYY-MM-DD");
-    const momentEndDate = moment(userEndDate, "YYYY-MM-DD");
+    const momentStartDate = moment(userStartDate, 'YYYY-MM-DD');
+    const momentEndDate = moment(userEndDate, 'YYYY-MM-DD');
 
     const filteredResults = results.filter(item => {
       let date = item.loggedAt;
-      let momentDate = moment(date, "YYYY-MM-DD");
-      return momentDate.isBetween(momentStartDate, momentEndDate, null, "[]");
+      let momentDate = moment(date, 'YYYY-MM-DD');
+      return momentDate.isBetween(momentStartDate, momentEndDate, null, '[]');
     });
 
     this.setState({
@@ -470,7 +474,6 @@ class App extends Component {
   }
 
   getCompaniesData() {
-
     const ENDPOINT = 'https://adalab.interacso.com/api/call';
 
     fetch(ENDPOINT, {
@@ -500,7 +503,7 @@ class App extends Component {
   }
 
   getCompanySelected(event) {
-    const value = event.currentTarget.value
+    const value = event.currentTarget.value;
     console.log(value);
     this.setState(prevState => {
       return {
@@ -510,13 +513,12 @@ class App extends Component {
         }
       };
     });
-
   }
 
   render() {
     const { tone } = this.state.info;
-    const { dateStart , dateEnd } = this.state.dateValues;
-    const {companySelected} = this.state.filter;
+    const { dateStart, dateEnd } = this.state.dateValues;
+    const { companySelected } = this.state.filter;
     const {
       errorPerson,
       errorTone,
@@ -556,7 +558,7 @@ class App extends Component {
       filterDate,
       setFilterStartDate,
       setFilterEndDate,
-      getCompanySelected,
+      getCompanySelected
     } = this;
 
     return (
@@ -621,15 +623,17 @@ class App extends Component {
                 render={() => (
                   <Dashboard
                     actionSetFilterStartDate={setFilterStartDate}
-                    endDate={dateEnd}
-                    startDate={dateStart}
                     actionSetFilterEndDate={setFilterEndDate}
+                    actionFilterDate={this.filterDate}
+                    startDate={dateStart}
+                    endDate={dateEnd}
                     pieData={pieChartData}
                     pieLoading={pieDataLoadingStatus}
+                    barData={this.state.barChartData}
+                    barLoading={this.state.barDataLoadingStatus}
                     allCompanies={allCompanies}
                     getCompanySelected={getCompanySelected}
                     companySelected={companySelected}
-
                   />
                 )}
               />
