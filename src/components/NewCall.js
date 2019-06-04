@@ -31,8 +31,14 @@ class NewCall extends Component {
           getInputTone={this.props.getInputTone}
           tone={this.props.tone}
           errorTone={this.props.errorTone}
+          nameRequired={this.props.nameRequired} 
+          companyRequired = {this.props.companyRequired}
+
         />
-        <Button sendForm={this.props.sendForm} />
+        <Button 
+        sendForm={this.props.sendForm}
+      
+        />
       </Fragment>
     );
   }

@@ -63,6 +63,8 @@ class App extends Component {
       pieDataLoadingStatus: 'loading',
       pieChartData: [],
 
+      nameRequired: "hidden",
+      companyRequired: "hidden",
       dataBarsTransformed: [],
       barDataLoadingStatus: 'loading',
       barChartData: [],
@@ -90,6 +92,8 @@ class App extends Component {
     this.getInputTone = this.getInputTone.bind(this);
     this.setFilterStartDate = this.setFilterStartDate.bind(this);
     this.setFilterEndDate = this.setFilterEndDate.bind(this);
+    this.makeNameRequired = this.makeNameRequired.bind(this);
+    this.makeCompanyRequired = this.makeCompanyRequired.bind(this);
     this.fetchChartPie = this.fetchChartPie.bind(this);
     this.getCompanySelected = this.getCompanySelected.bind(this);
   }
@@ -301,8 +305,11 @@ class App extends Component {
   }
 
   sendForm(event) {
-    event.preventDefault();
-    this.isEmptyOrNot();
+    event.preventDefault()
+    this.isEmptyOrNot()
+    this.makeNameRequired()
+    this.makeCompanyRequired()
+
   }
 
   isEmptyOrNot() {
@@ -310,18 +317,6 @@ class App extends Component {
     if (incomingInfo.personRequested === '') {
       this.setState({
         errorPerson: ''
-      });
-    } else if (
-      incomingInfo.name === '' &&
-      incomingInfo.company === '' &&
-      incomingInfo.position === '' &&
-      incomingInfo.telephone === 0 &&
-      incomingInfo.email === '' &&
-      incomingInfo.otherInfo === ''
-    ) {
-      this.setState({
-        errorIncomingData: '',
-        errorPerson: 'hidden'
       });
     } else if (incomingInfo.message === '') {
       this.setState({
@@ -349,6 +344,43 @@ class App extends Component {
       this.sendSlackInfo();
     }
   }
+
+  makeNameRequired (){
+        if (this.state.info.name === ''){
+          this.setState(prevState => {
+            return {
+              nameRequired: ''
+              }
+            ;
+          })
+        
+      } else {
+        this.setState(prevState => {
+          return {
+            nameRequired: 'hidden'
+            }
+          ;
+        })
+      }
+    }
+
+  makeCompanyRequired (){
+    if (this.state.info.company === ''){
+      this.setState(prevState => {
+        return {
+          companyRequired: ''
+          }
+        ;
+      })
+  } else {
+    this.setState(prevState => {
+      return {
+        companyRequired: 'hidden'
+        }
+      ;
+    })
+  }
+}
 
   deselectOption() {
     const addedBy = this.state.info.addedBy;
@@ -532,12 +564,10 @@ class App extends Component {
         return data;
       })
       .then(data => {
-        //I have all callHistory here in a huge array. Let's iterate it to get just the companies names
         const companiesArray = data
           .map(item => {
             return item.company;
           })
-          //Filter to delete duplicates, comparing the first index of that value (IndexOf) with the actual ind
           .filter((item, ind, array) => array.indexOf(item) === ind);
 
         this.setState({
@@ -578,6 +608,8 @@ class App extends Component {
       pieDataLoadingStatus,
       succesMessage,
       personRequested,
+      nameRequired,
+      companyRequired,
       allCompanies
     } = this.state;
     const {
@@ -642,6 +674,8 @@ class App extends Component {
                     getInputTone={getInputTone}
                     tone={tone}
                     errorTone={errorTone}
+                    nameRequired={nameRequired}
+                    companyRequired = {companyRequired}
                   />
                 )}
               />
