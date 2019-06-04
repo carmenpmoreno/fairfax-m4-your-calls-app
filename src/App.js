@@ -5,7 +5,7 @@ import NewCall from "./components/NewCall";
 import CallHistory from "./components/CallHistory";
 import { getData } from "./services/getData";
 import { getList } from "./services/getList";
-import { fetchChartPie, currentTime } from "./services/getDataChartPie";
+import { currentTime } from "./services/getDefaultDate";
 import "./styles/App.scss";
 import { Route, Switch } from "react-router-dom";
 import Modal from "./components/Modal";
@@ -48,6 +48,10 @@ class App extends Component {
       results: [],
       startDate: "",
       endDate: "",
+      dateValues: {
+        dateEnd: "",
+        dateStart: "",
+      },
       filter: {
         dateStart: "",
         dateEnd: "",
@@ -79,43 +83,41 @@ class App extends Component {
     this.getInputTone = this.getInputTone.bind(this);
     this.setFilterStartDate = this.setFilterStartDate.bind(this);
     this.setFilterEndDate = this.setFilterEndDate.bind(this);
+    this.fetchChartPie = this.fetchChartPie.bind(this);
     this.getCompanySelected = this.getCompanySelected.bind(this);
     
   }
 
   componentDidMount() {
+    this.getCompaniesData();
     if (!this.state.filter.dateEnd && !this.state.filter.dateStart) {
       const dates = currentTime();
       this.setState(prevState => {
         return {
+          dateValues: {
+            dateEnd: dates[3],
+            dateStart: dates[2],
+          },
           filter: {
             ...prevState.filter,
             dateStart: dates[1],
-            dateEnd: dates[0],
+            dateEnd: dates[0]
           }
         };
       });
+    }    
+  }  
+
+  componentDidUpdate(nextProp, nextState){
+    if(this.state.filter!== nextState.filter){
+      this.fetchChartPie(this.state.filter.dateStart, this.state.filter.dateEnd, this.state.filter.companySelected);
     }
+  }
 
-    fetchChartPie(this.state.filter.dateStart,this.state.filter.dateEnd)
-    .then(data => {
-      const rateCurrencyNames = ["Genial", "Meh", "Mal"];
-      const rateCurrencyValues = Object.values(data);
-      const chartData = [["Call mood", "Quantity"]];
-      for (let i = 0; i < rateCurrencyNames.length; i += 1) {
-        chartData.push([rateCurrencyNames[i], rateCurrencyValues[i]]);
-      }
-      this.setState({
-        pieDataLoadingStatus: "ready",
-        pieChartData: chartData
-      });
-    });
-
-    this.getCompaniesData();
-    fetchChartPie();
-    fetch(
-      "https://adalab.interacso.com/api/graph/pie"
-    )
+ fetchChartPie(startDate, endDate, companySelected) {
+    const URL = `https://adalab.interacso.com/api/graph/pie?from=${startDate}&to=${endDate}&client=${companySelected.toLowerCase()}`;
+    console.log(URL);
+    return fetch(URL)
       .then(response => response.json())
       .then(data => {
         const rateCurrencyNames = ["Genial", "Meh", "Mal"];
@@ -128,8 +130,10 @@ class App extends Component {
           pieDataLoadingStatus: "ready",
           pieChartData: chartData
         });
-      });
-  }
+      }
+    )
+  };
+  
 
   getInputTone(e) {
     const { value } = e.currentTarget;
@@ -405,11 +409,17 @@ class App extends Component {
 
   setFilterStartDate(e) {
     const userQuery = e.currentTarget.value;
+    const arrayDate = userQuery.split("-");
+    const newDate = `${arrayDate[2]}/${arrayDate[1]}/${arrayDate[0]}`;
     this.setState(prevState => {
       return {
+        dateValues: {
+          ...prevState,
+          dateStart: userQuery
+        },
         filter: {
           ...prevState.filter,
-          dateStart: userQuery
+          dateStart: newDate
         }
       };
     });
@@ -417,11 +427,17 @@ class App extends Component {
 
   setFilterEndDate(e) {
     const userQuery = e.currentTarget.value;
+    const arrayDate = userQuery.split("-");
+    const newDate = `${arrayDate[2]}/${arrayDate[1]}/${arrayDate[0]}`;
     this.setState(prevState => {
       return {
+        dateValues: {
+          ...prevState,
+          dateStart: userQuery
+        },
         filter: {
           ...prevState.filter,
-          dateEnd: userQuery
+          dateEnd: newDate
         }
       };
     });
@@ -499,6 +515,7 @@ class App extends Component {
 
   render() {
     const { tone } = this.state.info;
+    const { dateStart , dateEnd } = this.state.dateValues;
     const {companySelected} = this.state.filter;
     const {
       errorPerson,
@@ -537,6 +554,8 @@ class App extends Component {
       getStartDate,
       getEndDate,
       filterDate,
+      setFilterStartDate,
+      setFilterEndDate,
       getCompanySelected,
     } = this;
 
@@ -601,10 +620,10 @@ class App extends Component {
                 path="/dashboard"
                 render={() => (
                   <Dashboard
-                    actionsetFilterDatesetFilterDate
-                    actionGetStartDate={getStartDate}
-                    actionGetEndDate={getEndDate}
-                    actionFilterDate={filterDate}
+                    actionSetFilterStartDate={setFilterStartDate}
+                    endDate={dateEnd}
+                    startDate={dateStart}
+                    actionSetFilterEndDate={setFilterEndDate}
                     pieData={pieChartData}
                     pieLoading={pieDataLoadingStatus}
                     allCompanies={allCompanies}
@@ -620,10 +639,7 @@ class App extends Component {
             exact
             path="/"
             render={() => (
-              <Modal
-                sucess={succesMessage}
-                personRequested={personRequested}
-              />
+              <Modal sucess={succesMessage} personRequested={personRequested} />
             )}
           />
         </main>

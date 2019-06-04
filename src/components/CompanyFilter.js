@@ -10,7 +10,7 @@ class CompanyFilter extends Component {
         <legend>Filtro por cliente</legend>
         <label>Cliente</label>
         <select id="company" name="company" value={companySelected} onChange={getCompanySelected}>
-          <option value="Elige una compañia">Elige una compañia</option>
+          <option value="">Elige una compañia</option>
           {allCompanies.map((item, index) => {
             return (
               <option
