@@ -54,6 +54,9 @@ class App extends Component {
       },
       pieDataLoadingStatus: "loading",
       pieChartData: [],
+
+      nameRequired: "hidden",
+      companyRequired: "hidden",
     };
 
     this.getWhoCalls = this.getWhoCalls.bind(this);
@@ -77,6 +80,8 @@ class App extends Component {
     this.getInputTone = this.getInputTone.bind(this);
     this.setFilterStartDate = this.setFilterStartDate.bind(this);
     this.setFilterEndDate = this.setFilterEndDate.bind(this);
+    this.makeNameRequired = this.makeNameRequired.bind(this);
+    this.makeCompanyRequired = this.makeCompanyRequired.bind(this);
   }
 
   componentDidMount() {
@@ -216,8 +221,11 @@ class App extends Component {
   }
 
   sendForm(event) {
-    event.preventDefault();
-    this.isEmptyOrNot();
+    event.preventDefault()
+    this.isEmptyOrNot()
+    this.makeNameRequired()
+    this.makeCompanyRequired()
+
   }
 
   isEmptyOrNot() {
@@ -226,18 +234,20 @@ class App extends Component {
       this.setState({
         errorPerson: ''
       });
-    } else if (
-      incomingInfo.name === '' &&
-      incomingInfo.company === '' &&
-      incomingInfo.position === '' &&
-      incomingInfo.telephone === 0 &&
-      incomingInfo.email === '' &&
-      incomingInfo.otherInfo === ''
-    ) {
-      this.setState({
-        errorIncomingData: '',
-        errorPerson: 'hidden'
-      });
+    // } else if (
+    //   incomingInfo.name === '' &&
+    //   incomingInfo.company === '' 
+    //   // &&
+    //   // incomingInfo.position === '' &&
+    //   // incomingInfo.telephone === 0 &&
+    //   // incomingInfo.email === '' &&
+    //   // incomingInfo.otherInfo === ''
+    // ) {
+    //   this.setState({
+    //     errorIncomingData: '',
+    //     errorPerson: 'hidden'
+
+    //   });
     } else if (incomingInfo.message === '') {
       this.setState({
         errorIncomingData: 'hidden',
@@ -264,6 +274,43 @@ class App extends Component {
       this.sendSlackInfo();
     }
   }
+
+  makeNameRequired (){
+        if (this.state.info.name === ''){
+          this.setState(prevState => {
+            return {
+              nameRequired: ''
+              }
+            ;
+          })
+        
+      } else {
+        this.setState(prevState => {
+          return {
+            nameRequired: 'hidden'
+            }
+          ;
+        })
+      }
+    }
+
+  makeCompanyRequired (){
+    if (this.state.info.company === ''){
+      this.setState(prevState => {
+        return {
+          companyRequired: ''
+          }
+        ;
+      })
+  } else {
+    this.setState(prevState => {
+      return {
+        companyRequired: 'hidden'
+        }
+      ;
+    })
+  }
+}
 
   deselectOption() {
     const addedBy = this.state.info.addedBy;
@@ -441,7 +488,9 @@ class App extends Component {
       pieChartData,
       pieDataLoadingStatus,
       succesMessage,
-      personRequested
+      personRequested,
+      nameRequired,
+      companyRequired
     } = this.state;
     const {
       preventSubmission,
@@ -462,7 +511,7 @@ class App extends Component {
       showList,
       getStartDate,
       getEndDate,
-      filterDate
+      filterDate,
     } = this;
 
     return (
@@ -502,6 +551,8 @@ class App extends Component {
                     getInputTone={getInputTone}
                     tone={tone}
                     errorTone={errorTone}
+                    nameRequired={nameRequired}
+                    companyRequired = {companyRequired}
                   />
                 )}
               />
