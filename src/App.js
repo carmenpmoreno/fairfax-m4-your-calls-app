@@ -50,7 +50,8 @@ class App extends Component {
       endDate: '',
       filter: {
         dateStart: "",
-        dateEnd: ""
+        dateEnd: "",
+        companySelected: "",
       },
       pieDataLoadingStatus: "loading",
       pieChartData: [],
@@ -78,10 +79,13 @@ class App extends Component {
     this.getInputTone = this.getInputTone.bind(this);
     this.setFilterStartDate = this.setFilterStartDate.bind(this);
     this.setFilterEndDate = this.setFilterEndDate.bind(this);
+    this.getCompanySelected = this.getCompanySelected.bind(this);
+    
   }
 
   componentDidMount() {
     this.getCompaniesData();
+    // this.getCompanySelected();
     fetchChartPie();
     fetch(
       "https://adalab.interacso.com/api/graph/pie"
@@ -455,6 +459,19 @@ class App extends Component {
       });
   }
 
+  getCompanySelected(event) {
+    const value = event.currentTarget.value
+    this.setState(prevState => {
+      return {
+        filter: {
+          ...prevState.filter,
+          companySelected: value
+        }
+      };
+    });
+
+  }
+
   render() {
     const { tone } = this.state.info;
     const {
@@ -493,7 +510,8 @@ class App extends Component {
       showList,
       getStartDate,
       getEndDate,
-      filterDate
+      filterDate,
+      getCompanySelected,
     } = this;
 
     return (
@@ -564,6 +582,7 @@ class App extends Component {
                     pieData={pieChartData}
                     pieLoading={pieDataLoadingStatus}
                     allCompanies={allCompanies}
+                    getCompanySelected={getCompanySelected}
 
                   />
                 )}

@@ -16,17 +16,19 @@ class Filters extends Component {
         />
         <CompanyFilter 
           allCompanies={this.props.allCompanies}
+          getCompanySelected={this.props.getCompanySelected}
         />
       </form>
     );
   }
 }
 
-// Filters.propTypes = {
-//     actionSetFilterStartDate: PropTypes.func.isRequired,
-//     actionSetFilterEndDate: PropTypes.func.isRequired,
-//     dateStart: PropTypes.string.isRequired,
-//     dateEnd: PropTypes.string.isRequired,
-// };
+Filters.propTypes = {
+    // actionSetFilterStartDate: PropTypes.func.isRequired,
+    // actionSetFilterEndDate: PropTypes.func.isRequired,
+    // dateStart: PropTypes.string.isRequired,
+    // dateEnd: PropTypes.string.isRequired,
+    allCompanies: PropTypes.arrayOf(PropTypes.string),
+};
 
 export default Filters;
