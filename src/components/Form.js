@@ -94,9 +94,6 @@ class Form extends Component {
         <div className="incoming-data__container">
           <fieldset className="form-section incoming-data">
             <h2 className="incoming-data__title">¿Quién llamó?</h2>
-            <p className={`error-msg-who ${errorIncomingData}`}>
-              Debes rellenar al menos uno de los campos
-            </p>
             <div className="incoming-data__fieldsContainer">
               <div className="incoming-data__name">
                 <label
@@ -113,6 +110,7 @@ class Form extends Component {
                   placeholder="Nombre"
                   onKeyUp={getName}
                 />
+                <p className={`error-msg ${this.props.nameRequired }`}>El campo nombre es obligatorio</p>
               </div>
               <div className="incoming-data__company">
                 <label
@@ -129,6 +127,7 @@ class Form extends Component {
                   placeholder="Empresa"
                   onKeyUp={getCompany}
                 />
+                 <p className={`error-msg ${this.props.companyRequired }`}>El campo empresa es obligatorio</p>
               </div>
               <div className="incoming-data__position">
                 <label
