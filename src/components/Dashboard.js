@@ -27,13 +27,17 @@ class Dashboard extends Component {
   }
 }
 
-// Dashboard.propTypes = {
-//     pieData: PropTypes.arrayOf(PropTypes.array),
-//     pieLoading: PropTypes.string.isRequired,
-//     actionSetFilterStartDate: PropTypes.func.isRequired,
-//     actionSetFilterEndDate: PropTypes.func.isRequired,
-//     dateStart: PropTypes.string.isRequired,
-//     dateEnd: PropTypes.string.isRequired,
-// };
+Dashboard.propTypes = {
+    pieData: PropTypes.arrayOf(PropTypes.array),
+    pieLoading: PropTypes.string.isRequired,
+    actionSetFilterStartDate: PropTypes.func,
+    actionSetFilterEndDate: PropTypes.func,
+    dateStart: PropTypes.string,
+    dateEnd: PropTypes.string,
+    allCompanies: PropTypes.arrayOf(PropTypes.string),
+    getCompanySelecte: PropTypes.func,
+    companySelected: PropTypes.string,
+
+};
 
 export default Dashboard;

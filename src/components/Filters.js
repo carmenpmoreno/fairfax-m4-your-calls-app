@@ -25,11 +25,13 @@ class Filters extends Component {
 }
 
 Filters.propTypes = {
-    // actionSetFilterStartDate: PropTypes.func.isRequired,
-    // actionSetFilterEndDate: PropTypes.func.isRequired,
-    // dateStart: PropTypes.string.isRequired,
-    // dateEnd: PropTypes.string.isRequired,
+    actionSetFilterStartDate: PropTypes.func,
+    actionSetFilterEndDate: PropTypes.func,
+    dateStart: PropTypes.string,
+    dateEnd: PropTypes.string,
     allCompanies: PropTypes.arrayOf(PropTypes.string),
+    getCompanySelecte: PropTypes.func,
+    companySelected: PropTypes.string,
 };
 
 export default Filters;

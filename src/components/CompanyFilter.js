@@ -10,7 +10,7 @@ class CompanyFilter extends Component {
         <legend>Filtro por cliente</legend>
         <label>Cliente</label>
         <select id="company" name="company" value={companySelected} onChange={getCompanySelected}>
-          <option value="Elegir">Elige una compañia</option>
+          <option value="Elige una compañia">Elige una compañia</option>
           {allCompanies.map((item, index) => {
             return (
               <option
@@ -28,7 +28,9 @@ class CompanyFilter extends Component {
 }
 
 CompanyFilter.propTypes = {
-  allCompanies: PropTypes.arrayOf(PropTypes.string)
+  allCompanies: PropTypes.arrayOf(PropTypes.string),
+  getCompanySelecte: PropTypes.func,
+  companySelected: PropTypes.string,
 };
 
 export default CompanyFilter;
