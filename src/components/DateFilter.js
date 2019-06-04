@@ -4,8 +4,8 @@ import PropTypes from 'prop-types';
 class DateFilter extends Component {
   render() {
     return (
-      <div>
-        <h2>Rango de fecha</h2>
+      <fieldset className="dateFilterContainer">
+        <legend className="dateFilterLegend">Rango de fecha</legend>
         <div className="main__subtitle--date-container">
           <div className="dateStart">
             <label htmlFor="dateStart" />
@@ -28,7 +28,7 @@ class DateFilter extends Component {
             />
           </div>
         </div>
-      </div>
+      </fieldset>
     );
   }
 }

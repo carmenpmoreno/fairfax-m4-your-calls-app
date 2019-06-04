@@ -1,0 +1,16 @@
+.companyFilterContainer {
+    width: 250px;
+    border: none;
+    display: flex;
+    flex-direction: column;
+    border: 1px solid white;
+}
+.companyFilterLegend {
+}
+.companyFilterLabel {
+    display: none;
+}
+.companySelect {
+    background-color: #0D0D0D;
+    color: white;
+}
