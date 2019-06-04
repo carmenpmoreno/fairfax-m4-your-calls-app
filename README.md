@@ -1,10 +1,12 @@
 
 
-## Project summary: “Your Calls”
+## Project summary: “Your Calls 2.0”
 
 Yours Calls is a web app that allows Interacso employees to register calls and send automatic notifications with the registered call data through Slack to the person requested.
 
-### Project objectives:
+In “Your Calls 2.0” we add new funcionalities on the SPA in order to use it to take business decissions.
+
+### Project objectives: “Your Calls (original version)”
 
 1. Create a system to register incoming calls data in a fast way (who calls, their contact details, person requested, message...)
 
@@ -17,6 +19,11 @@ Yours Calls is a web app that allows Interacso employees to register calls and s
 
 
 3. Check the calls history.
+
+### Project objectives: “Your Calls 2.0”
+
+1. Record a new date for incoming calls: the mood of the client.
+2. Add a new 
 
 
 
