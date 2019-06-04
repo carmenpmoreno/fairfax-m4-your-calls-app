@@ -12,7 +12,7 @@ import Modal from './components/Modal';
 import * as moment from 'moment';
 import Dashboard from './components/Dashboard';
 
-import dataBackBars from './assets/dataBackBars';
+// import dataBackBars from './assets/dataBackBars';
 import monthsYear from './assets/monthsYear';
 
 class App extends Component {
@@ -60,14 +60,15 @@ class App extends Component {
         dateEnd: '',
         companySelected: ''
       },
+      nameRequired: 'hidden',
+      companyRequired: 'hidden',
       pieDataLoadingStatus: 'loading',
       pieChartData: [],
 
-      nameRequired: "hidden",
-      companyRequired: "hidden",
-      dataBarsTransformed: [],
       barDataLoadingStatus: 'loading',
-      barChartData: [],
+      dataBarsTransformed: [],
+      chartDataBars: [],
+
       allCompanies: []
     };
 
@@ -116,21 +117,6 @@ class App extends Component {
         };
       });
     }
-
-    //Here will go the FETCH to Bars api
-    this.setState(
-      {
-        dataBarsTransformed: dataBackBars.map((item, index) => {
-          //Modify the key month with a word instead of a number
-          return {
-            ...item,
-            month: monthsYear[dataBackBars[index].month]
-          };
-        })
-      },
-      //Callback of setState, to transform the data
-      () => this.transformDataBars()
-    );
   }
 
   componentDidUpdate(nextProp, nextState) {
@@ -140,11 +126,16 @@ class App extends Component {
         this.state.filter.dateEnd,
         this.state.filter.companySelected
       );
+      this.fetchChartBar(
+        this.state.filter.dateStart,
+        this.state.filter.dateEnd,
+        this.state.filter.companySelected
+      );
     }
   }
 
   fetchChartPie(startDate, endDate, companySelected) {
-    const URL = `https://adalab.interacso.com/api/graph/pie?from=${startDate}&to=${endDate}&client=${companySelected.toLowerCase()}`;
+    const URL = `https://adalab.interacso.com/api/graph/pie?from=${startDate}&to=${endDate}&company=${companySelected.toLowerCase()}`;
     console.log(URL);
     return fetch(URL)
       .then(response => response.json())
@@ -162,16 +153,51 @@ class App extends Component {
       });
   }
 
-  transformDataBars() {
-    const oneMonthReduced = this.state.dataBarsTransformed[0];
+  fetchChartBar(startDate, endDate, companySelected) {
+    const URL = `https://adalab.interacso.com/api/graph/bar?from=${startDate}&to=${endDate}&company=${companySelected.toLowerCase()}`;
+    console.log(URL); //WORKING
+    return fetch(URL)
+      .then(response => response.json())
+      .then(data => {
+        console.log(data); //WORKING
+        return this.transformDataBars(data);
+      })
+      .then(data => {
+        console.log(data); //WORKING
+        return this.setState({
+          barDataLoadingStatus: 'ready',
+          dataBarsTransformed: data.map((item, index) => {
+            //Modify the key month with a word instead of a number
+            return {
+              ...item,
+              month: monthsYear[data[index].month]
+            };
+          })
+        });
+      });
+  }
+
+  transformDataBars(dataToTransform) {
+    const oneMonthReduced = dataToTransform[1];
+    console.log(oneMonthReduced); // WORKING
+
+    //PROBLEMS HERE WITH DELETING "month" and "year", not working as expected
     const allDataToKeep = Object.values(oneMonthReduced);
-    const dataToDelete = Object.values(oneMonthReduced).splice(1, 1); //[2018]
-    const arrayWithoutYear = allDataToKeep.filter(
+    //reverse the array
+    const allDataToKeepReversed = allDataToKeep.reverse();
+    console.log(allDataToKeepReversed[0]);
+
+    const dataToDelete = allDataToKeepReversed.splice(0, 1); //[2018]
+    console.log(dataToDelete);
+
+    const arrayWithoutYear = allDataToKeepReversed.filter(
       item => item !== dataToDelete[0]
     );
     console.log(arrayWithoutYear);
 
-    const companiesKeys = Object.keys(oneMonthReduced).splice(2);
+    const companiesKeys = Object.keys(oneMonthReduced)
+      .reverse()
+      .splice(2);
     //Here all items following 'Months' should be from the filter fetch. Let's start with them manually
     const chartTitle = ['Meses'];
     const concatArrays = chartTitle.concat(companiesKeys);
@@ -184,7 +210,8 @@ class App extends Component {
     this.setState({
       chartDataBars: chartDataBars
     });
-    console.log(chartDataBars);
+    console.log(chartDataBars); //WORKING
+    return chartDataBars;
   }
 
   getInputTone(e) {
@@ -305,11 +332,10 @@ class App extends Component {
   }
 
   sendForm(event) {
-    event.preventDefault()
-    this.isEmptyOrNot()
-    this.makeNameRequired()
-    this.makeCompanyRequired()
-
+    event.preventDefault();
+    this.isEmptyOrNot();
+    this.makeNameRequired();
+    this.makeCompanyRequired();
   }
 
   isEmptyOrNot() {
@@ -345,42 +371,37 @@ class App extends Component {
     }
   }
 
-  makeNameRequired (){
-        if (this.state.info.name === ''){
-          this.setState(prevState => {
-            return {
-              nameRequired: ''
-              }
-            ;
-          })
-        
-      } else {
-        this.setState(prevState => {
-          return {
-            nameRequired: 'hidden'
-            }
-          ;
-        })
-      }
+  makeNameRequired() {
+    if (this.state.info.name === '') {
+      this.setState(prevState => {
+        return {
+          nameRequired: ''
+        };
+      });
+    } else {
+      this.setState(prevState => {
+        return {
+          nameRequired: 'hidden'
+        };
+      });
     }
+  }
 
-  makeCompanyRequired (){
-    if (this.state.info.company === ''){
+  makeCompanyRequired() {
+    if (this.state.info.company === '') {
       this.setState(prevState => {
         return {
           companyRequired: ''
-          }
-        ;
-      })
-  } else {
-    this.setState(prevState => {
-      return {
-        companyRequired: 'hidden'
-        }
-      ;
-    })
+        };
+      });
+    } else {
+      this.setState(prevState => {
+        return {
+          companyRequired: 'hidden'
+        };
+      });
+    }
   }
-}
 
   deselectOption() {
     const addedBy = this.state.info.addedBy;
@@ -675,7 +696,7 @@ class App extends Component {
                     tone={tone}
                     errorTone={errorTone}
                     nameRequired={nameRequired}
-                    companyRequired = {companyRequired}
+                    companyRequired={companyRequired}
                   />
                 )}
               />
@@ -707,7 +728,7 @@ class App extends Component {
                     endDate={dateEnd}
                     pieData={pieChartData}
                     pieLoading={pieDataLoadingStatus}
-                    barData={this.state.barChartData}
+                    barData={this.state.chartDataBars}
                     barLoading={this.state.barDataLoadingStatus}
                     allCompanies={allCompanies}
                     getCompanySelected={getCompanySelected}
