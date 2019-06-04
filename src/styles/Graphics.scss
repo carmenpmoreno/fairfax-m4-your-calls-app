@@ -1,5 +1,6 @@
 .charts-container {
   display: flex;
-  justify-content: space-around;
+  flex-direction: row;
+  // justify-content: space-around;
   align-items: center;
 }

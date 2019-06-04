@@ -18,7 +18,7 @@ class Graphics extends Component {
         {/* {this.props.barsLoading === 'ready' ? ( */}
         <Chart
           chartType="BarChart"
-          width={'800px'}
+          width={'550px'}
           height={'300px'}
           data={chartDataBars}
           options={{
@@ -73,7 +73,7 @@ class Graphics extends Component {
         {this.props.pieLoading === 'ready' ? (
           <Chart
             chartType="PieChart"
-            width={'800px'}
+          width={'550px'}
             height={'300px'}
             data={this.props.pieData}
             options={{
