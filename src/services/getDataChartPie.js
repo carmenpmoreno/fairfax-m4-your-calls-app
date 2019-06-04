@@ -26,33 +26,5 @@ console.log('actualDate', actualDate);
 console.log('previousMonthDate', previousMonthDate);
 
 
-function fetchChartPie(startDate, endDate) {
-  const URL = `https://adalab.interacso.com/api/graph/pie?from=${startDate}&to=${endDate}`;
-  console.log(URL);
-  return fetch(URL)
-    .then(response => response.json())
-    .then(data => {
-      const rateCurrencyNames = ["Genial", "Meh", "Mal"];
-      const rateCurrencyValues = Object.values(data);
-      const chartData = [["Call mood", "Quantity"]];
-      for (let i = 0; i < rateCurrencyNames.length; i += 1) {
-        chartData.push([rateCurrencyNames[i], rateCurrencyValues[i]]);
-      }
-      this.setState({
-        pieDataLoadingStatus: "ready",
-        pieChartData: chartData
-      });
-    }
-  )
-};
 
-//Expected data to be logged
-// {
-//   "neutral": 38,
-//   "bad": 28,
-//   "good": 31,
-//   "undefined": 10,
-//   "": 2
-// }
-
-export { fetchChartPie, currentTime };
+export { currentTime };
