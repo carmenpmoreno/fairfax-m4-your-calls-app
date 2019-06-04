@@ -17,6 +17,7 @@ class Filters extends Component {
         <CompanyFilter 
           allCompanies={this.props.allCompanies}
           getCompanySelected={this.props.getCompanySelected}
+          companySelected={this.props.companySelected}
         />
       </form>
     );

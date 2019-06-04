@@ -14,6 +14,8 @@ class Dashboard extends Component {
           dateEnd={this.props.dateEnd}
           allCompanies={this.props.allCompanies}
           getCompanySelected={this.props.getCompanySelected}
+          companySelected={this.props.companySelected}
+
         />
 
         <Graphics

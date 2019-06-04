@@ -2,28 +2,24 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
 class CompanyFilter extends Component {
-
   render() {
-
-    const {allCompanies, getCompanySelected} = this.props;
-    console.log(getCompanySelected);
+    const { allCompanies, getCompanySelected, companySelected } = this.props;
 
     return (
       <fieldset>
         <legend>Filtro por cliente</legend>
         <label>Cliente</label>
-        <select id="company" name="company">
-          <option value="Elegir" >Elige una compañia</option>
+        <select id="company" name="company" value={companySelected} onChange={getCompanySelected}>
+          <option value="Elegir">Elige una compañia</option>
           {allCompanies.map((item, index) => {
             return (
-              <option 
-                key={index + 1} 
+              <option
+                key={index + 1}
                 value={item}
-                onChange={getCompanySelected}
-                >
+              >
                 {item}
               </option>
-              );
+            );
           })}
         </select>
       </fieldset>
@@ -32,7 +28,7 @@ class CompanyFilter extends Component {
 }
 
 CompanyFilter.propTypes = {
-  allCompanies: PropTypes.arrayOf(PropTypes.string),
+  allCompanies: PropTypes.arrayOf(PropTypes.string)
 };
 
 export default CompanyFilter;

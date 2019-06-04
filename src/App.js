@@ -85,7 +85,6 @@ class App extends Component {
 
   componentDidMount() {
     this.getCompaniesData();
-    // this.getCompanySelected();
     fetchChartPie();
     fetch(
       "https://adalab.interacso.com/api/graph/pie"
@@ -440,7 +439,6 @@ class App extends Component {
     })
       .then(response => response.json())
       .then(data => {
-        // console.log(data);
         return data;
       })
       .then(data => {
@@ -455,12 +453,12 @@ class App extends Component {
         this.setState({
           allCompanies: companiesArray
         });
-        // console.log(companiesArray);
       });
   }
 
   getCompanySelected(event) {
     const value = event.currentTarget.value
+    console.log(value);
     this.setState(prevState => {
       return {
         filter: {
@@ -474,6 +472,7 @@ class App extends Component {
 
   render() {
     const { tone } = this.state.info;
+    const {companySelected} = this.state.filter;
     const {
       errorPerson,
       errorTone,
@@ -583,6 +582,7 @@ class App extends Component {
                     pieLoading={pieDataLoadingStatus}
                     allCompanies={allCompanies}
                     getCompanySelected={getCompanySelected}
+                    companySelected={companySelected}
 
                   />
                 )}
