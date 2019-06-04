@@ -12,18 +12,18 @@ const currentTime = () => {
 
   actualDate = `${day}/${month}/${year}`;
   previousMonthDate = `${day}/${month - 1}/${year}`;
+  return([actualDate, previousMonthDate])
 };
 
 currentTime();
-console.log('actualDate', actualDate);
-console.log('previousMonthDate', previousMonthDate);
+// console.log('actualDate', actualDate);
+// console.log('previousMonthDate', previousMonthDate);
 
-const URL = `https://adalab.interacso.com/api/graph/pie?from=${previousMonthDate}&to=${actualDate}`;
 
-const fetchChartPie = () => {
+const fetchChartPie = (startDate, endDate) => {
+  const URL = `https://adalab.interacso.com/api/graph/pie?from=${startDate}&to=${endDate}`;
   return fetch(URL)
     .then(response => response.json())
-    .then(data => console.log(data));
 };
 
 //Expected data to be logged
@@ -35,4 +35,4 @@ const fetchChartPie = () => {
 //   "": 2
 // }
 
-export { fetchChartPie };
+export { fetchChartPie, currentTime };
