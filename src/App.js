@@ -12,6 +12,9 @@ import Modal from './components/Modal';
 import * as moment from 'moment';
 import Dashboard from './components/Dashboard';
 
+import dataBackBars from './assets/dataBackBars';
+import monthsYear from './assets/monthsYear';
+
 class App extends Component {
   constructor(props) {
     super(props);
@@ -49,11 +52,14 @@ class App extends Component {
       startDate: '',
       endDate: '',
       filter: {
-        dateStart: "",
-        dateEnd: ""
+        dateStart: '',
+        dateEnd: ''
       },
-      pieDataLoadingStatus: "loading",
+      pieDataLoadingStatus: 'loading',
       pieChartData: [],
+
+      dataBarsTransformed: [],
+      chartDataBars: []
     };
 
     this.getWhoCalls = this.getWhoCalls.bind(this);
@@ -80,22 +86,45 @@ class App extends Component {
   }
 
   componentDidMount() {
-    fetch(
-      "https://adalab.interacso.com/api/graph/pie"
-    )
+    fetch('https://adalab.interacso.com/api/graph/pie')
       .then(response => response.json())
       .then(data => {
-        const rateCurrencyNames = ["Genial", "Meh", "Mal"];
+        const rateCurrencyNames = ['Genial', 'Meh', 'Mal'];
         const rateCurrencyValues = Object.values(data);
-        const chartData = [["Call mood", "Quantity"]];
+        const chartData = [['Call mood', 'Quantity']];
         for (let i = 0; i < rateCurrencyNames.length; i += 1) {
           chartData.push([rateCurrencyNames[i], rateCurrencyValues[i]]);
         }
         this.setState({
-          pieDataLoadingStatus: "ready",
+          pieDataLoadingStatus: 'ready',
           pieChartData: chartData
         });
       });
+
+    //Here FETCH to Bars api
+    //Gonna create a new key with the Month as a word
+    this.setState({
+      dataBarsTransformed: dataBackBars.map((item, index) => {
+        return {
+          ...item,
+          month: monthsYear[dataBackBars[index].month]
+        };
+      })
+    });
+  }
+
+  componentDidUpdate() {
+    const oneMonthReduced = this.state.dataBarsTransformed[0];
+
+    const allDataToKeep = Object.values(oneMonthReduced);
+    const dataToKeep = Object.values(oneMonthReduced).splice(1, 1); //[2018]
+    const arraySinFecha = allDataToKeep.filter(item => item !== dataToKeep[0]);
+
+    //Here all items following 'Months' should be from the filter fetch. Let's start with them manually
+    const chartDataBars = [['Meses', 'ikea', 'racc', 'cc', 'audi', 'tork']];
+
+    chartDataBars.push(arraySinFecha);
+    console.log(chartDataBars);
   }
 
   getInputTone(e) {
@@ -402,9 +431,9 @@ class App extends Component {
   }
 
   //Example
-  componentDidMount() {
-    fetchChartPie();
-  }
+  // componentDidMount() {
+  //   fetchChartPie();
+  // }
 
   filterDate() {
     const userStartDate = this.state.startDate;
@@ -541,10 +570,7 @@ class App extends Component {
             exact
             path="/"
             render={() => (
-              <Modal
-                sucess={succesMessage}
-                personRequested={personRequested}
-              />
+              <Modal sucess={succesMessage} personRequested={personRequested} />
             )}
           />
         </main>
