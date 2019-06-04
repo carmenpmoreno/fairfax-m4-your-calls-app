@@ -30,7 +30,6 @@ class DateFilter extends Component {
                       onChange={this.props.actionSetFilterEndDate}/>
                   </div>
                 </div>
-                <button className="button__filter" onClick={e=>console.log(e)}>Filtrar</button>
               </th>
             </div>
         )

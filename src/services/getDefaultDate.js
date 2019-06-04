@@ -21,10 +21,4 @@ const currentTime = () => {
   return([actualDate, previousMonthDate, filterValueStart, filterValueEnd])
 };
 
-currentTime();
-console.log('actualDate', actualDate);
-console.log('previousMonthDate', previousMonthDate);
-
-
-
 export { currentTime };
