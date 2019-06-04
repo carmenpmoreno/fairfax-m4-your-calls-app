@@ -12,6 +12,9 @@ import Modal from './components/Modal';
 import * as moment from 'moment';
 import Dashboard from './components/Dashboard';
 
+import dataBackBars from './assets/dataBackBars';
+import monthsYear from './assets/monthsYear';
+
 class App extends Component {
   constructor(props) {
     super(props);
@@ -60,6 +63,7 @@ class App extends Component {
       pieDataLoadingStatus: 'loading',
       pieChartData: [],
 
+      dataBarsTransformed: [],
       barDataLoadingStatus: 'loading',
       barChartData: [],
       allCompanies: []
@@ -108,6 +112,21 @@ class App extends Component {
         };
       });
     }
+
+    //Here will go the FETCH to Bars api
+    this.setState(
+      {
+        dataBarsTransformed: dataBackBars.map((item, index) => {
+          //Modify the key month with a word instead of a number
+          return {
+            ...item,
+            month: monthsYear[dataBackBars[index].month]
+          };
+        })
+      },
+      //Callback of setState, to transform the data
+      () => this.transformDataBars()
+    );
   }
 
   componentDidUpdate(nextProp, nextState) {
@@ -137,6 +156,31 @@ class App extends Component {
           pieChartData: chartData
         });
       });
+  }
+
+  transformDataBars() {
+    const oneMonthReduced = this.state.dataBarsTransformed[0];
+    const allDataToKeep = Object.values(oneMonthReduced);
+    const dataToDelete = Object.values(oneMonthReduced).splice(1, 1); //[2018]
+    const arrayWithoutYear = allDataToKeep.filter(
+      item => item !== dataToDelete[0]
+    );
+    console.log(arrayWithoutYear);
+
+    const companiesKeys = Object.keys(oneMonthReduced).splice(2);
+    //Here all items following 'Months' should be from the filter fetch. Let's start with them manually
+    const chartTitle = ['Meses'];
+    const concatArrays = chartTitle.concat(companiesKeys);
+    console.log(concatArrays);
+
+    const chartDataBars = [];
+    chartDataBars.push(concatArrays);
+    chartDataBars.push(arrayWithoutYear);
+
+    this.setState({
+      chartDataBars: chartDataBars
+    });
+    console.log(chartDataBars);
   }
 
   getInputTone(e) {
