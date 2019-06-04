@@ -170,31 +170,32 @@ class App extends Component {
           })
         });
       });
-  }
+    }
+    
+    transformDataBars(dataToTransform) {
+      let chartDataBars = [];
+    
+      const companiesKeys = Object.keys(oneMonthReduced)
+        .reverse()
+        .splice(2);
+      //Here all items following 'Months' should be from the filter fetch. Let's start with them manually
+      const chartTitle = ['Meses'];
+      const concatArrays = chartTitle.concat(companiesKeys);
+  
+      chartDataBars.push(concatArrays);
+      
+      for(let i= 0;i<this.state.dataBarsTransformed.length;i++){
+      const oneMonthReduced = dataToTransform[i];
+      const allDataToKeep = Object.values(oneMonthReduced);
+      //We need to reverse the array to have 'month' and 'year' on the first positions
+      const allDataToKeepReversed = allDataToKeep.reverse();
+  
+      const dataToDelete = allDataToKeepReversed.splice(0, 1);
+  
+      const arrayWithoutYear = allDataToKeepReversed.filter(item => item !== dataToDelete[0])
+      chartDataBars.push(arrayWithoutYear)
+      };
 
-  transformDataBars(dataToTransform) {
-    const oneMonthReduced = dataToTransform[1];
-
-    const allDataToKeep = Object.values(oneMonthReduced);
-    //We need to reverse the array to have 'month' and 'year' on the first positions
-    const allDataToKeepReversed = allDataToKeep.reverse();
-
-    const dataToDelete = allDataToKeepReversed.splice(0, 1);
-
-    const arrayWithoutYear = allDataToKeepReversed.filter(
-      item => item !== dataToDelete[0]
-    );
-
-    const companiesKeys = Object.keys(oneMonthReduced)
-      .reverse()
-      .splice(2);
-    //Here all items following 'Months' should be from the filter fetch. Let's start with them manually
-    const chartTitle = ['Meses'];
-    const concatArrays = chartTitle.concat(companiesKeys);
-
-    const chartDataBars = [];
-    chartDataBars.push(concatArrays);
-    chartDataBars.push(arrayWithoutYear);
 
     this.setState({
       chartDataBars: chartDataBars
