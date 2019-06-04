@@ -3,8 +3,14 @@ import Chart from 'react-google-charts';
 import '../styles/Graphics.scss';
 import PropTypes from 'prop-types';
 
+const data = [
+  ['Meses', 'dgf', 'adalab', 'sfd', 'Prueba', ''],
+  [5, 1, 1, 1, 2, 14]
+];
+
 class Graphics extends Component {
   render() {
+    console.log(this.props);
     return (
       <section className="charts-container">
         {this.props.barLoading === 'ready' ? (
@@ -12,7 +18,8 @@ class Graphics extends Component {
             chartType="BarChart"
             width={'800px'}
             height={'300px'}
-            data={this.props.barData}
+            // data={this.props.barData}
+            data={data}
             options={{
               title: 'Llamadas totales',
               chartArea: {
