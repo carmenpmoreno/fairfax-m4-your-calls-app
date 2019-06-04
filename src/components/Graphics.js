@@ -3,11 +3,6 @@ import Chart from 'react-google-charts';
 import '../styles/Graphics.scss';
 import PropTypes from 'prop-types';
 
-const data = [
-  ['Meses', 'dgf', 'adalab', 'sfd', 'Prueba', ''],
-  [5, 1, 1, 1, 2, 14]
-];
-
 class Graphics extends Component {
   render() {
     console.log(this.props);
@@ -18,8 +13,7 @@ class Graphics extends Component {
             chartType="BarChart"
             width={'800px'}
             height={'300px'}
-            // data={this.props.barData}
-            data={data}
+            data={this.props.barData}
             options={{
               title: 'Llamadas totales',
               chartArea: {
@@ -59,8 +53,7 @@ class Graphics extends Component {
               backgroundColor: '#1C1C1C',
               titleTextStyle: {
                 color: 'white',
-                fontSize: 16,
-                fontName: 'Arial',
+                fontSize: 20,
                 bold: true
               }
             }}
@@ -95,18 +88,20 @@ class Graphics extends Component {
               },
               legend: {
                 textStyle: {
-                  color: '#fff',
+                  color: '#9E9D9E',
                   fontSize: 14
                 }
               },
               backgroundColor: '#1C1C1C',
               pieSliceBorderColor: '#1C1C1C',
               pieSliceTextStyle: {
-                color: '#1C1C1C'
+                color: '#1C1C1C',
+                bold: true
               },
               title: 'Humor de las llamadas',
               titleTextStyle: {
-                color: 'white'
+                color: 'white',
+                fontSize: 20
               }
             }}
           />
