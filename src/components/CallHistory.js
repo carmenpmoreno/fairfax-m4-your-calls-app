@@ -81,7 +81,7 @@ class CallHistory extends Component {
             </tr>
             <tr>
               <th colSpan="2" className="cell table__date">
-                <div className="main__subtitle--date-container">
+                <div className="main__subtitle--date-container-history">
                   <div className="dateStart">
                     <label htmlFor="dateStart" />
                     <input
@@ -103,13 +103,10 @@ class CallHistory extends Component {
                     />
                   </div>
                 </div>
-                <button className="button__filter" onClick={actionFilterDate}>
-                  Filtrar
-                </button>
               </th>
               <th className="cell">Nombre</th>
               <th className="cell">Empresa</th>
-              <th className="cell">Cargo</th>
+              <th className="cell">Cargo / detalles / contacto</th>
               <th className="cell" colSpan="2">
                 Detalle
               </th>
