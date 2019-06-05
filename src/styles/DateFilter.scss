@@ -1,10 +1,11 @@
 @import "core/settings";
 
 .dateFilterContainer {
-    width: 290px;
     border: none;
+    width: 290px;
 }
 .main__subtitle--date-container {
     display: flex;
     flex-direction: row;
+    width: 350px;
 }

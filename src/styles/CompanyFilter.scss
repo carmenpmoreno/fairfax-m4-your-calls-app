@@ -12,13 +12,17 @@
 .companyFilterLabel {
     display: none;
 }
+.selectContainer {
+    display: flex;
+    flex-direction: row;
+}
 .companySelect {
     appearance: none;
-    color: $color-grey;
     background-color: $color-blacK;
     border-top: none;
     border-left: none;
     border-right: none;
+    
     border-radius: 0;
     outline: none;
     font-family: Favorit, "Open Sans", sans-serif;
@@ -26,5 +30,9 @@
     color: $color-grey;
     width: 250px;
     padding-left: 8px;
-    padding-bottom: 5px;
+    height: 32px;
+}
+.faChevronDown {
+    transform: translateX(-150%);
+    color: $color-grey;
 }
