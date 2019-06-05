@@ -39,19 +39,25 @@ body {
 }
 
 .new-call__link {
-  color: $color-blue;
+  // color: $color-blue;
+  color: $color-white;
+
 }
 
 .new-call__link.is-active {
-  color: $color-white;
-}
-
-.call-back__link {
+  // color: $color-white;
   color: $color-blue;
 }
 
-.call-back__link.is-active {
+.call-back__link {
+  // color: $color-blue;
   color: $color-white;
+}
+
+.call-back__link.is-active {
+  // color: $color-white;
+  color: $color-blue;
+
 }
 
 a {
