@@ -33,7 +33,7 @@ class NewCall extends Component {
           errorTone={this.props.errorTone}
           nameRequired={this.props.nameRequired} 
           companyRequired = {this.props.companyRequired}
-
+          toneRequired = {this.props.toneRequired}
         />
         <Button 
         sendForm={this.props.sendForm}

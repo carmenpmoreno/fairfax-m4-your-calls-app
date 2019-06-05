@@ -33,7 +33,7 @@ class Form extends Component {
       callBackClass,
       getInputTone,
       tone,
-      errorTone
+      toneRequired, 
     } = this.props;
 
     return (
@@ -304,9 +304,10 @@ class Form extends Component {
               onChange={getInputTone}
               required
             />
-            <p className={`error-msg-tone ${errorTone}`}>
+            <p className={`error-msg ${this.props.toneRequired }`}>Debes seleccionar un estado.</p>
+            {/* <p className={`error-msg-tone ${errorTone}`}>
               Debes seleccionar un estado.
-            </p>
+            </p> */}
             </div>
           </fieldset>
       </form>
