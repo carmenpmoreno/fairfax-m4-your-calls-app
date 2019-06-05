@@ -63,12 +63,11 @@ class App extends Component {
 
       nameRequired: "hidden",
       companyRequired: "hidden",
-      pieDataLoadingStatus: "loading",
-      pieChartData: [],
+      
 
       barDataLoadingStatus: "loading",
       dataBarsTransformed: [],
-      barDataLoadingStatus: "loading",
+      
       barChartData: [],
       chartDataBars: [],
 
