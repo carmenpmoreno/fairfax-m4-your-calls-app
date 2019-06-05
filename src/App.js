@@ -65,7 +65,6 @@ class App extends Component {
 
       nameRequired: "hidden",
       companyRequired: "hidden",
-      toneRequired: "hidden",
       dataBarsTransformed: [],
       barDataLoadingStatus: 'loading',
       barChartData: [],
@@ -97,7 +96,6 @@ class App extends Component {
     this.makeCompanyRequired = this.makeCompanyRequired.bind(this);
     this.fetchChartPie = this.fetchChartPie.bind(this);
     this.getCompanySelected = this.getCompanySelected.bind(this);
-    this.makeToneRequired = this.makeToneRequired.bind(this);
   }
 
   componentDidMount() {
@@ -311,7 +309,6 @@ class App extends Component {
     this.isEmptyOrNot()
     this.makeNameRequired()
     this.makeCompanyRequired()
-    this.makeToneRequired()
   }
 
   isEmptyOrNot() {
@@ -327,20 +324,21 @@ class App extends Component {
         errorPerson: 'hidden',
         errorMessage: ''
       });
-    // } else if (incomingInfo.tone === '') {
-    //   this.setState({
-    //     errorIncomingData: 'hidden',
-    //     errorCallAction: 'hidden',
-    //     errorPerson: 'hidden',
-    //     errorMessage: 'hidden',
-    //     errorTone: ''
-    //   });
+    } else if (incomingInfo.tone === '') {
+      this.setState({
+        errorIncomingData: 'hidden',
+        errorCallAction: 'hidden',
+        errorPerson: 'hidden',
+        errorMessage: 'hidden',
+        errorTone: ''
+      });
     } else {
       this.setState({
         errorIncomingData: 'hidden',
         errorCallAction: 'hidden',
         errorPerson: 'hidden',
-        errorMessage: 'hidden'
+        errorMessage: 'hidden',
+        errorTone: 'hidden'
       });
       this.sendInfo();
       this.sendSlackInfo();
@@ -384,24 +382,6 @@ class App extends Component {
   }
 }
 
-makeToneRequired (){
-  if (this.state.info.tone === ''){
-    this.setState(prevState => {
-      return {
-        toneRequired: ''
-        }
-      ;
-    })
-  
-} else {
-  this.setState(prevState => {
-    return {
-      toneRequired: 'hidden'
-      }
-    ;
-  })
-}
-}
 
   deselectOption() {
     const addedBy = this.state.info.addedBy;
@@ -632,7 +612,6 @@ makeToneRequired (){
       nameRequired,
       companyRequired,
       allCompanies,
-      toneRequired
     } = this.state;
     const {
       preventSubmission,
@@ -698,7 +677,6 @@ makeToneRequired (){
                     errorTone={errorTone}
                     nameRequired={nameRequired}
                     companyRequired = {companyRequired}
-                    toneRequired = {toneRequired}
                   />
                 )}
               />

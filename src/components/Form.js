@@ -15,7 +15,6 @@ class Form extends Component {
       getWhoCalls,
       errorPerson,
       getRequestedEmployee,
-      errorIncomingData,
       getName,
       getCompany,
       getPosition,
@@ -33,7 +32,7 @@ class Form extends Component {
       callBackClass,
       getInputTone,
       tone,
-      toneRequired, 
+      errorTone, 
     } = this.props;
 
     return (
@@ -304,10 +303,9 @@ class Form extends Component {
               onChange={getInputTone}
               required
             />
-            <p className={`error-msg ${this.props.toneRequired }`}>Debes seleccionar un estado.</p>
-            {/* <p className={`error-msg-tone ${errorTone}`}>
+            <p className={`error-msg-tone ${errorTone}`}>
               Debes seleccionar un estado.
-            </p> */}
+            </p>
             </div>
           </fieldset>
       </form>
@@ -336,7 +334,7 @@ Form.propTypes = {
   callAgainClass: PropTypes.string.isRequired,
   callBackClass: PropTypes.string.isRequired,
   errorTone: PropTypes.string.isRequired,
-  tone: PropTypes.string.isRequired,
+  tone: PropTypes.string.isRequired, 
   getInputTone: PropTypes.func.isRequired,
 };
 
