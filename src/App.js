@@ -1,19 +1,19 @@
-import React, { Component } from 'react';
-import Header from './components/Header';
-import Menu from './components/Menu';
-import NewCall from './components/NewCall';
-import CallHistory from './components/CallHistory';
-import { getData } from './services/getData';
-import { getList } from './services/getList';
-import { currentTime } from './services/getDefaultDate';
-import './styles/App.scss';
-import { Route, Switch } from 'react-router-dom';
-import Modal from './components/Modal';
-import * as moment from 'moment';
-import Dashboard from './components/Dashboard';
+import React, { Component } from "react";
+import Header from "./components/Header";
+import Menu from "./components/Menu";
+import NewCall from "./components/NewCall";
+import CallHistory from "./components/CallHistory";
+import { getData } from "./services/getData";
+import { getList } from "./services/getList";
+import { currentTime } from "./services/getDefaultDate";
+import "./styles/App.scss";
+import { Route, Switch } from "react-router-dom";
+import Modal from "./components/Modal";
+import * as moment from "moment";
+import Dashboard from "./components/Dashboard";
 
-import dataBackBars from './assets/dataBackBars';
-import monthsYear from './assets/monthsYear';
+import dataBackBars from "./assets/dataBackBars";
+import monthsYear from "./assets/monthsYear";
 
 class App extends Component {
   constructor(props) {
@@ -24,49 +24,49 @@ class App extends Component {
 
     this.state = {
       info: {
-        addedBy: '',
-        personRequested: '',
-        name: '',
-        company: '',
-        position: '',
-        otherInfo: '',
-        email: '',
+        addedBy: "",
+        personRequested: "",
+        name: "",
+        company: "",
+        position: "",
+        otherInfo: "",
+        email: "",
         telephone: 0,
-        action: '',
-        message: '',
-        tone: ''
+        action: "",
+        message: "",
+        tone: ""
       },
 
-      errorTone: 'hidden',
-      errorIncomingData: 'hidden',
-      errorCallAction: 'hidden',
-      errorPerson: 'hidden',
-      succesMessage: 'hidden',
-      errorMessage: 'hidden',
-      callAgainClass: '',
-      callBackClass: '',
+      errorTone: "hidden",
+      errorIncomingData: "hidden",
+      errorCallAction: "hidden",
+      errorPerson: "hidden",
+      succesMessage: "hidden",
+      errorMessage: "hidden",
+      callAgainClass: "",
+      callBackClass: "",
       redialCheck: false,
       callBackCheck: false,
 
       results: [],
-      startDate: '',
-      endDate: '',
+      startDate: "",
+      endDate: "",
       dateValues: {
-        dateEnd: '',
-        dateStart: ''
+        dateEnd: "",
+        dateStart: ""
       },
       filter: {
-        dateStart: '',
-        dateEnd: '',
-        companySelected: ''
+        dateStart: "",
+        dateEnd: "",
+        companySelected: ""
       },
-      pieDataLoadingStatus: 'loading',
+      pieDataLoadingStatus: "loading",
       pieChartData: [],
 
       nameRequired: "hidden",
       companyRequired: "hidden",
       dataBarsTransformed: [],
-      barDataLoadingStatus: 'loading',
+      barDataLoadingStatus: "loading",
       barChartData: [],
       allCompanies: []
     };
@@ -149,14 +149,14 @@ class App extends Component {
     return fetch(URL)
       .then(response => response.json())
       .then(data => {
-        const rateCurrencyNames = ['Genial', 'Meh', 'Mal'];
+        const rateCurrencyNames = ["Genial", "Meh", "Mal"];
         const rateCurrencyValues = Object.values(data);
-        const chartData = [['Call mood', 'Quantity']];
+        const chartData = [["Call mood", "Quantity"]];
         for (let i = 0; i < rateCurrencyNames.length; i += 1) {
           chartData.push([rateCurrencyNames[i], rateCurrencyValues[i]]);
         }
         this.setState({
-          pieDataLoadingStatus: 'ready',
+          pieDataLoadingStatus: "ready",
           pieChartData: chartData
         });
       });
@@ -173,7 +173,7 @@ class App extends Component {
 
     const companiesKeys = Object.keys(oneMonthReduced).splice(2);
     //Here all items following 'Months' should be from the filter fetch. Let's start with them manually
-    const chartTitle = ['Meses'];
+    const chartTitle = ["Meses"];
     const concatArrays = chartTitle.concat(companiesKeys);
     console.log(concatArrays);
 
@@ -252,18 +252,18 @@ class App extends Component {
     const newInfo = { ...info, action: event.currentTarget.value };
     let state = {
       info: newInfo,
-      callAgainClass: '',
-      callBackClass: '',
+      callAgainClass: "",
+      callBackClass: "",
       redialCheck: false,
       callBackCheck: false
     };
 
-    if (event.currentTarget.id === 'redial') {
+    if (event.currentTarget.id === "redial") {
       if (!this.state.redialCheck) {
         state = {
           info: newInfo,
-          callAgainClass: 'selectedClass',
-          callBackClass: '',
+          callAgainClass: "selectedClass",
+          callBackClass: "",
           redialCheck: true,
           callBackCheck: false
         };
@@ -272,8 +272,8 @@ class App extends Component {
       if (!this.state.callBackCheck) {
         state = {
           info: newInfo,
-          callAgainClass: '',
-          callBackClass: 'selectedClass',
+          callAgainClass: "",
+          callBackClass: "selectedClass",
           redialCheck: false,
           callBackCheck: true
         };
@@ -295,109 +295,87 @@ class App extends Component {
   sendInfo() {
     const info = this.state.info;
     getData(info)
-      .then(response => console.log('Success:', JSON.stringify(response)))
+      .then(response => console.log("Success:", JSON.stringify(response)))
       .then(
         this.setState({
-          succesMessage: ''
+          succesMessage: ""
         })
       )
-      .catch(error => console.error('Error:', error));
+      .catch(error => console.error("Error:", error));
   }
 
   sendForm(event) {
-    event.preventDefault()
-    this.isEmptyOrNot()
-    this.makeNameRequired()
-    this.makeCompanyRequired()
+    event.preventDefault();
+    this.isEmptyOrNot();
   }
 
   isEmptyOrNot() {
     const incomingInfo = this.state.info;
-    if (incomingInfo.personRequested === '') {
+    if (incomingInfo.personRequested === "") {
       this.setState({
-        errorPerson: ''
+        errorPerson: ""
       });
-    } else if (incomingInfo.message === '') {
+    } else if (incomingInfo.message === "") {
       this.setState({
-        errorIncomingData: 'hidden',
-        errorCallAction: '',
-        errorPerson: 'hidden',
-        errorMessage: ''
+        errorIncomingData: "hidden",
+        errorCallAction: "",
+        errorPerson: "hidden",
+        errorMessage: ""
       });
-    } else if (incomingInfo.tone === '') {
+    } else if (incomingInfo.tone === "") {
       this.setState({
-        errorIncomingData: 'hidden',
-        errorCallAction: 'hidden',
-        errorPerson: 'hidden',
-        errorMessage: 'hidden',
-        errorTone: ''
+        errorIncomingData: "hidden",
+        errorCallAction: "hidden",
+        errorPerson: "hidden",
+        errorMessage: "hidden",
+        errorTone: ""
+      });
+    } else if (incomingInfo.name === "") {
+      this.setState({
+        errorIncomingData: "hidden",
+        errorCallAction: "hidden",
+        errorPerson: "hidden",
+        errorMessage: "hidden",
+        errorTone: "hidden",
+        nameRequired:'',
+      });
+    } else if (incomingInfo.company === "") {
+      this.setState({
+        errorIncomingData: "hidden",
+        errorCallAction: "hidden",
+        errorPerson: "hidden",
+        errorMessage: "hidden",
+        errorTone: "hidden",
+        companyRequired: '',
       });
     } else {
       this.setState({
-        errorIncomingData: 'hidden',
-        errorCallAction: 'hidden',
-        errorPerson: 'hidden',
-        errorMessage: 'hidden',
-        errorTone: 'hidden'
+        errorIncomingData: "hidden",
+        errorCallAction: "hidden",
+        errorPerson: "hidden",
+        errorMessage: "hidden",
+        errorTone: "hidden"
       });
       this.sendInfo();
       this.sendSlackInfo();
     }
   }
 
-  makeNameRequired (){
-        if (this.state.info.name === ''){
-          this.setState(prevState => {
-            return {
-              nameRequired: ''
-              }
-            ;
-          })
-        
-      } else {
-        this.setState(prevState => {
-          return {
-            nameRequired: 'hidden'
-            }
-          ;
-        })
-      }
-    }
-
-  makeCompanyRequired (){
-    if (this.state.info.company === ''){
-      this.setState(prevState => {
-        return {
-          companyRequired: ''
-          }
-        ;
-      })
-  } else {
-    this.setState(prevState => {
-      return {
-        companyRequired: 'hidden'
-        }
-      ;
-    })
-  }
-}
-
-
   deselectOption() {
     const addedBy = this.state.info.addedBy;
 
-    if (addedBy !== '') {
+    if (addedBy !== "") {
       const optionsArray = this.selectPersonRequested.current.getElementsByTagName(
-        'option'
+        "option"
       );
 
       for (let i = 0; i < optionsArray.length; i++) {
         if (optionsArray[i].label.includes(addedBy)) {
           optionsArray[i].disabled = true;
-          optionsArray[i].style.display = 'none';
+          optionsArray[i].style.display = "none";
         } else {
           optionsArray[i].disabled = false;
-          optionsArray[i].style.display = 'block';
+          optionsArray[i].style.display = "block";
         }
       }
     }
@@ -411,11 +389,11 @@ class App extends Component {
     } \n${this.state.info.message}*`;
 
     if (
-      (this.state.info.name !== '' ||
-        this.state.info.position !== '' ||
-        this.state.info.company !== '' ||
-        this.state.info.otherInfo !== '' ||
-        this.state.info.email !== '') &&
+      (this.state.info.name !== "" ||
+        this.state.info.position !== "" ||
+        this.state.info.company !== "" ||
+        this.state.info.otherInfo !== "" ||
+        this.state.info.email !== "") &&
       this.state.info.telephone === 0
     ) {
       return (message = `*${
@@ -428,11 +406,11 @@ class App extends Component {
         this.state.info.message
       }*`);
     } else if (
-      this.state.info.name !== '' ||
-      this.state.info.position !== '' ||
-      this.state.info.company !== '' ||
-      this.state.info.otherInfo !== '' ||
-      this.state.info.email !== '' ||
+      this.state.info.name !== "" ||
+      this.state.info.position !== "" ||
+      this.state.info.company !== "" ||
+      this.state.info.otherInfo !== "" ||
+      this.state.info.email !== "" ||
       this.state.info.telephone !== 0
     ) {
       return (message = `*${
@@ -455,21 +433,21 @@ class App extends Component {
 
     const settings = {
       url: `https://slack.com/api/chat.postMessage?token=${key}&channel=%23your-calls-app&text=${message}&pretty=1`,
-      method: 'POST',
+      method: "POST",
       body: {}
     };
 
     fetch(settings.url, {
       method: settings.method,
       body: JSON.stringify(settings.body),
-      cache: 'no-cache',
+      cache: "no-cache",
       headers: {
-        'Content-Type': 'application/json'
+        "Content-Type": "application/json"
       }
     })
       .then(response => response.json())
-      .then(response => console.log('Success:', JSON.stringify(response)))
-      .catch(error => console.error('Error:', error));
+      .then(response => console.log("Success:", JSON.stringify(response)))
+      .catch(error => console.error("Error:", error));
   }
 
   showList() {
@@ -490,7 +468,7 @@ class App extends Component {
 
   setFilterStartDate(e) {
     const userQuery = e.currentTarget.value;
-    const arrayDate = userQuery.split('-');
+    const arrayDate = userQuery.split("-");
     const newDate = `${arrayDate[2]}/${arrayDate[1]}/${arrayDate[0]}`;
     this.setState(prevState => {
       return {
@@ -508,7 +486,7 @@ class App extends Component {
 
   setFilterEndDate(e) {
     const userQuery = e.currentTarget.value;
-    const arrayDate = userQuery.split('-');
+    const arrayDate = userQuery.split("-");
     const newDate = `${arrayDate[2]}/${arrayDate[1]}/${arrayDate[0]}`;
     this.setState(prevState => {
       return {
@@ -536,13 +514,13 @@ class App extends Component {
     const userEndDate = this.state.endDate;
     const results = this.wholeList;
 
-    const momentStartDate = moment(userStartDate, 'YYYY-MM-DD');
-    const momentEndDate = moment(userEndDate, 'YYYY-MM-DD');
+    const momentStartDate = moment(userStartDate, "YYYY-MM-DD");
+    const momentEndDate = moment(userEndDate, "YYYY-MM-DD");
 
     const filteredResults = results.filter(item => {
       let date = item.loggedAt;
-      let momentDate = moment(date, 'YYYY-MM-DD');
-      return momentDate.isBetween(momentStartDate, momentEndDate, null, '[]');
+      let momentDate = moment(date, "YYYY-MM-DD");
+      return momentDate.isBetween(momentStartDate, momentEndDate, null, "[]");
     });
 
     this.setState({
@@ -551,13 +529,13 @@ class App extends Component {
   }
 
   getCompaniesData() {
-    const ENDPOINT = 'https://adalab.interacso.com/api/call';
+    const ENDPOINT = "https://adalab.interacso.com/api/call";
 
     fetch(ENDPOINT, {
-      method: 'GET',
-      cache: 'no-cache',
+      method: "GET",
+      cache: "no-cache",
       headers: {
-        'content-type': 'application/json'
+        "content-type": "application/json"
       }
     })
       .then(response => response.json())
@@ -611,7 +589,7 @@ class App extends Component {
       personRequested,
       nameRequired,
       companyRequired,
-      allCompanies,
+      allCompanies
     } = this.state;
     const {
       preventSubmission,
@@ -676,7 +654,7 @@ class App extends Component {
                     tone={tone}
                     errorTone={errorTone}
                     nameRequired={nameRequired}
-                    companyRequired = {companyRequired}
+                    companyRequired={companyRequired}
                   />
                 )}
               />
