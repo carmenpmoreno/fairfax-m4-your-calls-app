@@ -343,21 +343,23 @@ a {
 .error-msg {
   position: absolute;
   padding-left: 8px;
-  width: 448px;
   z-index: 100;
-  margin-top: -2px;
+  margin-top: -1px;
+  width: 198px;
   color: $color-red;
   border-top: 2px solid $color-red;
+  font-size: 13px;
 }
 .error-msg-tone{
   position: absolute;
   padding-left: 8px;
   width: 448px;
   z-index: 100;
-  margin-top: -2px;
+  margin-top: -1px;
   color: $color-red;
   border-top: 2px solid $color-red;
   margin-left: 80px;
+  font-size: 13px;
 }
 
 .error-msg-who {
@@ -368,6 +370,7 @@ a {
   z-index: 100;
   color: $color-red;
   border-top: 2px solid $color-red;
+  font-size: 13px;
 }
 
 .error-msg-textarea {
@@ -378,6 +381,7 @@ a {
   z-index: 100;
   color: $color-red;
   border-top: 2px solid $color-red;
+  font-size: 13px;
 }
 
 .selectedClass {
