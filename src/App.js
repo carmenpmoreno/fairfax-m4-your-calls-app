@@ -153,22 +153,43 @@ class App extends Component {
       });
   }
 
+  // fetchChartBar(startDate, endDate, companySelected) {
+  //   const URL = `https://adalab.interacso.com/api/graph/bar?from=${startDate}&to=${endDate}&company=${companySelected.toLowerCase()}`;
+  //   return fetch(URL)
+  //     .then(response => response.json())
+  //     .then(data => {
+  //       this.transformDataBars(data);
+  //       return this.setState({
+  //         barDataLoadingStatus: 'ready',
+  //         dataBarsTransformed: data.map((item, index) => {
+  //           //Modify the key month with a word instead of a number
+  //           return {
+  //             ...item,
+  //             month: monthsYear[data[index].month]
+  //           };
+  //         })
+  //       });
+  //     });
+  // }
+
   fetchChartBar(startDate, endDate, companySelected) {
     const URL = `https://adalab.interacso.com/api/graph/bar?from=${startDate}&to=${endDate}&company=${companySelected.toLowerCase()}`;
     return fetch(URL)
       .then(response => response.json())
       .then(data => {
-        this.transformDataBars(data);
-        return this.setState({
-          barDataLoadingStatus: 'ready',
-          dataBarsTransformed: data.map((item, index) => {
-            //Modify the key month with a word instead of a number
-            return {
-              ...item,
-              month: monthsYear[data[index].month]
-            };
-          })
-        });
+        return this.setState(
+          {
+            barDataLoadingStatus: 'ready',
+            dataBarsTransformed: data.map((item, index) => {
+              //Modify the key month with a word instead of a number
+              return {
+                ...item,
+                month: monthsYear[data[index].month]
+              };
+            })
+          },
+          () => this.transformDataBars(this.state.dataBarsTransformed)
+        );
       });
     }
     

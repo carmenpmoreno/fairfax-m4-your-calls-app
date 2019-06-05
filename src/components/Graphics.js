@@ -5,6 +5,7 @@ import PropTypes from 'prop-types';
 
 class Graphics extends Component {
   render() {
+    console.log(this.props);
     return (
       <section className="charts-container">
         {this.props.barLoading === 'ready' ? (
@@ -52,8 +53,7 @@ class Graphics extends Component {
               backgroundColor: '#1C1C1C',
               titleTextStyle: {
                 color: 'white',
-                fontSize: 16,
-                fontName: 'Arial',
+                fontSize: 20,
                 bold: true
               }
             }}
@@ -88,18 +88,20 @@ class Graphics extends Component {
               },
               legend: {
                 textStyle: {
-                  color: '#fff',
+                  color: '#9E9D9E',
                   fontSize: 14
                 }
               },
               backgroundColor: '#1C1C1C',
               pieSliceBorderColor: '#1C1C1C',
               pieSliceTextStyle: {
-                color: '#1C1C1C'
+                color: '#1C1C1C',
+                bold: true
               },
               title: 'Humor de las llamadas',
               titleTextStyle: {
-                color: 'white'
+                color: 'white',
+                fontSize: 20
               }
             }}
           />
