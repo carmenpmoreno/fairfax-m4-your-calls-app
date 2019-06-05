@@ -92,8 +92,6 @@ class App extends Component {
     this.getInputTone = this.getInputTone.bind(this);
     this.setFilterStartDate = this.setFilterStartDate.bind(this);
     this.setFilterEndDate = this.setFilterEndDate.bind(this);
-    this.makeNameRequired = this.makeNameRequired.bind(this);
-    this.makeCompanyRequired = this.makeCompanyRequired.bind(this);
     this.fetchChartPie = this.fetchChartPie.bind(this);
     this.getCompanySelected = this.getCompanySelected.bind(this);
   }
