@@ -20,8 +20,8 @@ class Dashboard extends Component {
         <Graphics
           pieData={this.props.pieData}
           pieLoading={this.props.pieLoading}
-          barData={this.props.pieData}
-          barLoading={this.props.pieLoading}
+          barData={this.props.barData}
+          barLoading={this.props.barLoading}
         />
       </div>
     );
@@ -35,8 +35,8 @@ Dashboard.propTypes = {
   barLoading: PropTypes.string.isRequired,
   actionSetFilterStartDate: PropTypes.func.isRequired,
   actionSetFilterEndDate: PropTypes.func.isRequired,
-  dateStart: PropTypes.string.isRequired,
-  dateEnd: PropTypes.string.isRequired,
+  dateStart: PropTypes.string,
+  dateEnd: PropTypes.string,
   allCompanies: PropTypes.arrayOf(PropTypes.string),
   getCompanySelecte: PropTypes.func,
   companySelected: PropTypes.string
