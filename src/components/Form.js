@@ -15,7 +15,6 @@ class Form extends Component {
       getWhoCalls,
       errorPerson,
       getRequestedEmployee,
-      errorIncomingData,
       getName,
       getCompany,
       getPosition,
@@ -33,7 +32,7 @@ class Form extends Component {
       callBackClass,
       getInputTone,
       tone,
-      errorTone
+      errorTone, 
     } = this.props;
 
     return (
@@ -60,6 +59,9 @@ class Form extends Component {
                 <option value="Paula">Paula</option>
                 <option value="Sera">Sera</option>
               </select>
+              <p className={`error-msg-employee ${errorPerson}`}>
+                Debes seleccionar un empleado
+              </p>
             </div>
             <div className="main__personRequested">
               <h2 className="main__personRequested-title">
@@ -85,7 +87,7 @@ class Form extends Component {
                 <option value="Paula">Paula</option>
                 <option value="Sera">Sera</option>
               </select>
-              <p className={`error-msg ${errorPerson}`}>
+              <p className={`error-msg-employee ${errorPerson}`}>
                 Debes seleccionar un empleado
               </p>
             </div>
@@ -335,7 +337,7 @@ Form.propTypes = {
   callAgainClass: PropTypes.string.isRequired,
   callBackClass: PropTypes.string.isRequired,
   errorTone: PropTypes.string.isRequired,
-  tone: PropTypes.string.isRequired,
+  tone: PropTypes.string.isRequired, 
   getInputTone: PropTypes.func.isRequired,
 };
 

@@ -11,8 +11,6 @@ import { Route, Switch } from "react-router-dom";
 import Modal from "./components/Modal";
 import * as moment from "moment";
 import Dashboard from "./components/Dashboard";
-
-// import dataBackBars from './assets/dataBackBars';
 import monthsYear from "./assets/monthsYear";
 
 class App extends Component {
@@ -60,13 +58,17 @@ class App extends Component {
         dateEnd: "",
         companySelected: ""
       },
-      nameRequired: "hidden",
-      companyRequired: "hidden",
       pieDataLoadingStatus: "loading",
       pieChartData: [],
 
+      nameRequired: "hidden",
+      companyRequired: "hidden",
+      
+
       barDataLoadingStatus: "loading",
       dataBarsTransformed: [],
+      
+      barChartData: [],
       chartDataBars: [],
 
       allCompanies: []
@@ -93,8 +95,6 @@ class App extends Component {
     this.getInputTone = this.getInputTone.bind(this);
     this.setFilterStartDate = this.setFilterStartDate.bind(this);
     this.setFilterEndDate = this.setFilterEndDate.bind(this);
-    this.makeNameRequired = this.makeNameRequired.bind(this);
-    this.makeCompanyRequired = this.makeCompanyRequired.bind(this);
     this.fetchChartPie = this.fetchChartPie.bind(this);
     this.getCompanySelected = this.getCompanySelected.bind(this);
   }
@@ -151,25 +151,6 @@ class App extends Component {
         });
       });
   }
-
-  // fetchChartBar(startDate, endDate, companySelected) {
-  //   const URL = `https://adalab.interacso.com/api/graph/bar?from=${startDate}&to=${endDate}&company=${companySelected.toLowerCase()}`;
-  //   return fetch(URL)
-  //     .then(response => response.json())
-  //     .then(data => {
-  //       this.transformDataBars(data);
-  //       return this.setState({
-  //         barDataLoadingStatus: 'ready',
-  //         dataBarsTransformed: data.map((item, index) => {
-  //           //Modify the key month with a word instead of a number
-  //           return {
-  //             ...item,
-  //             month: monthsYear[data[index].month]
-  //           };
-  //         })
-  //       });
-  //     });
-  // }
 
   fetchChartBar(startDate, endDate, companySelected) {
     const URL = `https://adalab.interacso.com/api/graph/bar?from=${startDate}&to=${endDate}&company=${companySelected.toLowerCase()}`;
@@ -344,8 +325,6 @@ class App extends Component {
   sendForm(event) {
     event.preventDefault();
     this.isEmptyOrNot();
-    this.makeNameRequired();
-    this.makeCompanyRequired();
   }
 
   isEmptyOrNot() {
@@ -369,47 +348,36 @@ class App extends Component {
         errorMessage: "hidden",
         errorTone: ""
       });
+    } else if (incomingInfo.name === "") {
+      this.setState({
+        errorIncomingData: "hidden",
+        errorCallAction: "hidden",
+        errorPerson: "hidden",
+        errorMessage: "hidden",
+        errorTone: "hidden",
+        nameRequired:'',
+      });
+    } else if (incomingInfo.company === "") {
+      this.setState({
+        errorIncomingData: "hidden",
+        errorCallAction: "hidden",
+        errorPerson: "hidden",
+        errorMessage: "hidden",
+        errorTone: "hidden",
+        companyRequired: '',
+      });
     } else {
       this.setState({
         errorIncomingData: "hidden",
         errorCallAction: "hidden",
         errorPerson: "hidden",
-        errorMessage: "hidden"
+        errorMessage: "hidden",
+        errorTone: "hidden",
+        nameRequired:"hidden",
+        companyRequired:"hidden"
       });
       this.sendInfo();
       this.sendSlackInfo();
-    }
-  }
-
-  makeNameRequired() {
-    if (this.state.info.name === "") {
-      this.setState(prevState => {
-        return {
-          nameRequired: ""
-        };
-      });
-    } else {
-      this.setState(prevState => {
-        return {
-          nameRequired: "hidden"
-        };
-      });
-    }
-  }
-
-  makeCompanyRequired() {
-    if (this.state.info.company === "") {
-      this.setState(prevState => {
-        return {
-          companyRequired: ""
-        };
-      });
-    } else {
-      this.setState(prevState => {
-        return {
-          companyRequired: "hidden"
-        };
-      });
     }
   }
 
