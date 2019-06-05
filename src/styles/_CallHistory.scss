@@ -8,7 +8,7 @@
 }
 .table {
   position: absolute;
-  right: 60px ;
+  right: 60px;
   margin-top: 64px;
   text-align: left;
   border-collapse: collapse;
@@ -16,7 +16,7 @@
 .table__title {
   width: 242px;
   font-size: 24px;
-  color:$color-grey;
+  color: $color-grey;
   line-height: 29px;
 }
 .title__questions {
@@ -42,10 +42,25 @@ td {
   text-align: right;
 }
 .title__date {
-  color:$color-white;
+  color: $color-white;
   width: 149px;
   text-align: right;
 }
 .input-date {
   width: 140px;
+}
+
+///NEW STYLES
+.date__day {
+  color: #717171;
+  font-size: 14px;
+  text-align: right;
+  // line-height: 18px;
+}
+.hour {
+  text-align: right;
+  // color: #717171;
+}
+.name {
+  color: #717171;
 }
