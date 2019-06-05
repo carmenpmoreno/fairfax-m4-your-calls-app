@@ -1,24 +1,22 @@
-//Prepare dates for deafult API call (1 month range)
-let actualDate = '';
-let previousMonthDate = '';
-
 const currentTime = () => {
   let date = new Date();
+  const endDate = date.toLocaleDateString()
+  date.setMonth(date.getMonth() - 1);
+  const startDate= date.toLocaleDateString();
 
-  let day = date.getDate();
-  //We need to add +1 as getMonth() returns a number between 0-11, and we want January to start in 1, and so on
-  let month = date.getMonth() + 1;
-  let year = date.getFullYear();
+  const arrayEndDate = endDate.split("/");
+  const [actualDay, actualMonth, actualYear] = arrayEndDate.map(item=>add0(item));
+  const newEndDate = `${actualYear}-${actualMonth}-${actualDay}`;
 
-  const dayData = day<10? `0${day}`: day;
-  const monthData = month<10? `0${month}` : month;
-  const prevmonthData = month<10? `0${month-1}` : month;
+  const arrayStartDate = startDate.split("/");
+  const [startDay, startMonth, startYear] = arrayStartDate.map(item=>add0(item));
+  const newStartDate = `${startYear}-${startMonth}-${startDay}`;
 
-  actualDate = `${day}/${month}/${year}`;
-  previousMonthDate = `${day}/${month - 1}/${year}`;
-  const filterValueStart = `${year}-${prevmonthData}-${dayData}`;
-  const filterValueEnd = `${year}-${monthData}-${dayData}`;
-  return([actualDate, previousMonthDate, filterValueStart, filterValueEnd])
+  return([endDate, startDate, newStartDate, newEndDate])
 };
+
+function add0(number){
+ return number<10? `0${number}`: number;
+}
 
 export { currentTime };

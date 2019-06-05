@@ -1,11 +1,16 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import '../styles/DateFilter.scss';
+import { library } from "@fortawesome/fontawesome-svg-core";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faChevronDown } from "@fortawesome/free-solid-svg-icons";
+library.add(faChevronDown);
 
 class DateFilter extends Component {
   render() {
     return (
-      <div>
-        <h2>Rango de fecha</h2>
+      <fieldset className="dateFilterContainer">
+        <legend className="dateFilterLegend">Rango de fecha</legend>
         <div className="main__subtitle--date-container">
           <div className="dateStart">
             <label htmlFor="dateStart" />
@@ -28,7 +33,7 @@ class DateFilter extends Component {
             />
           </div>
         </div>
-      </div>
+      </fieldset>
     );
   }
 }

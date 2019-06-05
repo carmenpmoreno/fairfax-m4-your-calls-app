@@ -1,3 +1,5 @@
+@import "core/settings";
+
 .wrapper__callHistory {
   max-width: 1900px;
   position: relative;
@@ -48,7 +50,20 @@ td {
   text-align: right;
 }
 .input-date {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  height: 32px;
   width: 140px;
+  background-color: $color-blacK;
+  color: $color-grey;
+  font-family: Favorit, "Open Sans", sans-serif;
+  font-size: 16px;
+  border-top: none;
+  border-left: none;
+  border-right: none;
+  padding-left: 8px;
+  background-color: $color-blacK;
+  border-width: 1px;
 }
 
 ///NEW STYLES
