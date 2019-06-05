@@ -1,4 +1,4 @@
-@import "core/settings";
+@import 'core/settings';
 
 .wrapper__callHistory {
   max-width: 1900px;
@@ -56,7 +56,7 @@ td {
   width: 140px;
   background-color: $color-blacK;
   color: $color-grey;
-  font-family: Favorit, "Open Sans", sans-serif;
+  font-family: Favorit, 'Open Sans', sans-serif;
   font-size: 16px;
   border-top: none;
   border-left: none;
@@ -112,4 +112,10 @@ th.cell {
 
 th.table__title {
   border-bottom: 0;
+}
+
+.main__subtitle--date-container-history {
+  display: flex;
+  flex-direction: column;
+  width: 350px;
 }
