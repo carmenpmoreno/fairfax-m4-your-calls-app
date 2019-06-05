@@ -384,6 +384,17 @@ a {
   font-size: 13px;
 }
 
+.error-msg-employee {
+  position: absolute;
+  padding-left: 8px;
+  z-index: 100;
+  margin-top: -1px;
+  width: 440px;
+  color: $color-red;
+  border-top: 2px solid $color-red;
+  font-size: 13px;
+}
+
 .selectedClass {
   background-color: $color-white;
 }

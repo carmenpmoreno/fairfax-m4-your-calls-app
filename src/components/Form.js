@@ -60,6 +60,9 @@ class Form extends Component {
                 <option value="Paula">Paula</option>
                 <option value="Sera">Sera</option>
               </select>
+              <p className={`error-msg-employee ${errorPerson}`}>
+                Debes seleccionar un empleado
+              </p>
             </div>
             <div className="main__personRequested">
               <h2 className="main__personRequested-title">
@@ -85,7 +88,7 @@ class Form extends Component {
                 <option value="Paula">Paula</option>
                 <option value="Sera">Sera</option>
               </select>
-              <p className={`error-msg ${errorPerson}`}>
+              <p className={`error-msg-employee ${errorPerson}`}>
                 Debes seleccionar un empleado
               </p>
             </div>
