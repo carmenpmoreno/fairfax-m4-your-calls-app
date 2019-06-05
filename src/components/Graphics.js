@@ -11,7 +11,7 @@ class Graphics extends Component {
         {this.props.barLoading === 'ready' ? (
           <Chart
             chartType="BarChart"
-            width={'800px'}
+            width={'550px'}
             height={'300px'}
             data={this.props.barData}
             options={{
@@ -36,7 +36,7 @@ class Graphics extends Component {
                 title: 'Número de llamadas',
                 titleTextStyle: {
                   color: '#fff'
-                }
+                },
               },
               legend: {
                 position: 'top',
@@ -65,7 +65,7 @@ class Graphics extends Component {
         {this.props.pieLoading === 'ready' ? (
           <Chart
             chartType="PieChart"
-            width={'800px'}
+          width={'550px'}
             height={'300px'}
             data={this.props.pieData}
             options={{

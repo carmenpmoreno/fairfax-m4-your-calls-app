@@ -1,13 +1,13 @@
 import React, { Component } from 'react';
 import DateFilter from './DateFilter';
-// import CompanyFilter from './CompanyFilter';
 import CompanyFilter from './CompanyFilter';
 import PropTypes from 'prop-types';
+import '../styles/Filters.scss';
 
 class Filters extends Component {
   render() {
     return (
-      <form>
+      <form className="filtersForm">
         <DateFilter
           actionSetFilterStartDate={this.props.actionSetFilterStartDate}
           actionSetFilterEndDate={this.props.actionSetFilterEndDate}
