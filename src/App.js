@@ -378,7 +378,9 @@ class App extends Component {
         errorCallAction: "hidden",
         errorPerson: "hidden",
         errorMessage: "hidden",
-        errorTone: "hidden"
+        errorTone: "hidden",
+        nameRequired:"hidden",
+        companyRequired:"hidden"
       });
       this.sendInfo();
       this.sendSlackInfo();
