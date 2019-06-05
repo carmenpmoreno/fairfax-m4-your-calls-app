@@ -11,8 +11,6 @@ import { Route, Switch } from "react-router-dom";
 import Modal from "./components/Modal";
 import * as moment from "moment";
 import Dashboard from "./components/Dashboard";
-
-import dataBackBars from "./assets/dataBackBars";
 import monthsYear from "./assets/monthsYear";
 
 class App extends Component {
@@ -65,9 +63,15 @@ class App extends Component {
 
       nameRequired: "hidden",
       companyRequired: "hidden",
+      pieDataLoadingStatus: "loading",
+      pieChartData: [],
+
+      barDataLoadingStatus: "loading",
       dataBarsTransformed: [],
       barDataLoadingStatus: "loading",
       barChartData: [],
+      chartDataBars: [],
+
       allCompanies: []
     };
 
@@ -114,21 +118,6 @@ class App extends Component {
         };
       });
     }
-
-    //Here will go the FETCH to Bars api
-    this.setState(
-      {
-        dataBarsTransformed: dataBackBars.map((item, index) => {
-          //Modify the key month with a word instead of a number
-          return {
-            ...item,
-            month: monthsYear[dataBackBars[index].month]
-          };
-        })
-      },
-      //Callback of setState, to transform the data
-      () => this.transformDataBars()
-    );
   }
 
   componentDidUpdate(nextProp, nextState) {
@@ -138,11 +127,16 @@ class App extends Component {
         this.state.filter.dateEnd,
         this.state.filter.companySelected
       );
+      this.fetchChartBar(
+        this.state.filter.dateStart,
+        this.state.filter.dateEnd,
+        this.state.filter.companySelected
+      );
     }
   }
 
   fetchChartPie(startDate, endDate, companySelected) {
-    const URL = `https://adalab.interacso.com/api/graph/pie?from=${startDate}&to=${endDate}&client=${companySelected.toLowerCase()}`;
+    const URL = `https://adalab.interacso.com/api/graph/pie?from=${startDate}&to=${endDate}&company=${companySelected.toLowerCase()}`;
     console.log(URL);
     return fetch(URL)
       .then(response => response.json())
@@ -160,29 +154,62 @@ class App extends Component {
       });
   }
 
-  transformDataBars() {
-    const oneMonthReduced = this.state.dataBarsTransformed[0];
-    const allDataToKeep = Object.values(oneMonthReduced);
-    const dataToDelete = Object.values(oneMonthReduced).splice(1, 1); //[2018]
-    const arrayWithoutYear = allDataToKeep.filter(
-      item => item !== dataToDelete[0]
-    );
-    console.log(arrayWithoutYear);
+  fetchChartBar(startDate, endDate, companySelected) {
+    const URL = `https://adalab.interacso.com/api/graph/bar?from=${startDate}&to=${endDate}&company=${companySelected.toLowerCase()}`;
+    return fetch(URL)
+      .then(response => response.json())
+      .then(data => {
+        return this.setState(
+          {
+            barDataLoadingStatus: "ready",
+            dataBarsTransformed: data.sort((a,b) => a.month - b.month).map((item, index) => {
+              //Modify the key month with a word instead of a number
+              return {
+                ...item,
+                month: monthsYear[data[index].month]
+              };
+            })
+          },
+          () => this.transformDataBars(this.state.dataBarsTransformed)
+        );
+      });
+  }
 
-    const companiesKeys = Object.keys(oneMonthReduced).splice(2);
-    //Here all items following 'Months' should be from the filter fetch. Let's start with them manually
+  transformDataBars(dataToTransform) {
+    let chartDataBars = [];
     const chartTitle = ["Meses"];
-    const concatArrays = chartTitle.concat(companiesKeys);
-    console.log(concatArrays);
+    console.log(dataToTransform);
+    let clients = [];
+    dataToTransform.map(item => {
+      const keys = Object.keys(item);
+      return keys.map(key => {
+        return (
+          clients.find(client => client === key) ||
+          key === "year" ||
+          key === "month" ||
+          clients.push(key)
+        );
+      });
+    });
+    const titleArray = chartTitle.concat(clients);
 
-    const chartDataBars = [];
-    chartDataBars.push(concatArrays);
-    chartDataBars.push(arrayWithoutYear);
+    console.log(titleArray);
+    let allMonth = [];
+    const values = dataToTransform.map(item => {
+      let monthData = [item.month];
+      for (const client of clients) {
+        item[client] ? monthData.push(item[client]) : monthData.push(0);
+      }
+      allMonth.push(monthData);
+    });
 
+    chartDataBars= [titleArray, ...allMonth]
+    // .push(titleArray);
+    // chartDataBars.concat(allMonth);
+    console.log(chartDataBars);
     this.setState({
       chartDataBars: chartDataBars
     });
-    console.log(chartDataBars);
   }
 
   getInputTone(e) {
@@ -555,7 +582,6 @@ class App extends Component {
 
   getCompanySelected(event) {
     const value = event.currentTarget.value;
-    console.log(value);
     this.setState(prevState => {
       return {
         filter: {
@@ -684,7 +710,7 @@ class App extends Component {
                     endDate={dateEnd}
                     pieData={pieChartData}
                     pieLoading={pieDataLoadingStatus}
-                    barData={this.state.barChartData}
+                    barData={this.state.chartDataBars}
                     barLoading={this.state.barDataLoadingStatus}
                     allCompanies={allCompanies}
                     getCompanySelected={getCompanySelected}

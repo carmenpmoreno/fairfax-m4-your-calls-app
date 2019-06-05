@@ -1,0 +1,38 @@
+@import "core/settings";
+
+.companyFilterContainer {
+    width: 250px;
+    border: none;
+    display: flex;
+    flex-direction: column;
+}
+.companyFilterLegend {
+    color: #767676;
+}
+.companyFilterLabel {
+    display: none;
+}
+.selectContainer {
+    display: flex;
+    flex-direction: row;
+}
+.companySelect {
+    appearance: none;
+    background-color: $color-blacK;
+    border-top: none;
+    border-left: none;
+    border-right: none;
+    
+    border-radius: 0;
+    outline: none;
+    font-family: Favorit, "Open Sans", sans-serif;
+    font-size: 16px;
+    color: $color-grey;
+    width: 250px;
+    padding-left: 8px;
+    height: 32px;
+}
+.faChevronDown {
+    transform: translateX(-150%);
+    color: $color-grey;
+}

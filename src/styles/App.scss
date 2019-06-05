@@ -39,19 +39,25 @@ body {
 }
 
 .new-call__link {
-  color: $color-blue;
+  // color: $color-blue;
+  color: $color-white;
+
 }
 
 .new-call__link.is-active {
-  color: $color-white;
-}
-
-.call-back__link {
+  // color: $color-white;
   color: $color-blue;
 }
 
-.call-back__link.is-active {
+.call-back__link {
+  // color: $color-blue;
   color: $color-white;
+}
+
+.call-back__link.is-active {
+  // color: $color-white;
+  color: $color-blue;
+
 }
 
 a {
@@ -75,8 +81,8 @@ a {
 }
 
 .new-call__link.is-active::after {
-  background-image: url("../images/plus.svg");
-  background-color: $color-dark-grey;
+  background-image: url("../images/plus_white.svg");
+  background-color: #3a3939;
 }
 
 .newCall__icon--img {
@@ -140,6 +146,7 @@ a {
 .menu {
   display: flex;
   justify-content: space-between;
+  margin-bottom: 80px;
 }
 
 .label {
