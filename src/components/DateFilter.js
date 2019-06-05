@@ -1,11 +1,14 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import MonthYearDropdownOptions from './DatePikers';
 
 class DateFilter extends Component {
   render() {
     return (
       <div>
-        <h2>Rango de fecha</h2>
+
+        <MonthYearDropdownOptions />
+        {/* <h2>Rango de fecha</h2>
         <div className="main__subtitle--date-container">
           <div className="dateStart">
             <label htmlFor="dateStart" />
@@ -27,7 +30,7 @@ class DateFilter extends Component {
               onChange={this.props.actionSetFilterEndDate}
             />
           </div>
-        </div>
+        </div> */}
       </div>
     );
   }
