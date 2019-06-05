@@ -5,7 +5,6 @@ import PropTypes from 'prop-types';
 
 class Graphics extends Component {
   render() {
-    console.log(this.props);
     return (
       <section className="charts-container">
         {this.props.barLoading === 'ready' ? (

@@ -136,7 +136,6 @@ class App extends Component {
 
   fetchChartPie(startDate, endDate, companySelected) {
     const URL = `https://adalab.interacso.com/api/graph/pie?from=${startDate}&to=${endDate}&company=${companySelected.toLowerCase()}`;
-    console.log(URL);
     return fetch(URL)
       .then(response => response.json())
       .then(data => {
@@ -196,7 +195,6 @@ class App extends Component {
   transformDataBars(dataToTransform) {
     let chartDataBars = [];
     const chartTitle = ["Meses"];
-    console.log(dataToTransform);
     let clients = [];
     dataToTransform.map(item => {
       const keys = Object.keys(item);
@@ -211,7 +209,6 @@ class App extends Component {
     });
     const titleArray = chartTitle.concat(clients);
 
-    console.log(titleArray);
     let allMonth = [];
     const values = dataToTransform.map(item => {
       let monthData = [item.month];
@@ -222,9 +219,6 @@ class App extends Component {
     });
 
     chartDataBars= [titleArray, ...allMonth]
-    // .push(titleArray);
-    // chartDataBars.concat(allMonth);
-    console.log(chartDataBars);
     this.setState({
       chartDataBars: chartDataBars
     });
