@@ -180,7 +180,7 @@ class App extends Component {
         return this.setState(
           {
             barDataLoadingStatus: "ready",
-            dataBarsTransformed: data.map((item, index) => {
+            dataBarsTransformed: data.sort((a,b) => a.month - b.month).map((item, index) => {
               //Modify the key month with a word instead of a number
               return {
                 ...item,
