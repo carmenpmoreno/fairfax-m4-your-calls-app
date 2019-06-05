@@ -109,7 +109,7 @@ class CallHistory extends Component {
               </th>
               <th className="cell">Nombre</th>
               <th className="cell">Empresa</th>
-              <th className="cell">Cargo</th>
+              <th className="cell">Cargo / detalles / contacto</th>
               <th className="cell" colSpan="2">
                 Detalle
               </th>

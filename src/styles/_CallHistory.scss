@@ -30,7 +30,7 @@ tr {
 td {
   padding-left: 45px;
   border-collapse: collapse;
-  border-bottom: 1px solid $color-grey;
+  border-bottom: 1px solid #1d1d1d;
 }
 .cell {
   text-align: left;
@@ -56,11 +56,35 @@ td {
   font-size: 14px;
   text-align: right;
   // line-height: 18px;
+  margin: 0;
 }
 .hour {
   text-align: right;
   // color: #717171;
+  margin: 0;
+}
+.askfor {
+  color: #717171;
+  margin: 0;
 }
 .name {
   color: #717171;
+  margin: 0;
+}
+.company {
+  color: #717171;
+  margin: 0;
+}
+.position {
+  color: #717171;
+  margin: 0;
+}
+.otherinfo {
+  color: #717171;
+  margin: 0;
+}
+
+th.cell {
+  padding: 1px 1px 1px 45px;
+  border-bottom: 1px solid white;
 }
