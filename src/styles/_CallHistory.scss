@@ -4,6 +4,7 @@
 }
 .main__wrapper--callHistory {
   width: 1300px;
+  // width: 1140px;
   margin: 0 auto;
 }
 .table {
@@ -60,31 +61,40 @@ td {
 }
 .hour {
   text-align: right;
-  // color: #717171;
   margin: 0;
+  font-size: 14px;
 }
 .askfor {
   color: #717171;
   margin: 0;
+  font-size: 14px;
 }
 .name {
   color: #717171;
   margin: 0;
+  font-size: 14px;
 }
 .company {
   color: #717171;
   margin: 0;
+  font-size: 14px;
 }
 .position {
   color: #717171;
   margin: 0;
+  font-size: 14px;
 }
 .otherinfo {
   color: #717171;
   margin: 0;
+  font-size: 14px;
 }
 
 th.cell {
   padding: 1px 1px 1px 45px;
   border-bottom: 1px solid white;
+}
+
+th.table__title {
+  border-bottom: 0;
 }
