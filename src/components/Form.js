@@ -15,7 +15,6 @@ class Form extends Component {
       getWhoCalls,
       errorPerson,
       getRequestedEmployee,
-      errorIncomingData,
       getName,
       getCompany,
       getPosition,
@@ -33,7 +32,7 @@ class Form extends Component {
       callBackClass,
       getInputTone,
       tone,
-      errorTone
+      errorTone, 
     } = this.props;
 
     return (
@@ -335,7 +334,7 @@ Form.propTypes = {
   callAgainClass: PropTypes.string.isRequired,
   callBackClass: PropTypes.string.isRequired,
   errorTone: PropTypes.string.isRequired,
-  tone: PropTypes.string.isRequired,
+  tone: PropTypes.string.isRequired, 
   getInputTone: PropTypes.func.isRequired,
 };
 
