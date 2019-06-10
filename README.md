@@ -20,7 +20,7 @@ This is a inheritated project. The original project included these features:
          - Example: REACT_APP_SKEY=xoxp-xxxxxxxxxxxxxxxxxxxxxxxxxxxxx
 
 
-In “Your Calls 2.0” we add new funcionalities on the Single Page Application, in order to use it to make business decissions:
+In “Your Calls 2.0” we add new funcionalities on the Single Page Application, in order to use it to make business decisions:
 
 ## Project objectives: “Your Calls 2.0”
 
